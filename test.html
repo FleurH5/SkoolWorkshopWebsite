@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="users"></div>
+
+  <script>
+    const apiUrl = 'http://145.49.9.132:300/api/user';
+    fetch(apiUrl)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(data => {
+        console.log('Data received:', data);
+        const usersContainer = document.getElementById('users');
+        if (Array.isArray(data)) {
+          data.forEach(user => {
+            const markup = `
+              <div>
+                <h2>${user.Name}</h2>
+              </div>
+            `;
+            usersContainer.innerHTML += markup;
+          });
+        } else {
+          usersContainer.innerHTML = '<p>No users found.</p>';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        document.getElementById('users').innerHTML = '<p>Failed to load users.</p>';
+      });
+  </script>
+  
+</body>
+</html>
