@@ -48,9 +48,10 @@
             </div>
             <div class="input-group mb-3">
               <input
+                id="clientName"
                 type="text"
                 class="form-control form-control-lg bg-light fs-6"
-                placeholder="Naam *"
+                placeholder="Naam klant *"
               />
               
             </div>
@@ -58,13 +59,16 @@
             <div class="row">
             <div class="col-md-6 mb-3">
                 <input
+                id="organisation"
                   type="text"
                   class="form-control form-control-lg bg-light fs-6"
                   placeholder="Organisatie *"/>
           </div>
 
           <div class="col-md-6 mb-3">
-            <input type="text"
+            <input 
+            id="targetAudience"
+            type="text"
                    class="form-control form-control-lg bg-light fs-6"
                    placeholder="Doelgroep *"/>
           </div>
@@ -72,13 +76,14 @@
         </div>
 
           <div class="col-md-6 mb-3">
-            <input type="text"
+            <input id="emailAddress"
+            type="text"
                    class="form-control form-control-lg bg-light fs-6"
                    placeholder="Emailadres *"/>
           </div>
 
           <div class="col-md-6 mb-3">
-            <input type="text"
+            <input id="phoneNumber" type="text"
                    class="form-control form-control-lg bg-light fs-6"
                    placeholder="Telefoonnummer"/>
           </div>
@@ -87,19 +92,19 @@
           <!-- hier niet meer dus -->
 
           <div class="input-group mb-3">
-            <input type="text"
+            <input id="contactPerson" type="text"
                    class="form-control form-control-lg bg-light fs-6"
                    placeholder="Contactpersoon *"/>
           </div>
 
           <div class="input-group mb-3">
-            <input type="text"
+            <input id="address" type="text"
                    class="form-control form-control-lg bg-light fs-6"
                    placeholder="Adres *"/>
           </div>
 
           <div class="input-group mb-3">
-            <input type="text"
+            <input id="kvkNumber" type="text"
                    class="form-control form-control-lg bg-light fs-6"
                    placeholder="KVK-nummer"/>
           </div>
@@ -111,5 +116,60 @@
             <button class="btn rounded-5 btn-lg btn-primary w-100 fs-6">Maak Aan</button>
         </div>
     </div>
+
+<!-- het script voor het toevoegen aan de db -->
+<script>
+  const thisForm = document.getElementById('clientForm')
+  thisForm.addEventListener('submit', async function(event) {
+    event.preventDefault()
+    //waardes ophalen
+    const clientName = document.getElementById('clientName').value;
+    const organisation = document.getElementById('organisation').value;
+    const targetAudience = document.getElementById('targetAudience').value;
+    const emailAddress = document.getElementById('emailAddress').value;
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const contactPerson = document.getElementById('contactPerson').value;
+    const address = document.getElementById('address').value;
+    const kvkNumber = document.getElementById('kvkNumber').value;
+
+    //object aanmaken
+    const formObject = {
+      clientName: clientName,
+      organisation: organisation,
+      targetAudience: targetAudience,
+      emailAddress: emailAddress,
+      phoneNumber: phoneNumber,
+      contactPerson: contactPerson,
+      address: address,
+      kvkNumber: kvkNumber
+    };
+    console.log(formObject)
+
+    //deze miss veranderen
+    const apiUrl = 'http://145.49.36.211:300/workshop/add';
+    try{
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formObject)
+      });
+      if(response.ok){
+        console.log('Klant is toegevoegd');
+        const result = await response.json();
+      } else {
+        console.error('Klant niet toegevoegd');
+      }
+    
+    } catch (error){
+      console.error('Error:', error);
+    }
+  });
+</script>
+
+
+
+
   </body>
 </html>
