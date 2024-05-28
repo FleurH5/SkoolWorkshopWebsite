@@ -25,6 +25,10 @@
       </ul>
 
     </div>
+     <!-- popup -->
+     <div class="alert alert-success" role="alert">
+      <strong>Success!</strong> Workshop is succesvol toegevoegd.
+    </div>
     <div class="container mt-5">
       <div class="content">
 
@@ -89,6 +93,10 @@
           if(response.ok){
             console.log('Workshop toegevoegd');
             const result = await response.json();
+            // Show success popup
+            showPopup();
+            // Clear form
+            document.getElementById('workshopForm').reset();
           } else {
             console.error('Workshop niet toegevoegd');
           }
@@ -96,6 +104,14 @@
           console.error('Error:', error);
         }
         });
+
+        function showPopup() {
+          const successPopup = document.querySelector('.alert-success');
+          successPopup.style.display = 'block';
+          setTimeout(() => {
+            successPopup.style.display = 'none';
+          }, 3000);
+        }
     </script>
 
 

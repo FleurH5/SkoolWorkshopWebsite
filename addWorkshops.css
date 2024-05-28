@@ -23,7 +23,9 @@
     display: block;
     transition: 0.3s;
 }
-
+.alert-success{
+    display: none;
+}
 /* }
 * {
     font-family: 'Poppins', sans-serif;
