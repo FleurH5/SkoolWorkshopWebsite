@@ -24,7 +24,6 @@
         </li>
       </ul>
 
-
     </div>
     <div class="container mt-5">
       <div class="content">
@@ -32,12 +31,12 @@
     <h1>Voeg een workshop toe</h1>
     <form id="workshopForm">
       <div class="form-group mb-3">
-        <label for="workshopName">Workshopnaam</label>
-        <input type="text" class="form-control" id="workshopName" name="workshopName" placeholder="Voer de naam van de workshop in" required>
+        <label for="name">Workshopnaam</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Voer de naam van de workshop in" required>
       </div>
       <div class="form-group= mb-3">
-      <label for="workshopCategory">Categorie</label>
-      <select class="form-select">
+      <label for="category">Categorie</label>
+      <select class="form-select" id="category">
         <option selected>Selecteer een categorie</option>
         <option value="dans">Dans</option>
         <option value="beeldendeKunst">Beeldende kunst</option>
@@ -47,31 +46,58 @@
         <option value="theater">Theater</option>
       </select>
       </div>
-      <div class="row g-3 mb-3">
-        <div class="col">
-          <label for="grade">Leerjaar</label>
-          <input type="text" class="form-control" placeholder="Leerjaar" aria-label="grade">
-        </div>
-        <div class="col">
-          <label for="level">Niveau</label>
-          <input type="text" class="form-control" placeholder="Niveau" aria-label="level">
-        </div>
+      <div class="form-group mb-3">
+        <label for="description">Workshop beschrijving</label>
+        <textarea class="form-control" name="description" id="description" rows="3" placeholder="Voer uw beschrijving in" required></textarea>
       </div>
       <div class="form-group mb-3">
-        <label for="taal" class="form-label">Taal</label>
-        <input type="text" class="form-control" id="taal" name="taal" required>
-      </div>
-      <div class="form-group mb-3">
-        <label for="workshopDescription">Workshop beschrijving</label>
-        <textarea class="form-control" name="workshopDescription" id="workshopDescription" rows="3" placeholder="Voer uw beschrijving in" required></textarea>
-      </div>
-      <div class="form-group mb-3">
-        <label for="workshopSupplies">Benodigdheden</label>
-        <textarea class="form-control" name="workshopSupplies" id="workshopSupplies" rows="3" placeholder="Voer uw benodigdheden in"></textarea>
+        <label for="requirements">Benodigdheden</label>
+        <textarea class="form-control" name="requirements" id="requirements" rows="3" placeholder="Voer uw benodigdheden in"></textarea>
       </div> 
       <button type="submit" class="btn btn-primary">Voeg toe</button>
     </div>
     </div>
+
+      
+    <script>
+      const thisForm = document.getElementById('workshopForm');
+      thisForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        //waardes ophalen
+        const name = document.getElementById('name').value;
+        const category = document.getElementById('category').value;
+        const requirements = document.getElementById('requirements').value;
+        const description = document.getElementById('description').value;
+        //object aanmaken
+        const formObject = {
+          name: name,
+          category: category,
+          requirements: requirements,
+          description: description
+        };
+        console.log(formObject);
+
+        const apiUrl = 'http://145.49.36.211:300/workshop/add';
+        try{
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObject)
+          });
+          if(response.ok){
+            console.log('Workshop toegevoegd');
+            const result = await response.json();
+          } else {
+            console.error('Workshop niet toegevoegd');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+        });
+    </script>
+
 
 
 

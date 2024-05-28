@@ -9,7 +9,7 @@
   <div id="users"></div>
 
   <script>
-    const apiUrl = 'http://145.49.9.132:300/api/user';
+    const apiUrl = 'http://145.49.36.211:300/user/all';
     fetch(apiUrl)
       .then(res => {
         if (!res.ok) {
@@ -24,7 +24,7 @@
           data.forEach(user => {
             const markup = `
               <div>
-                <h2>${user.Name}</h2>
+                <h2>${user.Username}</h2>
               </div>
             `;
             usersContainer.innerHTML += markup;
