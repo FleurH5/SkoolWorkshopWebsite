@@ -11,24 +11,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-      /* Remove the navbar's default rounded borders and increase the bottom margin */
       .navbar {
         margin-bottom: 50px;
         border-radius: 0;
       }
 
-      /* Remove the jumbotron's default bottom margin */
-
-      /* Add a gray background color and some padding to the footer */
-
-
       .custom-img-size {
         width: 200px;
-        padding: 10px; /* Pas de breedte aan naar de gewenste grootte */
-        height: auto; /* Zorg ervoor dat de verhouding behouden blijft */
+        padding: 10px;
+        height: auto;
       }
 
-      /* Styles for horizontal scrolling */
+      /*horizontal*/
       .scrolling-wrapper {
         overflow-x: auto;
         white-space: nowrap;
@@ -37,13 +31,21 @@
 
       .scrolling-wrapper .panel {
         display: inline-block;
-        width: 300px; /* Adjust as needed */
+        width: 300px;
         margin-right: 10px;
+      }
+
+      footer {
+        background-color: #f8f8f8;
+        padding: 25px;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
       }
     </style>
   </head>
   <body>
-
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -162,6 +164,7 @@
           </div>
           <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
         </div>
+      </div>
 
       <h2>20/june/2024</h2>
       <div class="scrolling-wrapper">
@@ -220,9 +223,11 @@
           </div>
           <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
         </div>
-        
       </div>
     </div>
+
+    <footer>
+      <p>Skoolworkshop Copyright © 2024</p>
+    </footer>
   </body>
-  
 </html>
