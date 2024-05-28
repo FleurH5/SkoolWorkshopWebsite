@@ -38,7 +38,7 @@ async function sendEmail(to, subject, template, data) {
 
 //await,                         {data from database}
 
-sendEmail('saa.wenzel@student.avans.nl', 'Template email test', 'BackupTemplate', { userName: 'shirley' });
+sendEmail('saa.wenzel@student.avans.nl', 'Template email test', 'ConfirmationAvailabilityTemplate', { userName: 'shirley' });
 
 
 //Make sure to use async if u want to add a style in the templates!!!
