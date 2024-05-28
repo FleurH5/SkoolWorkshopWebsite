@@ -14,26 +14,59 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <!-- <link rel="stylesheet" href="loginStyle.css" /> 
-    voeg dit hieronder later toe aan de style, voor nu hier laten staan.-->
     <style>
       .text-center {
-      text-align: center;
-    }
+        text-align: center;
+      }
+      #error-message {
+        color: white;
+        background-color: red;
+        display: none;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+      #success-message {
+        color: white;
+        background-color: #23C552;
+        display: none;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+      .alert-success {
+        display: none;
+        color: white;
+        background-color: #23C552;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+      .box-area {
+        display: flex;
+        flex-direction: row;
+      }
+      .left-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: #3a2d2d;
+        padding: 20px;
+      }
+      .right-box {
+        padding: 20px;
+      }
     </style>
     <title>Registreer Klant</title>
   </head>
   <body>
     <!--Main container-->
-    <div
-      class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
       <!--Register Container-->
-      <div class="row border rounded-5 p-3 bg white shadow box-area">
+      <div class="row border rounded-5 p-3 bg-white shadow box-area">
         <!-- Left Box-->
-        <div
-          class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-          style="background: #3a2d2d"
-        >
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
           <div class="featured-image mb-3">
             <img src="./images/Skool_Workshop_Logo_White.png" class="img-fluid" style="width: 250px" />
           </div>
@@ -41,135 +74,165 @@
         </div>
 
         <div class="col-md-6 right-box">
+          <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> Klant is succesvol toegevoegd.
+          </div>
+
           <div class="row align-items-center text-center">
             <div class="header-text mb-1">
               <p class="fs-2">Klant Registreren</p>
               <p>Velden met * zijn verplicht!</p>
             </div>
-            <div class="input-group mb-3">
-              <input
-                id="clientName"
-                type="text"
-                class="form-control form-control-lg bg-light fs-6"
-                placeholder="Naam klant *"
-              />
-              
-            </div>
-            <!-- voeg hier een dubbele row toe voor de volgende 4 -->
-            <div class="row">
-            <div class="col-md-6 mb-3">
+
+            <form id="clientForm">
+              <div class="input-group mb-3">
                 <input
-                id="organisation"
+                  id="clientname"
                   type="text"
                   class="form-control form-control-lg bg-light fs-6"
-                  placeholder="Organisatie *"/>
-          </div>
+                  placeholder="Naam klant *"
+                  required
+                />
+              </div>
 
-          <div class="col-md-6 mb-3">
-            <input 
-            id="targetAudience"
-            type="text"
-                   class="form-control form-control-lg bg-light fs-6"
-                   placeholder="Doelgroep *"/>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <input
+                    id="organisation"
+                    type="text"
+                    class="form-control form-control-lg bg-light fs-6"
+                    placeholder="Organisatie *"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <input
+                    id="targetaudience"
+                    type="text"
+                    class="form-control form-control-lg bg-light fs-6"
+                    placeholder="Doelgroep *"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <input
+                    id="email"
+                    type="text"
+                    class="form-control form-control-lg bg-light fs-6"
+                    placeholder="Emailadres *"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <input
+                    id="phonenumber"
+                    type="text"
+                    class="form-control form-control-lg bg-light fs-6"
+                    placeholder="Telefoonnummer"
+                  />
+                </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <input
+                  id="contactperson"
+                  type="text"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="Contactpersoon *"
+                  required
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <input
+                  id="address"
+                  type="text"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="Adres *"
+                  required
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <input
+                  id="kvknumber"
+                  type="text"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="KVK-nummer"
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <button type="submit" class="btn rounded-5 btn-lg btn-primary w-100 fs-6">Maak Aan</button>
+              </div>
+            </form>
           </div>
-          <div class="row">
         </div>
-
-          <div class="col-md-6 mb-3">
-            <input id="emailAddress"
-            type="text"
-                   class="form-control form-control-lg bg-light fs-6"
-                   placeholder="Emailadres *"/>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <input id="phoneNumber" type="text"
-                   class="form-control form-control-lg bg-light fs-6"
-                   placeholder="Telefoonnummer"/>
-          </div>
-        </div>
-
-          <!-- hier niet meer dus -->
-
-          <div class="input-group mb-3">
-            <input id="contactPerson" type="text"
-                   class="form-control form-control-lg bg-light fs-6"
-                   placeholder="Contactpersoon *"/>
-          </div>
-
-          <div class="input-group mb-3">
-            <input id="address" type="text"
-                   class="form-control form-control-lg bg-light fs-6"
-                   placeholder="Adres *"/>
-          </div>
-
-          <div class="input-group mb-3">
-            <input id="kvkNumber" type="text"
-                   class="form-control form-control-lg bg-light fs-6"
-                   placeholder="KVK-nummer"/>
-          </div>
-        </div>
-        <!-- doe de informatie in de databse na testen goed 
-          ga terug naar home page en krijg een popup dat het gelukt is
-        -->
-        <div class="input-group mb-3">
-            <button class="btn rounded-5 btn-lg btn-primary w-100 fs-6">Maak Aan</button>
-        </div>
+      </div>
     </div>
 
-<!-- het script voor het toevoegen aan de db -->
-<script>
-  const thisForm = document.getElementById('clientForm')
-  thisForm.addEventListener('submit', async function(event) {
-    event.preventDefault()
-    //waardes ophalen
-    const clientName = document.getElementById('clientName').value;
-    const organisation = document.getElementById('organisation').value;
-    const targetAudience = document.getElementById('targetAudience').value;
-    const emailAddress = document.getElementById('emailAddress').value;
-    const phoneNumber = document.getElementById('phoneNumber').value;
-    const contactPerson = document.getElementById('contactPerson').value;
-    const address = document.getElementById('address').value;
-    const kvkNumber = document.getElementById('kvkNumber').value;
+    <!-- het script voor het toevoegen aan de db -->
+    <script>
+      const thisForm = document.getElementById('clientForm');
+      thisForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        //waardes ophalen
+        const clientname = document.getElementById('clientname').value;
+        const organisation = document.getElementById('organisation').value;
+        const targetaudience = document.getElementById('targetaudience').value;
+        const email = document.getElementById('email').value;
+        const phonenumber = document.getElementById('phonenumber').value;
+        const contactperson = document.getElementById('contactperson').value;
+        const address = document.getElementById('address').value;
+        const kvknumber = document.getElementById('kvknumber').value;
 
-    //object aanmaken
-    const formObject = {
-      clientName: clientName,
-      organisation: organisation,
-      targetAudience: targetAudience,
-      emailAddress: emailAddress,
-      phoneNumber: phoneNumber,
-      contactPerson: contactPerson,
-      address: address,
-      kvkNumber: kvkNumber
-    };
-    console.log(formObject)
+        //object aanmaken
+        const formObject = {
+          clientname: clientname,
+          organisation: organisation,
+          targetaudience: targetaudience,
+          email: email,
+          phonenumber: phonenumber,
+          contactperson: contactperson,
+          address: address,
+          kvknumber: kvknumber
+        };
+        console.log(formObject);
 
-    //deze miss veranderen
-    const apiUrl = 'http://145.49.36.211:300/workshop/add';
-    try{
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formObject)
+        const apiUrl = 'http://145.49.36.211:300/client/add';
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObject)
+          });
+          if (response.ok) {
+            console.log('Klant is toegevoegd');
+            const result = await response.json();
+            showPopup();
+            document.getElementById('clientForm').reset();
+          } else {
+            console.error('Klant niet toegevoegd');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
       });
-      if(response.ok){
-        console.log('Klant is toegevoegd');
-        const result = await response.json();
-      } else {
-        console.error('Klant niet toegevoegd');
+
+      function showPopup() {
+        const successPopup = document.querySelector('.alert-success');
+        successPopup.style.display = 'block';
+        setTimeout(() => {
+          successPopup.style.display = 'none';
+        }, 3000);
       }
-    
-    } catch (error){
-      console.error('Error:', error);
-    }
-  });
-</script>
-
-
-
-
+    </script>
   </body>
 </html>
