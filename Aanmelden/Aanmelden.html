@@ -153,52 +153,63 @@
       </div>
     </div>
 
+    <!-- het script voor het toevoegen aan de db -->
     <script>
-      document
-        .getElementById("registrationForm")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault();
-          let valid = true;
-          const inputs = document.querySelectorAll("input[required]");
-          inputs.forEach((input) => {
-            if (!input.value) {
-              input.classList.add("error");
-              valid = false;
-            } else {
-              input.classList.remove("error");
-            }
+      const thisForm = document.getElementById("registrationForm");
+      thisForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        //waardes ophalen
+        const clientname = document.getElementById("clientname").value;
+        const organisation = document.getElementById("organisation").value;
+        const targetaudience = document.getElementById("targetaudience").value;
+        const email = document.getElementById("email").value;
+        const phonenumber = document.getElementById("phonenumber").value;
+        const contactperson = document.getElementById("contactperson").value;
+        const address = document.getElementById("address").value;
+        const kvknumber = document.getElementById("kvknumber").value;
+
+        //object aanmaken
+        const formObject = {
+          clientname: clientname,
+          organisation: organisation,
+          targetaudience: targetaudience,
+          email: email,
+          phonenumber: phonenumber,
+          contactperson: contactperson,
+          address: address,
+          kvknumber: kvknumber,
+        };
+        console.log(formObject);
+
+        const apiUrl = "http://145.49.36.211:300/user/add";
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formObject),
           });
-
-          if (valid) {
-            const formData = new FormData(this);
-            const formObject = {};
-            formData.forEach((value, key) => {
-              formObject[key] = value;
-            });
-
-            const apiUrl = "http://145.49.36.211:300/user/add";
-            try {
-              const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formObject),
-              });
-              if (response.ok) {
-                console.log("Gebruiker toegevoegd");
-                const result = await response.json();
-                // Hier kun je verdere acties uitvoeren, zoals een succesbericht weergeven aan de gebruiker
-              } else {
-                console.error("Gebruiker niet toegevoegd");
-                // Hier kun je verdere acties uitvoeren, zoals een foutmelding weergeven aan de gebruiker
-              }
-            } catch (error) {
-              console.error("Fout bij toevoegen van gebruiker:", error);
-              // Hier kun je verdere acties uitvoeren, zoals een foutmelding weergeven aan de gebruiker
-            }
+          if (response.ok) {
+            console.log("User is toegevoegd");
+            const result = await response.json();
+            showPopup();
+            document.getElementById("clientForm").reset();
+          } else {
+            console.error("User niet toegevoegd");
           }
-        });
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+
+      function showPopup() {
+        const successPopup = document.querySelector(".alert-success");
+        successPopup.style.display = "block";
+        setTimeout(() => {
+          successPopup.style.display = "none";
+        }, 3000);
+      }
     </script>
   </body>
 </html>
