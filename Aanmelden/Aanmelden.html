@@ -14,15 +14,16 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-
-    <link rel="stylesheet" href="aanmelden.css" />
-
     <style>
       .padded-container {
         padding: 20px; /* Je kunt dit aanpassen naar de gewenste padding */
       }
-    </style>
 
+      .error {
+        border: 1px solid red;
+        background-color: #ffcccc;
+      }
+    </style>
     <title>Registratie</title>
   </head>
   <body>
@@ -53,74 +54,93 @@
               <p class="fs-2">Maak een account aan</p>
               <p>Velden met * zijn verplicht!</p>
             </div>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Naam*"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Achternaam*"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Adres*"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="tel"
-                class="form-control form-control-lg"
-                placeholder="Telefoonnummer*"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Bedrijfsadres"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Kamer van Koophandel (KvK) nummer"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="email"
-                class="form-control form-control-lg"
-                placeholder="E-mailadres*"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="password"
-                class="form-control form-control-lg"
-                placeholder="Wachtwoord*"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="password"
-                class="form-control form-control-lg"
-                placeholder="Bevestig wachtwoord*"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <button class="btn rounded-5 btn-lg btn-primary w-100 fs-6">
-                Registreren
-              </button>
-            </div>
+            <form id="registrationForm">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Naam*"
+                  name="naam"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Achternaam*"
+                  name="achternaam"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Adres*"
+                  name="adres"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="tel"
+                  class="form-control form-control-lg"
+                  placeholder="Telefoonnummer*"
+                  name="telefoonnummer"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Bedrijfsadres"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="(KvK) nummer"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="email"
+                  class="form-control form-control-lg"
+                  placeholder="E-mailadres*"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  class="form-control form-control-lg"
+                  placeholder="Wachtwoord*"
+                  name="wachtwoord"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  class="form-control form-control-lg"
+                  placeholder="Bevestig wachtwoord*"
+                  name="bevestig_wachtwoord"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <button
+                  type="submit"
+                  class="btn rounded-5 btn-lg btn-primary w-100 fs-6"
+                >
+                  Registreren
+                </button>
+              </div>
+            </form>
             <div class="register mb-4">
               <small
                 >Heb je al een account?
@@ -131,5 +151,26 @@
         </div>
       </div>
     </div>
+
+    <script>
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (event) {
+          let valid = true;
+          const inputs = document.querySelectorAll("input[required]");
+          inputs.forEach((input) => {
+            if (!input.value) {
+              input.classList.add("error");
+              valid = false;
+            } else {
+              input.classList.remove("error");
+            }
+          });
+
+          if (!valid) {
+            event.preventDefault();
+          }
+        });
+    </script>
   </body>
 </html>
