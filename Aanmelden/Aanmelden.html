@@ -59,6 +59,7 @@
               <div class="input-group mb-3">
                 <input
                   type="text"
+                  id="naam"
                   class="form-control form-control-lg"
                   placeholder="Naam*"
                   name="naam"
@@ -68,6 +69,7 @@
               <div class="input-group mb-3">
                 <input
                   type="text"
+                  id="achternaam"
                   class="form-control form-control-lg"
                   placeholder="Achternaam*"
                   name="achternaam"
@@ -77,6 +79,7 @@
               <div class="input-group mb-3">
                 <input
                   type="text"
+                  id="adres"
                   class="form-control form-control-lg"
                   placeholder="Adres*"
                   name="adres"
@@ -86,6 +89,7 @@
               <div class="input-group mb-3">
                 <input
                   type="tel"
+                  id="telefoonnummer"
                   class="form-control form-control-lg"
                   placeholder="Telefoonnummer*"
                   name="telefoonnummer"
@@ -95,20 +99,25 @@
               <div class="input-group mb-3">
                 <input
                   type="text"
+                  id="bedrijfsadres"
                   class="form-control form-control-lg"
                   placeholder="Bedrijfsadres"
+                  name="bedrijfsadres"
                 />
               </div>
               <div class="input-group mb-3">
                 <input
                   type="text"
+                  id="kvknummer"
                   class="form-control form-control-lg"
                   placeholder="(KvK) nummer"
+                  name="kvknummer"
                 />
               </div>
               <div class="input-group mb-3">
                 <input
                   type="email"
+                  id="email"
                   class="form-control form-control-lg"
                   placeholder="E-mailadres*"
                   name="email"
@@ -118,6 +127,7 @@
               <div class="input-group mb-3">
                 <input
                   type="password"
+                  id="wachtwoord"
                   class="form-control form-control-lg"
                   placeholder="Wachtwoord*"
                   name="wachtwoord"
@@ -127,6 +137,7 @@
               <div class="input-group mb-3">
                 <input
                   type="password"
+                  id="bevestig_wachtwoord"
                   class="form-control form-control-lg"
                   placeholder="Bevestig wachtwoord*"
                   name="bevestig_wachtwoord"
@@ -159,25 +170,29 @@
       thisForm.addEventListener("submit", async function (event) {
         event.preventDefault();
         //waardes ophalen
-        const clientname = document.getElementById("clientname").value;
-        const organisation = document.getElementById("organisation").value;
-        const targetaudience = document.getElementById("targetaudience").value;
+        const eerstNaam = document.getElementById("naam").value;
+        const achternaam = document.getElementById("achternaam").value;
+        const adres = document.getElementById("adres").value;
+        const telefoonnummer = document.getElementById("telefoonnummer").value;
+        const bedrijfsadres = document.getElementById("bedrijfsadres").value;
+        const kvknummer = document.getElementById("kvknummer").value;
         const email = document.getElementById("email").value;
-        const phonenumber = document.getElementById("phonenumber").value;
-        const contactperson = document.getElementById("contactperson").value;
-        const address = document.getElementById("address").value;
-        const kvknumber = document.getElementById("kvknumber").value;
+        const wachtwoord = document.getElementById("wachtwoord").value;
+        const bevestigWachtwoord = document.getElementById(
+          "bevestig_wachtwoord"
+        ).value;
 
         //object aanmaken
         const formObject = {
-          clientname: clientname,
-          organisation: organisation,
-          targetaudience: targetaudience,
+          naam: eerstNaam,
+          achternaam: achternaam,
+          adres: adres,
+          telefoonnummer: telefoonnummer,
+          bedrijfsadres: bedrijfsadres,
+          kvknummer: kvknummer,
           email: email,
-          phonenumber: phonenumber,
-          contactperson: contactperson,
-          address: address,
-          kvknumber: kvknumber,
+          wachtwoord: wachtwoord,
+          bevestig_wachtwoord: bevestigWachtwoord,
         };
         console.log(formObject);
 
@@ -194,7 +209,7 @@
             console.log("User is toegevoegd");
             const result = await response.json();
             showPopup();
-            document.getElementById("clientForm").reset();
+            document.getElementById("registrationForm").reset();
           } else {
             console.error("User niet toegevoegd");
           }
