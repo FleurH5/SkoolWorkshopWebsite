@@ -25,6 +25,9 @@
         border: 1px solid red;
         background-color: #ffcccc;
       }
+      .form-check {
+  margin-bottom: 10px; /* Voeg wat ruimte toe tussen de radio-opties */
+}
     </style>
     <title>Registratie</title>
   </head>
@@ -54,11 +57,10 @@
           <div class="row align-items-center">
             <div class="header-text mb-4">
               <p class="fs-2">Maak een account aan</p>
-              <p>Velden met * zijn verplicht!</p>
             </div>
             <form id="registrationForm">
               <div class="mb-3">
-                <label class="form-label">Type docent</label>
+                <label class="form-label">Type docent*</label>
                 <div class="form-check">
                   <input
                     class="form-check-input"
@@ -68,9 +70,7 @@
                     value="zzp"
                     required
                   />
-                  <label class="form-check-label" for="docentZZP"
-                    >Docent ZZP</label
-                  >
+                  <label class="form-check-label" for="docentZZP">Docent ZZP</label>
                 </div>
                 <div class="form-check">
                   <input
@@ -84,6 +84,7 @@
                   <label class="form-check-label" for="docentFlex">Flex</label>
                 </div>
               </div>
+            </form>
 
               <div class="input-group mb-3">
                 <input
@@ -236,7 +237,7 @@
           };
           console.log(formObject);
 
-          const apiUrl = "http://145.49.36.211:300/user/add";
+          const apiUrl = "https://skoolworkshopapi.azurewebsites.net/user/add";
           try {
             const response = await fetch(apiUrl, {
               method: "POST",
