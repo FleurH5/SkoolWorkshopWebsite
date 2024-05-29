@@ -98,16 +98,13 @@
           const password = document.getElementById("password").value;
 
           try {
-            const response = await fetch(
-              "http://145.49.36.211:300/auth/login",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-              }
-            );
+            const response = await fetch("http://145.49.59.17:300/auth/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email, password }),
+            });
 
             if (response.ok) {
               const data = await response.json();
