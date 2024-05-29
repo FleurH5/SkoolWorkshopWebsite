@@ -230,7 +230,7 @@
         };
         console.log(formObject);
 
-        const apiUrl = "http://skoolworkshopapi.azurewebsites.net/client/add";
+        const apiUrl = "https://skoolworkshopapi.azurewebsites.net/client/add";
         try {
           const response = await fetch(apiUrl, {
             method: "POST",
@@ -242,14 +242,14 @@
           if (response.ok) {
             console.log("Klant is toegevoegd");
             const result = await response.json();
-
-            
             showPopup();
             document.getElementById("clientForm").reset();
           } else {
+            showFailPopup();
             console.error("Klant niet toegevoegd");
           }
         } catch (error) {
+          showFailPopup();
           console.error("Error:", error);
         }
       });
@@ -259,6 +259,14 @@
         failPopup.style.display = 'block';
         setTimeout(() => {
           failPopup.style.display = 'none';
+        }, 3000);
+      }
+
+      function showPopup() {
+        const successPopup = document.querySelector('.alert-success');
+        successPopup.style.display = 'block';
+        setTimeout(() => {
+          successPopup.style.display = 'none';
         }, 3000);
       }
     </script>
