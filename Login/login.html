@@ -8,6 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="loginStyle.css" />
+    <link rel="icon" href="./Skool_Workshop_Logo_White.png" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Login</title>
     <style>
@@ -110,8 +111,7 @@
               const data = await response.json();
               localStorage.setItem("accessToken", data.accessToken);
               // Redirect to the desired page
-              window.location.href =
-                "http://127.0.0.1:5500/Homepage/homepage.html";
+              window.location.href = "http://127.0.0.1:5500/addWorkshops.html#";
             } else {
               document.getElementById("error-message").textContent =
                 "Ongeldig emailadres of wachtwoord. Probeer het opnieuw.";
