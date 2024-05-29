@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="aanmelden.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .padded-container {
+        padding: 20px;
+      }
+
+      .error {
+        border: 1px solid red;
+        background-color: #ffcccc;
+      }
+    </style>
+    <title>Registratie</title>
+  </head>
+  <body>
+    <!-- Hoofdcontainer -->
+    <div
+      class="container padded-container d-flex justify-content-center align-items-center min-vh-100"
+    >
+      <!-- Registratiecontainer -->
+      <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <!-- Linker box -->
+        <div
+          class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+          style="background: #3a2d2d"
+        >
+          <div class="featured-image mb-3">
+            <img
+              src="../Login/Skool_Workshop_Logo_White.png"
+              class="img-fluid"
+              style="width: 350px"
+            />
+          </div>
+        </div>
+
+        <!-- Rechter box -->
+        <div class="col-md-6 right-box">
+          <div class="row align-items-center">
+            <div class="header-text mb-4">
+              <p class="fs-2">Maak een account aan</p>
+              <p>Velden met * zijn verplicht!</p>
+            </div>
+            <form id="registrationForm">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  id="naam"
+                  class="form-control form-control-lg"
+                  placeholder="Naam*"
+                  name="naam"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  id="achternaam"
+                  class="form-control form-control-lg"
+                  placeholder="Achternaam*"
+                  name="achternaam"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  id="adres"
+                  class="form-control form-control-lg"
+                  placeholder="Adres*"
+                  name="adres"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="tel"
+                  id="telefoonnummer"
+                  class="form-control form-control-lg"
+                  placeholder="Telefoonnummer*"
+                  name="telefoonnummer"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  id="bedrijfsadres"
+                  class="form-control form-control-lg"
+                  placeholder="Bedrijfsadres"
+                  name="bedrijfsadres"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  id="kvknummer"
+                  class="form-control form-control-lg"
+                  placeholder="(KvK) nummer"
+                  name="kvknummer"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control form-control-lg"
+                  placeholder="E-mailadres*"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  id="wachtwoord"
+                  class="form-control form-control-lg"
+                  placeholder="Wachtwoord*"
+                  name="wachtwoord"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  id="bevestig_wachtwoord"
+                  class="form-control form-control-lg"
+                  placeholder="Bevestig wachtwoord*"
+                  name="bevestig_wachtwoord"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <button
+                  type="submit"
+                  class="btn rounded-5 btn-lg btn-primary w-100 fs-6"
+                >
+                  Registreren
+                </button>
+              </div>
+            </form>
+            <div class="register mb-4">
+              <small
+                >Heb je al een account?
+                <a href="../Login/Login.html">Log in</a></small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- het script voor het toevoegen aan de db -->
+    <script>
+      const thisForm = document.getElementById("registrationForm");
+      thisForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        //waardes ophalen
+        const eerstNaam = document.getElementById("naam").value;
+        const achternaam = document.getElementById("achternaam").value;
+        const adres = document.getElementById("adres").value;
+        const telefoonnummer = document.getElementById("telefoonnummer").value;
+        const bedrijfsadres = document.getElementById("bedrijfsadres").value;
+        const kvknummer = document.getElementById("kvknummer").value;
+        const email = document.getElementById("email").value;
+        const wachtwoord = document.getElementById("wachtwoord").value;
+        const bevestigWachtwoord = document.getElementById(
+          "bevestig_wachtwoord"
+        ).value;
+
+        //object aanmaken
+        const formObject = {
+          naam: eerstNaam,
+          achternaam: achternaam,
+          adres: adres,
+          telefoonnummer: telefoonnummer,
+          bedrijfsadres: bedrijfsadres,
+          kvknummer: kvknummer,
+          email: email,
+          wachtwoord: wachtwoord,
+          bevestig_wachtwoord: bevestigWachtwoord,
+        };
+        console.log(formObject);
+
+        const apiUrl = "http://145.49.36.211:300/user/add";
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formObject),
+          });
+          if (response.ok) {
+            console.log("User is toegevoegd");
+            const result = await response.json();
+            showPopup();
+            document.getElementById("registrationForm").reset();
+          } else {
+            console.error("User niet toegevoegd");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+
+      function showPopup() {
+        const successPopup = document.querySelector(".alert-success");
+        successPopup.style.display = "block";
+        setTimeout(() => {
+          successPopup.style.display = "none";
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
