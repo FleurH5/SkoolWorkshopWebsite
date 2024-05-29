@@ -14,6 +14,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <link rel="stylesheet" href="registerClient.css" />
     <style>
       .text-center {
         text-align: center;
@@ -28,7 +30,7 @@
       }
       #success-message {
         color: white;
-        background-color: #23C552;
+        background-color: #23c552;
         display: none;
         padding: 10px;
         border-radius: 5px;
@@ -37,7 +39,7 @@
       .alert-success {
         display: none;
         color: white;
-        background-color: #23C552;
+        background-color: #23c552;
         padding: 10px;
         border-radius: 5px;
         margin-top: 10px;
@@ -70,13 +72,21 @@
   </head>
   <body>
     <!--Main container-->
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div
+      class="container d-flex justify-content-center align-items-center min-vh-100"
+    >
       <!--Register Container-->
       <div class="row border rounded-5 p-3 bg-white shadow box-area">
         <!-- Left Box-->
-        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
+        <div
+          class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+        >
           <div class="featured-image mb-3">
-            <img src="./images/Skool_Workshop_Logo_White.png" class="img-fluid" style="width: 250px" />
+            <img
+              src="./images/Skool_Workshop_Logo_White.png"
+              class="img-fluid"
+              style="width: 250px"
+            />
           </div>
           <p class="text-white fs-2"></p>
         </div>
@@ -179,7 +189,12 @@
               </div>
 
               <div class="input-group mb-3">
-                <button type="submit" class="btn rounded-5 btn-lg btn-primary w-100 fs-6">Maak Aan</button>
+                <button
+                  type="submit"
+                  class="btn rounded-5 btn-lg btn-primary w-100 fs-6"
+                >
+                  Maak Aan
+                </button>
               </div>
             </form>
           </div>
@@ -189,18 +204,18 @@
 
     <!-- het script voor het toevoegen aan de db -->
     <script>
-      const thisForm = document.getElementById('clientForm');
-      thisForm.addEventListener('submit', async function(event) {
+      const thisForm = document.getElementById("clientForm");
+      thisForm.addEventListener("submit", async function (event) {
         event.preventDefault();
         //waardes ophalen
-        const clientname = document.getElementById('clientname').value;
-        const organisation = document.getElementById('organisation').value;
-        const targetaudience = document.getElementById('targetaudience').value;
-        const email = document.getElementById('email').value;
-        const phonenumber = document.getElementById('phonenumber').value;
-        const contactperson = document.getElementById('contactperson').value;
-        const address = document.getElementById('address').value;
-        const kvknumber = document.getElementById('kvknumber').value;
+        const clientname = document.getElementById("clientname").value;
+        const organisation = document.getElementById("organisation").value;
+        const targetaudience = document.getElementById("targetaudience").value;
+        const email = document.getElementById("email").value;
+        const phonenumber = document.getElementById("phonenumber").value;
+        const contactperson = document.getElementById("contactperson").value;
+        const address = document.getElementById("address").value;
+        const kvknumber = document.getElementById("kvknumber").value;
 
         //object aanmaken
         const formObject = {
@@ -211,41 +226,33 @@
           phonenumber: phonenumber,
           contactperson: contactperson,
           address: address,
-          kvknumber: kvknumber
+          kvknumber: kvknumber,
         };
         console.log(formObject);
 
-        const apiUrl = 'http://145.49.36.211:300/client/add';
+        const apiUrl = "http://145.49.36.211:300/client/add";
         try {
           const response = await fetch(apiUrl, {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify(formObject)
+            body: JSON.stringify(formObject),
           });
           if (response.ok) {
-            console.log('Klant is toegevoegd');
+            console.log("Klant is toegevoegd");
             const result = await response.json();
-            showSuccessPopup();
-            document.getElementById('clientForm').reset();
+
+            
+            showPopup();
+            document.getElementById("clientForm").reset();
           } else {
-            console.error('Klant niet toegevoegd');
-            showFailPopup();
+            console.error("Klant niet toegevoegd");
           }
         } catch (error) {
-          console.error('Error:', error);
-          showFailPopup();
+          console.error("Error:", error);
         }
       });
-
-      function showSuccessPopup() {
-        const successPopup = document.querySelector('.alert-success');
-        successPopup.style.display = 'block';
-        setTimeout(() => {
-          successPopup.style.display = 'none';
-        }, 3000);
-      }
 
       function showFailPopup() {
         const failPopup = document.querySelector('.alert-fail');
