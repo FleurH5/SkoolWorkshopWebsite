@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+.card {
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.card-header {
+    background-color: #007bff;
+    color: white;
+}
+.card-body h5 {
+    color: #0553a7;
+}
+.btn-primary {
+    background-color: #0553a7;
+}
+.workshopSupplies li {
+    margin-bottom: 0.5rem;
+}
+.collapse-content {
+    padding-left: 1rem;
+}
+footer {
+    background-color: #f8f8f8;
+    padding: 25px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar {
+    margin-bottom: 50px;
+    border-radius: 0;
+  }
+
+  .custom-img-size {
+    width: 200px;
+    padding: 10px;
+    height: auto;
+  }
