@@ -114,7 +114,8 @@
               const data = await response.json();
               localStorage.setItem("accessToken", data.accessToken);
               // Redirect to the desired page
-              window.location.href = "http://127.0.0.1:5500/addWorkshops.html#";
+              window.location.href =
+                "http://127.0.0.1:5500/Homepage/homepage.html";
             } else {
               document.getElementById("error-message").textContent =
                 "Ongeldig emailadres of wachtwoord. Probeer het opnieuw.";
