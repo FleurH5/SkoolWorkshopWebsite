@@ -23,7 +23,7 @@
           <a class="nav-link" href="adminDashboard.html"><span class="bi bi-speedometer2"></span> Dashboard</a>
         </li>
         <li>
-          <a class="nav-link" href="addWorkshops.html"> <span class="bi bi-person-arms-up"></span> Workshops</a>
+          <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
         </li>
         <li>
           <a class="nav-link" href="#"> <span class="bi bi-calendar"></span> Opdrachten</a>
@@ -34,11 +34,36 @@
         <li>
           <a class="nav-link" href="#"><span class="bi bi-suitcase-lg"></span> Docenten</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="bi bi-plus-lg"></span> Nieuw
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbardropdown">
+            <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
+            <li><a class="dropdown-item" href="#">Opdracht</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var dropdown = document.querySelector('.nav-item.dropdown');
+          dropdown.addEventListener('mouseenter', function() {
+              var menu = this.querySelector('.dropdown-menu');
+              menu.classList.add('show');
+          });
+          dropdown.addEventListener('mouseleave', function() {
+              var menu = this.querySelector('.dropdown-menu');
+              menu.classList.remove('show');
+          });
+      });
+  </script>
+  
+
      <!-- popup -->
      <div class="alert alert-success" role="alert">
-      <strong>Success!</strong> Workshop is succesvol toegevoegd.
+      <strong>Succes!</strong> Workshop is succesvol toegevoegd.
     </div>
     <div class="container mt-5">
       <div class="content">
@@ -92,7 +117,7 @@
         };
         console.log(formObject);
 
-        const apiUrl = 'http://145.49.59.17:300/workshop/add';
+        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/workshop/add';
         try{
           const response = await fetch(apiUrl, {
             method: 'POST',

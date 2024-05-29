@@ -38,3 +38,24 @@ body{
 .sidenav ul li a{
     font-size: 0.875rem;
 }
+/* voor dropdown van nieuw */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 100%; 
+    top: 0;
+    margin-top: -10px; 
+    background-color: #f8f9fa;
+    min-width: 200px; 
+}
+.dropdown-menu .dropdown-item {
+    padding: 10px 15px;
+    color: #000;
+    text-decoration: none;
+}
+.dropdown-menu .dropdown-item:hover {
+    background-color: #ddd;
+}
