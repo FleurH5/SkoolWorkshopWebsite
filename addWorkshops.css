@@ -5,13 +5,14 @@ body{
 }
 .sidenav {
     position: fixed;
-    top: 0;
+    top: 50px;
     left: 0;
-    height: 100%;
-    width: 250px;
+    height: calc(100% - 50px);
+    width: 200px;
     background: #333;
     color: #fff;
     transition: all 0.3s;
+    padding-top: 20px;
 }
 
 .content {
@@ -31,6 +32,9 @@ body{
 .alert-success{
     display: none;
 }
-.settings{
-    margin-top: 350px;
+.navbar{
+    height: 50px;
+}
+.sidenav ul li a{
+    font-size: 0.875rem;
 }
