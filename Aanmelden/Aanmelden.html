@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="aanmelden.css" />
+    <link rel="icon" href="../SKWLogoS.jpg" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -56,6 +57,34 @@
               <p>Velden met * zijn verplicht!</p>
             </div>
             <form id="registrationForm">
+              <div class="mb-3">
+                <label class="form-label">Type docent*</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="docentType"
+                    id="docentZZP"
+                    value="zzp"
+                    required
+                  />
+                  <label class="form-check-label" for="docentZZP"
+                    >Docent ZZP</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="docentType"
+                    id="docentFlex"
+                    value="flex"
+                    required
+                  />
+                  <label class="form-check-label" for="docentFlex">Flex</label>
+                </div>
+              </div>
+
               <div class="input-group mb-3">
                 <input
                   type="text"
@@ -96,21 +125,13 @@
                   required
                 />
               </div>
-              <div class="input-group mb-3">
-                <input
-                  type="text"
-                  id="bedrijfsadres"
-                  class="form-control form-control-lg"
-                  placeholder="Bedrijfsadres"
-                  name="bedrijfsadres"
-                />
-              </div>
-              <div class="input-group mb-3">
+
+              <div class="input-group mb-3" id="kvkField">
                 <input
                   type="text"
                   id="kvknummer"
                   class="form-control form-control-lg"
-                  placeholder="(KvK) nummer"
+                  placeholder="(KvK) nummer*"
                   name="kvknummer"
                 />
               </div>
@@ -166,57 +187,76 @@
 
     <!-- het script voor het toevoegen aan de db -->
     <script>
-      const thisForm = document.getElementById("registrationForm");
-      thisForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        //waardes ophalen
-        const eerstNaam = document.getElementById("naam").value;
-        const achternaam = document.getElementById("achternaam").value;
-        const adres = document.getElementById("adres").value;
-        const telefoonnummer = document.getElementById("telefoonnummer").value;
-        const bedrijfsadres = document.getElementById("bedrijfsadres").value;
-        const kvknummer = document.getElementById("kvknummer").value;
-        const email = document.getElementById("email").value;
-        const wachtwoord = document.getElementById("wachtwoord").value;
-        const bevestigWachtwoord = document.getElementById(
-          "bevestig_wachtwoord"
-        ).value;
+      document.addEventListener("DOMContentLoaded", function () {
+        const kvkField = document.getElementById("kvkField");
+        const zzpRadio = document.getElementById("docentZZP");
+        const flexRadio = document.getElementById("docentFlex");
 
-        //object aanmaken
-        const formObject = {
-          naam: eerstNaam,
-          achternaam: achternaam,
-          adres: adres,
-          telefoonnummer: telefoonnummer,
-          bedrijfsadres: bedrijfsadres,
-          kvknummer: kvknummer,
-          email: email,
-          wachtwoord: wachtwoord,
-          bevestig_wachtwoord: bevestigWachtwoord,
-        };
-        console.log(formObject);
-
-        const apiUrl = "http://145.49.36.211:300/user/add";
-        try {
-          const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formObject),
-          });
-          if (response.ok) {
-            console.log("User is toegevoegd");
-            const result = await response.json();
-            showPopup();
-            document.getElementById("registrationForm").reset();
-          } else {
-            console.error("User niet toegevoegd");
+        zzpRadio.addEventListener("change", function () {
+          if (zzpRadio.checked) {
+            kvkField.style.display = "";
           }
-        } catch (error) {
-          console.error("Error:", error);
-        }
+        });
+
+        flexRadio.addEventListener("change", function () {
+          if (flexRadio.checked) {
+            kvkField.style.display = "none";
+          }
+        });
       });
+
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const eerstNaam = document.getElementById("naam").value;
+          const achternaam = document.getElementById("achternaam").value;
+          const adres = document.getElementById("adres").value;
+          const telefoonnummer =
+            document.getElementById("telefoonnummer").value;
+          const kvknummer = document.getElementById("kvknummer").value;
+          const email = document.getElementById("email").value;
+          const wachtwoord = document.getElementById("wachtwoord").value;
+          const bevestigWachtwoord = document.getElementById(
+            "bevestig_wachtwoord"
+          ).value;
+
+          const formObject = {
+            naam: eerstNaam,
+            achternaam: achternaam,
+            adres: adres,
+            telefoonnummer: telefoonnummer,
+            kvknummer: document.getElementById("docentZZP").checked
+              ? kvknummer
+              : null,
+            email: email,
+            wachtwoord: wachtwoord,
+            bevestig_wachtwoord: bevestigWachtwoord,
+          };
+          console.log(formObject);
+
+          const apiUrl = "http://145.49.36.211:300/user/add";
+          try {
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formObject),
+            });
+            if (response.ok) {
+              console.log("User is toegevoegd");
+              const result = await response.json();
+              showPopup();
+              document.getElementById("registrationForm").reset();
+            } else {
+              console.error("User niet toegevoegd");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
 
       function showPopup() {
         const successPopup = document.querySelector(".alert-success");
