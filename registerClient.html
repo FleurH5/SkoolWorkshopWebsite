@@ -42,6 +42,14 @@
         border-radius: 5px;
         margin-top: 10px;
       }
+      .alert-fail {
+        display: none;
+        color: white;
+        background-color: red;;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
       .box-area {
         display: flex;
         flex-direction: row;
@@ -76,6 +84,9 @@
         <div class="col-md-6 right-box">
           <div class="alert alert-success" role="alert">
             <strong>Success!</strong> Klant is succesvol toegevoegd.
+          </div>
+          <div class="alert alert-fail" role="alert">
+            <strong>Failure!</strong> Klant is niet toegevoegd.
           </div>
 
           <div class="row align-items-center text-center">
@@ -216,21 +227,31 @@
           if (response.ok) {
             console.log('Klant is toegevoegd');
             const result = await response.json();
-            showPopup();
+            showSuccessPopup();
             document.getElementById('clientForm').reset();
           } else {
             console.error('Klant niet toegevoegd');
+            showFailPopup();
           }
         } catch (error) {
           console.error('Error:', error);
+          showFailPopup();
         }
       });
 
-      function showPopup() {
+      function showSuccessPopup() {
         const successPopup = document.querySelector('.alert-success');
         successPopup.style.display = 'block';
         setTimeout(() => {
           successPopup.style.display = 'none';
+        }, 3000);
+      }
+
+      function showFailPopup() {
+        const failPopup = document.querySelector('.alert-fail');
+        failPopup.style.display = 'block';
+        setTimeout(() => {
+          failPopup.style.display = 'none';
         }, 3000);
       }
     </script>
