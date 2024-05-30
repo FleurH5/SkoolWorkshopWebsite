@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img src="Images/SKWLogoTransparentWhite.png" alt="Logo" width="55" height="24" class="d-inline-block align-text-top">
+          <img src="./Images/SKWLogoTransparentWhite.png" alt="Logo" width="55" height="24" class="d-inline-block align-text-top">
         </a>
       </div>
     </nav>
@@ -122,20 +122,24 @@
 
       
     <script>
-      const thisForm = document.getElementById('workshopForm');
+      const thisForm = document.getElementById('assignmentForm');
       thisForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         //waardes ophalen
-        const name = document.getElementById('name').value;
-        const category = document.getElementById('category').value;
-        const requirements = document.getElementById('requirements').value;
-        const description = document.getElementById('description').value;
+        const assignmentName = document.getElementById('assignmentName').value;
+        const clientName = document.getElementById('clientName').value;
+        const location = document.getElementById('location').value;
+        const date = document.getElementById('date').value;
+        const startTime= document.getElementById('startTime').value;
+        const notes = document.getElementById('notes').value;
         //object aanmaken
         const formObject = {
-          name: name,
-          category: category,
-          requirements: requirements,
-          description: description
+          assignmentName: assignmentName,
+          clientName: clientName,
+          location: location,
+          date: date,
+          startTime: startTime,
+          notes: notes
         };
         console.log(formObject);
 
@@ -149,14 +153,14 @@
             body: JSON.stringify(formObject)
           });
           if(response.ok){
-            console.log('Workshop toegevoegd');
+            console.log('Opdracht toegevoegd');
             const result = await response.json();
             // Show success popup
             showPopup();
             // Clear form
-            document.getElementById('workshopForm').reset();
+            document.getElementById('assignmentForm').reset();
           } else {
-            console.error('Workshop niet toegevoegd');
+            console.error('Opdracht niet toegevoegd');
           }
         } catch (error) {
           console.error('Error:', error);
