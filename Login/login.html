@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="loginStyle.css" />
-    <link rel="icon" href="../SKWLogoS.jpg" />
+    <link rel="icon" href="./SKWLogoS.jpg" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Login</title>
     <style>
@@ -29,7 +29,7 @@
       <div class="row border rounded-5 p-3 bg-white shadow box-area">
         <div
           class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-          style="background: #3a2d2d"
+          style="background: #000000"
         >
           <div class="featured-image mb-3">
             <img
@@ -100,7 +100,7 @@
 
           try {
             const response = await fetch(
-              "https://skoolworkshopapi.azurewebsites.net/auth/login",
+              "https://skoolworkshopapi. azurewebsites.net/auth/login",
               {
                 method: "POST",
                 headers: {
@@ -115,7 +115,7 @@
               localStorage.setItem("accessToken", data.accessToken);
               // Redirect to the desired page
               window.location.href =
-                "http://127.0.0.1:5500/Adminoverzicht/Admin.html";
+                "http://127.0.0.1:5500/adminDashboard.html";
             } else {
               document.getElementById("error-message").textContent =
                 "Ongeldig emailadres of wachtwoord. Probeer het opnieuw.";
