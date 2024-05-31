@@ -107,16 +107,21 @@
         <label for="notes">Extra Toelichting</label>
         <textarea class="form-control" name="notes" id="notes" rows="3" placeholder="Voer de benodigde extra toelichtingen in indien nodig"></textarea>
       </div>
-      <div class="form-group mb-1">
-        <label for="addWorkshop">Voeg workshop toe</label>
-        <button type="button" class="btn btn-primary" name="addWorkshop" id="addWorkshop" placeholder="Voeg workshop toe">
-      </div>
-      
+      <div class="form-group mb-3" id="new-input-container"></div>
+    <p class="add-new-shareholders-p">
+        <button class="btn btn-primary">Workshops toevoegen +</button>
+    </p>
+      <!-- 
+
+        einde
+
+       -->
       <button type="submit" class="btn btn-primary">Voeg de opdracht toe</button>
     </div>
     </div>
 
-      
+
+    <!-- Add to the database. (for now only the 'opdracht' parts) -->
     <script>
       const thisForm = document.getElementById('assignmentForm');
       thisForm.addEventListener('submit', async function(event) {
@@ -126,7 +131,8 @@
         const clientName = document.getElementById('clientName').value;
         const location = document.getElementById('location').value;
         const date = document.getElementById('date').value;
-        const startTime= document.getElementById('startTime').value;
+        const startTime = document.getElementById('startTime').value;
+        const rounds = documnet.getElementById('rounds').value;
         const notes = document.getElementById('notes').value;
         //object aanmaken
         const formObject = {
@@ -135,6 +141,7 @@
           location: location,
           date: date,
           startTime: startTime,
+          rounds: rounds,
           notes: notes
         };
         console.log(formObject);
@@ -171,6 +178,71 @@
           }, 3000);
         }
     </script>
+
+    <!-- The workshop button clicked. new input fields -->
+    <script>
+      document.querySelector('.btn').addEventListener('click', createNewInputFields);
+      
+      function createNewInputFields() {
+          const container = document.getElementById('new-input-container');
+          const inputHtml = `
+          <div class="form-container mt-5">
+              <div class="content">
+                  <button class="close-btn" onclick="removeForm(this)">X</button>
+                  <p><b>Voeg een workshop toe</b></p>
+                  <form id="workshopInAssignmentForm">
+                      <div class="form-group mb-3">
+                          <label for="workshop">Workshop *</label>
+                          <select required class="form-select" id="workshop">
+                              <option selected>Selecteer een workshop</option>
+                              <option value="dans">#</option>
+                              <option value="beeldendeKunst">#</option>
+                              <option value="media">#</option>
+                              <option value="muziek">#</option>
+                              <option value="sport">#</option>
+                              <option value="theater">#</option>
+                          </select>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-md-6">
+                              <label for="teachersNeeded">Aantal docenten *</label>
+                              <input required type="number" class="form-control" name="teachersNeeded" id="teachersNeeded" placeholder="Voer het aantal nodige docenten in">
+                          </div> 
+                          <div class="form-group col-md-6">
+                              <label for="participants">Aantal deelnemers *</label>
+                              <input required type="number" class="form-control" name="participants" id="participants" placeholder="Voer het aantal deelnemers in">
+                          </div> 
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-md-6">
+                              <label for="grade">Leerjaar</label>
+                              <input type="text" class="form-control" name="grade" id="grade" placeholder="Voer het leerjaar in">
+                          </div> 
+                          <div class="form-group col-md-6">
+                              <label for="level">Niveau</label>
+                              <input type="text" class="form-control" name="level" id="level" placeholder="Voer het niveau in">
+                          </div> 
+                      </div>
+                      <div class="form-group mb-3">
+                          <label for="duration">Duur van de workshop *</label>
+                          <input required type="number" class="form-control" name="duration" id="duration" placeholder="Voer de duur van de in workshop in (in minuten)">
+                      </div>
+                      <div class="form-group mb-3">
+                          <label for="assignedRound">Aangewezen ronde</label>
+                          <input type="text" class="form-control" name="assignedRound" id="assignedRound" placeholder="Voer in in welke ronde deze workshop plaats zal vinden">
+                      </div>
+                  </form>
+              </div>
+          </div>
+          `;
+          container.insertAdjacentHTML('beforeend', inputHtml);
+      }
+
+      function removeForm(button) {
+          button.closest('.form-container').remove();
+      }
+    </script>
+  
 
 
 
