@@ -114,7 +114,8 @@
               const data = await response.json();
               localStorage.setItem("accessToken", data.accessToken);
 
-              const userRole = data.Role; // Assuming the role is returned in the response
+              // Check the user's role and redirect accordingly
+              const userRole = data.role; // Assuming the role is returned in the response
 
               switch (userRole) {
                 case "Admin":
@@ -123,7 +124,7 @@
                   break;
                 case "Docent":
                   window.location.href =
-                    "http://127.0.0.1:5500/Homepage/homepage.html";
+                    "http://127.0.0.1:5500/docentDashboard.html";
                   break;
                 case "Moderator":
                   window.location.href =
