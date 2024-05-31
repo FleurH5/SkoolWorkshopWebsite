@@ -62,10 +62,12 @@ body{
 
 .btn-primary {
     background-color: #F49700;
+    border-color: #F49700;
 }
 
 .btn-primary:hover {
     background-color:#c07805;
+    border-color: #F49700;
     transition: 0.7s;
 }
 
@@ -76,8 +78,7 @@ body{
     flex-direction: column;
 }
 .form-container {
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
     margin: 10px;
     padding: 20px;
     border: 1px solid #ccc;
@@ -86,11 +87,15 @@ body{
 }
 .close-btn {
     float: right;
-    background-color: red;
+    background-color: #F49700;
     color: white;
     border: none;
     border-radius: 50%;
     width: 25px;
     height: 25px;
     cursor: pointer;
+}
+
+.content-extra-box{
+    align-items: center;
 }
