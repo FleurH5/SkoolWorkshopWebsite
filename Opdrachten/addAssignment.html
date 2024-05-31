@@ -42,9 +42,9 @@
             <span class="bi bi-plus-lg"></span> Nieuw
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbardropdown">
-            <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
+            <li><a class="dropdown-item" href="../addWorkshops.html">Workshop</a></li>
             <li><a class="dropdown-item" href="addAssignment.html">Opdracht</a></li>
-            <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
+            <li><a class="dropdown-item" href="../registerClient.html">Klant</a></li>
             <li><a class="dropdown-item" href="#">Docent</a></li>
           </ul>
         </li>
@@ -76,28 +76,32 @@
     <h1>Voeg een opdracht toe</h1>
     <form id="assignmentForm">
       <div class="form-group mb-3">
-        <label for="assignmentName">Naam Opdracht</label>
-        <input type="text" class="form-control" id="assignmentName" name="assignmentName" placeholder="Voer de naam van de opdracht in" required>
+        <label for="assignmentName">Naam Opdracht *</label>
+        <input required type="text" class="form-control" id="assignmentName" name="assignmentName" placeholder="Voer de naam van de opdracht in" required>
       </div>
       <div class="row">
       <div class="form-group col-md-6">
-        <label for="clientName">Naam Klant</label>
-        <input type="text" class="form-control" name="clientName" id="clientName" rows="3" placeholder="Voer de naam van de klant in" required></input>
+        <label for="clientName">Naam Klant *</label>
+        <input required type="text" class="form-control" name="clientName" id="clientName" rows="3" placeholder="Voer de naam van de klant in" required></input>
       </div>
       <div class="form-group col-md-6">
-        <label for="location">Werklocatie</label>
-        <input type="text" class="form-control" name="location" id="location" rows="3" placeholder="Voer de werklocatie in"></input>
+        <label for="location">Werklocatie *</label>
+        <input required type="text" class="form-control" name="location" id="location" rows="3" placeholder="Voer de werklocatie in"></input>
       </div> 
     </div>
     <div class="row">
       <div class="form-group col-md-6">
-        <label for="date">Datum</label>
-        <input type="date" class="form-control" name="date" id="date" rows="3" placeholder="Voer de datum in"></input>
+        <label for="date">Datum *</label>
+        <input required type="date" class="form-control" name="date" id="date" rows="3" placeholder="Voer de datum in"></input>
       </div> 
       <div class="form-group col-md-6">
-        <label for="startTime">Aanvangstijd</label>
-        <input type="time" class="form-control" name="startTime" id="startTime" rows="3" placeholder="Voer de aanvangstijd in"></input>
+        <label for="startTime">Aanvangstijd *</label>
+        <input required type="time" class="form-control" name="startTime" id="startTime" rows="3" placeholder="Voer de aanvangstijd in"></input>
       </div> 
+    </div>
+    <div class="form-group mb-3">
+        <label for="rounds">Aantal rondes *</label>
+        <input required type="number" class="form-control" name="rounds" id="rounds" rows="3" placeholder="Voer het aantal rondes in">
     </div>
       <div class="form-group mb-3">
         <label for="notes">Extra Toelichting</label>
@@ -107,22 +111,6 @@
         <label for="addWorkshop">Voeg workshop toe</label>
         <button class="form-control" name="addWorkshop" id="addWorkshop" placeholder="Voeg workshop toe">
       </div>
-
-      
-      <!-- voor de wokshops die al bestaan -->
-      <!-- <div class="form-group= mb-3">
-        <label for="category">Categorie</label>
-        <select class="form-select" id="category">
-          <option selected>Selecteer een categorie</option>
-          <option value="dans">Dans</option>
-          <option value="beeldendeKunst">Beeldende kunst</option>
-          <option value="media">Media</option>
-          <option value="muziek">Muziek</option>
-          <option value="sport">Sport</option>
-          <option value="theater">Theater</option>
-        </select>
-        </div>
-         -->
       
       <button type="submit" class="btn btn-primary">Voeg toe</button>
     </div>
