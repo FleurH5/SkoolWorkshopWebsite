@@ -59,3 +59,12 @@ body{
 .dropdown-menu .dropdown-item:hover {
     background-color: #ddd;
 }
+
+.btn-primary {
+    background-color: #F49700;
+}
+
+.btn-primary:hover {
+    background-color:#c07805;
+    transition: 0.7s;
+}
