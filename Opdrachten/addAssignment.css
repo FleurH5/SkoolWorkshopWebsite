@@ -68,3 +68,22 @@ body{
     background-color:#c07805;
     transition: 0.7s;
 }
+
+.form-container {
+    position: relative;
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    background: none;
+    border: none;
+}
