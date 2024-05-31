@@ -61,7 +61,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: #3a2d2d;
+        background: black;
         padding: 20px;
       }
       .right-box {
@@ -71,22 +71,34 @@
     <title>Registreer Klant</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./Homepage/homepage.html">
+          <img src="Images/SKWLogoTransparentWhite.png" alt="Logo" width="55" height="24" class="d-inline-block align-text-top">
+          SkoolWorkshop
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="homepage.html">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+
     <!--Main container-->
-    <div
-      class="container d-flex justify-content-center align-items-center min-vh-100"
-    >
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
       <!--Register Container-->
       <div class="row border rounded-5 p-3 bg-white shadow box-area">
         <!-- Left Box-->
-        <div
-          class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-        >
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
           <div class="featured-image mb-3">
-            <img
-              src="./images/Skool_Workshop_Logo_White.png"
-              class="img-fluid"
-              style="width: 250px"
-            />
+            <img src="Images/SKWLogoTransparentWhite.png" class="img-fluid" style="width: 250px" />
           </div>
           <p class="text-white fs-2"></p>
         </div>
@@ -137,6 +149,38 @@
                   />
                 </div>
               </div>
+              
+              <div class="row">
+              <div class="col-md-6 mb-3">
+                <input
+                  id="address"
+                  type="text"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="Adres *"
+                  required
+                />
+              </div>
+
+              
+                <div class="col-md-6 mb-3">
+                <input
+                  id="kvknumber"
+                  type="text"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="KVK-nummer"
+                />
+              </div>
+            </div>
+
+              <div class="input-group mb-3">
+                <input
+                  id="contactperson"
+                  type="text"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="Contactpersoon *"
+                  required
+                />
+              </div>
 
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -157,35 +201,6 @@
                     placeholder="Telefoonnummer"
                   />
                 </div>
-              </div>
-
-              <div class="input-group mb-3">
-                <input
-                  id="contactperson"
-                  type="text"
-                  class="form-control form-control-lg bg-light fs-6"
-                  placeholder="Contactpersoon *"
-                  required
-                />
-              </div>
-
-              <div class="input-group mb-3">
-                <input
-                  id="address"
-                  type="text"
-                  class="form-control form-control-lg bg-light fs-6"
-                  placeholder="Adres *"
-                  required
-                />
-              </div>
-
-              <div class="input-group mb-3">
-                <input
-                  id="kvknumber"
-                  type="text"
-                  class="form-control form-control-lg bg-light fs-6"
-                  placeholder="KVK-nummer"
-                />
               </div>
 
               <div class="input-group mb-3">
