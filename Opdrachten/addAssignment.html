@@ -77,64 +77,6 @@
     </div>
 
 
-    <!-- Add to the database. (for now only the 'opdracht' parts) -->
-    <script>
-      const thisForm = document.getElementById('assignmentForm');
-      thisForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        //waardes ophalen
-        const assignmentName = document.getElementById('assignmentName').value;
-        const clientName = document.getElementById('clientName').value;
-        const location = document.getElementById('location').value;
-        const date = document.getElementById('date').value;
-        const startTime = document.getElementById('startTime').value;
-        const rounds = documnet.getElementById('rounds').value;
-        const notes = document.getElementById('notes').value;
-        //object aanmaken
-        const formObject = {
-          assignmentName: assignmentName,
-          clientName: clientName,
-          location: location,
-          date: date,
-          startTime: startTime,
-          rounds: rounds,
-          notes: notes
-        };
-        console.log(formObject);
-
-        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/assignment/add';
-        try{
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formObject)
-          });
-          if(response.ok){
-            console.log('Opdracht toegevoegd');
-            const result = await response.json();
-            // Show success popup
-            showPopup();
-            // Clear form
-            document.getElementById('assignmentForm').reset();
-          } else {
-            console.error('Opdracht niet toegevoegd');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-        });
-
-        function showPopup() {
-          const successPopup = document.querySelector('.alert-success');
-          successPopup.style.display = 'block';
-          setTimeout(() => {
-            successPopup.style.display = 'none';
-          }, 3000);
-        }
-    </script>
-
     <!-- The workshop button clicked. new input fields -->
     <script>
       document.querySelector('.btn').addEventListener('click', createNewInputFields);
@@ -221,6 +163,63 @@
      <input type="text" class="form-control" name="assignedRound" id="assignedRound" placeholder="Voer in in welke ronde deze workshop plaats zal vinden">
  </div> -->
   
+ <!-- Add to the database. (for now only the 'opdracht' parts) -->
+ <script>
+  const thisForm = document.getElementById('assignmentForm');
+  thisForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    //waardes ophalen
+    const assignmentName = document.getElementById('assignmentName').value;
+    const clientName = document.getElementById('clientName').value;
+    const location = document.getElementById('location').value;
+    const date = document.getElementById('date').value;
+    const startTime = document.getElementById('startTime').value;
+    const rounds = documnet.getElementById('rounds').value;
+    const notes = document.getElementById('notes').value;
+    //object aanmaken
+    const formObject = {
+      assignmentName: assignmentName,
+      clientName: clientName,
+      location: location,
+      date: date,
+      startTime: startTime,
+      rounds: rounds,
+      notes: notes
+    };
+    console.log(formObject);
+
+    const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/assignment/add';
+    try{
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formObject)
+      });
+      if(response.ok){
+        console.log('Opdracht toegevoegd');
+        const result = await response.json();
+        // Show success popup
+        showPopup();
+        // Clear form
+        document.getElementById('assignmentForm').reset();
+      } else {
+        console.error('Opdracht niet toegevoegd');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    });
+
+    function showPopup() {
+      const successPopup = document.querySelector('.alert-success');
+      successPopup.style.display = 'block';
+      setTimeout(() => {
+        successPopup.style.display = 'none';
+      }, 3000);
+    }
+</script>
 
 
 
