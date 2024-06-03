@@ -31,7 +31,7 @@
       <div class="row">
       <div class="form-group col-md-6">
         <label for="client">Klant *</label>
-      <select required class="form-select" name="client" id="client">
+      <select required class="form-select" name="client" id="mySelectedClient">
         <option selected>Selecteer een klant</option>
         <option value="#">#</option>
         <option value="#">#</option>
@@ -162,7 +162,31 @@
        <label for="assignedRound">Aangewezen ronde</label>
      <input type="text" class="form-control" name="assignedRound" id="assignedRound" placeholder="Voer in in welke ronde deze workshop plaats zal vinden">
  </div> -->
-  
+
+
+ <!-- mySelectedClient -->
+<script>
+//fetch options from server
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/all-clients')
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 200) {
+    const select = document.getElementById('mySelectedClient');
+    data.data.forEach(option => {
+      const opt = document.createElement('option');
+    opt.value = option.value;
+    opt.textContent = option.text;
+    select.appendChild(opt)
+    });
+  } else {
+    console.error("Failed to fetch clients:", data.message);
+  }
+  });
+});
+</script>  
+
+
  <!-- Add to the database. (for now only the 'opdracht' parts) -->
  <script>
   const thisForm = document.getElementById('commissionForm');
@@ -242,6 +266,8 @@
       }, 3000);
     }
 </script>
+
+
 
 
 
