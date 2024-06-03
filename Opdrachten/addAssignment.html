@@ -170,20 +170,42 @@
     event.preventDefault();
     //waardes ophalen
     const assignmentName = document.getElementById('assignmentName').value;
-    const clientName = document.getElementById('clientName').value;
-    const location = document.getElementById('location').value;
+    const client = document.getElementById('client').value;
+    const address = document.getElementById('address').value;
     const date = document.getElementById('date').value;
-    const startTime = document.getElementById('startTime').value;
-    const rounds = documnet.getElementById('rounds').value;
     const notes = document.getElementById('notes').value;
+
+    //workshop waardes
+    const workshop = [];
+    document.querySelectorAll('.form-container').forEach(container => {
+      const workshop = container.querySelector('select[name="workshop"]').value;
+      const teachersNeeded = container.querySelector('select[name="teacherNeeded"]').value;
+      const participants = container.querySelector('input[name="participants"]').value;
+          const grade = container.querySelector('input[name="grade"]').value;
+          const level = container.querySelector('select[name="level"]').value;
+          const startTime = container.querySelector('input[name="startTime"]').value;
+          const endTime = container.querySelector('input[name="endTime"]').value;
+          const location = container.querySelector('input[name="location"]').value;
+          const workshopNotes = container.querySelector('textarea[name="workshopNotes"]').value;
+          workshops.push({
+            workshop: workshop,
+            teachersNeeded: teachersNeeded,
+            participants: participants,
+            grade: grade,
+            level: level,
+            startTime: startTime,
+            endTime: endTime,
+            location: location,
+            workshopNotes: workshopNotes
+          });
+          console.log(workshop);
+        });
     //object aanmaken
     const formObject = {
       assignmentName: assignmentName,
-      clientName: clientName,
-      location: location,
+      client: client,
+      address: address,
       date: date,
-      startTime: startTime,
-      rounds: rounds,
       notes: notes
     };
     console.log(formObject);
