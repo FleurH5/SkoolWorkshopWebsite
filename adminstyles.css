@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+.sidenav {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: calc(100% - 50px);
+    width: 200px;
+    background: #333;
+    color: #fff;
+    transition: all 0.3s;
+    padding-top: 20px;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+}
+
+.sidenav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+.navbar{
+    height: 50px;
+}
+.sidenav ul li a{
+    font-size: 0.875rem;
+}
+/* voor dropdown van nieuw */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 100%; 
+    top: 0;
+    margin-top: -10px; 
+    background-color: #f8f9fa;
+    min-width: 200px; 
+}
+.dropdown-menu .dropdown-item {
+    padding: 10px 15px;
+    color: #000;
+    text-decoration: none;
+}
+.dropdown-menu .dropdown-item:hover {
+    background-color: #ddd;
+}
+
+
