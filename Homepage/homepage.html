@@ -30,6 +30,13 @@
         white-space: nowrap;
         margin-bottom: 30px;
       }
+      .custom-panel {
+        border-color: #fd7e14; /* Set the border color to $orange-500 */
+      }
+      .custom-panel .panel-heading {
+        background-color: #fd7e14; /* Set the background color to $orange-500 */
+        color: white; /* Set the text color to white */
+      }
 
       .scrolling-wrapper .panel {
         display: inline-block;
@@ -44,6 +51,42 @@
         bottom: 0;
         width: 100%;
         text-align: center;
+      }
+      .panel-body img {
+        max-height: 160px;
+        width: auto;
+        padding-left: 20px;
+        padding-bottom: 10px;
+      }
+      .custom-modal-dialog {
+        width: 60%;
+      }
+
+      .custom-modal-body {
+        padding-top: 20px;
+      }
+
+      .custom-modal-body img {
+        max-width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .custom-modal-body .row {
+          flex-direction: column-reverse;
+        }
+
+        .col-sm-6 {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        .custom-modal-body img {
+          width: 100%;
+          height: auto;
+          margin-bottom: 20px;
+          display: block;
+          margin: 0 auto;
+        }
       }
     </style>
   </head>
@@ -73,7 +116,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#"
-                ><span class="glyphicon glyphicon-user"></span> Your Account</a
+                ><span class="glyphicon glyphicon-user"></span> Account</a
               >
             </li>
             <li>
@@ -89,67 +132,18 @@
     </nav>
 
     <div class="container">
-      <h2>Today</h2>
-      <div class="scrolling-wrapper">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 1</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <h1>Workshops</h1>
           </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 2</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 3</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
         </div>
       </div>
+      <h2>Vandaag</h2>
+      <div class="scrolling-wrapper" id="today-workshop-container"></div>
 
-      <h2>Tomorrow</h2>
-      <div class="scrolling-wrapper">
+      <h2>Morgen</h2>
+      <div class="scrolling-wrapper" id="tomorrow-workshop-container">
         <div class="panel panel-primary">
           <div class="panel-heading">Workshop 4</div>
           <div class="panel-body">
@@ -163,8 +157,8 @@
         </div>
       </div>
 
-      <h2>20/june/2024</h2>
-      <div class="scrolling-wrapper">
+      <h2>Later</h2>
+      <div class="scrolling-wrapper" id="specific-date-workshop-container">
         <div class="panel panel-primary">
           <div class="panel-heading">Workshop 4</div>
           <div class="panel-body">
@@ -226,5 +220,109 @@
     <footer>
       <p>Skoolworkshop Copyright © 2024</p>
     </footer>
+
+    <script>
+      $(document).ready(function () {
+        console.log("Document ready. Attempting to fetch workshops.");
+        $.get(
+          "https://skoolworkshopapi.azurewebsites.net/workshop/all",
+          function (response) {
+            console.log("API response received:", response);
+            if (response.status === 200) {
+              const workshops = response.data;
+              const todayWorkshopContainer = $("#today-workshop-container");
+
+              workshops.forEach((workshop) => {
+                const panelContent = `
+            <div class="panel panel-primary">
+              <div class="panel-heading ">${workshop.Name}</div>
+              <div class="panel-body">
+                <img src="${
+                  workshop.LinkToPicture
+                }" class="img-responsive" alt="Image" />
+                <p><strong>Category:</strong> ${workshop.Category}</p>
+                <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+                <p><strong>Opdracht:</strong>${" opdracht"} </p>
+                <p><strong>Datum:</strong> ${" datum"}</p>
+              </div>
+              <div class="panel-footer">
+                <button type="button" class="btn btn-danger">Aanmelden</button>
+                <button type="button" class="btn btn-primary btn-details">Details</button>
+              </div>
+            </div>
+          `;
+                todayWorkshopContainer.append(panelContent);
+              });
+            } else {
+              console.error(
+                "Failed to fetch workshops. Status code:",
+                response.status
+              );
+            }
+          }
+        ).fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("Error during API request:", textStatus, errorThrown);
+        });
+      });
+    </script>
+    <div id="workshop-details-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog custom-modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title" id="workshop-name"></h4>
+          </div>
+          <div class="modal-body custom-modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <img
+                  id="workshop-image"
+                  class="img-responsive"
+                  alt="Workshop Image"
+                />
+              </div>
+              <div class="col-sm-6">
+                <div id="workshop-details"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $(document).on("click", ".btn-details", function () {
+          var workshopName = $(this)
+            .closest(".panel")
+            .find(".panel-heading")
+            .text();
+          var workshopDetails = $(this)
+            .closest(".panel")
+            .find(".panel-body")
+            .clone();
+
+          var workshopImage = workshopDetails.find("img");
+
+          workshopImage.remove();
+
+          $("#workshop-name").text(workshopName);
+          $("#workshop-details").html(workshopDetails);
+          $("#workshop-image").attr("src", workshopImage.attr("src"));
+
+          // Voeg CSS toe om de maximale breedte van de afbeelding in te stellen
+          $("#workshop-image").css("max-width", "400px");
+
+          $("#workshop-details-modal").modal("show");
+        });
+      });
+    </script>
   </body>
 </html>

@@ -71,7 +71,8 @@
               <div class="input-group mb-3">
                 <button
                   type="submit"
-                  class="btn rounded-5 btn-lg btn-primary w-100 fs-6"
+                  class="btn rounded-5 btn-lg w-100 fs-6"
+                  style="background-color: #fd7e14; color: white"
                 >
                   Log in
                 </button>
@@ -113,9 +114,30 @@
             if (response.ok) {
               const data = await response.json();
               localStorage.setItem("accessToken", data.accessToken);
-              // Redirect to the desired page
-              window.location.href =
-                "http://127.0.0.1:5500/adminDashboard.html";
+
+              // Check the user's role and redirect accordingly
+              const userRole = data.role; // Assuming the role is returned in the response
+
+              switch (userRole) {
+                case "Admin":
+                  window.location.href =
+                    "http://127.0.0.1:5500/adminDashboard.html";
+                  break;
+                case "Docent":
+                  window.location.href =
+                    "http://127.0.0.1:5500/docentDashboard.html";
+                  break;
+                case "Moderator":
+                  window.location.href =
+                    "http://127.0.0.1:5500/moderatorDashboard.html";
+                  break;
+                default:
+                  console.error("Unknown role:", userRole);
+                  document.getElementById("error-message").textContent =
+                    "Onbekende rol. Neem contact op met de beheerder.";
+                  document.getElementById("error-message").style.display =
+                    "block";
+              }
             } else {
               document.getElementById("error-message").textContent =
                 "Ongeldig emailadres of wachtwoord. Probeer het opnieuw.";
@@ -123,6 +145,9 @@
             }
           } catch (error) {
             console.error("Error:", error);
+            document.getElementById("error-message").textContent =
+              "Er is een fout opgetreden. Probeer het later opnieuw.";
+            document.getElementById("error-message").style.display = "block";
           }
         });
     </script>
