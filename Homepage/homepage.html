@@ -148,11 +148,11 @@
       $(document).ready(function () {
         console.log("Document ready. Attempting to fetch workshops.");
         $.get(
-          "https://skoolworkshopapi.azurewebsites.net/workshop/all",
+          "https://skoolworkshopapi.azurewebsites.net/workshopcommission/all",
           function (response) {
             console.log("API response received:", response);
             if (response.status === 200) {
-              const workshops = response.data;
+              const result = response.data;
               const todayWorkshopContainer = $("#today-workshop-container");
 
               workshops.forEach((workshop) => {
@@ -187,7 +187,33 @@
           console.error("Error during API request:", textStatus, errorThrown);
         });
       });
+    
+      // Function to short date
+      function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+          return text.substring(0, maxLength);
+        }
+        return text;
+      }
+
+      // Modal handling for entire panel click
+      $(document).on("click", ".custom-panel", function () {
+        const workshop = $(this).data("workshop");
+        $("#workshop-name").text(workshop.WorkshopName);
+        $("#workshop-details").html(`
+          <p><strong>Category:</strong> ${workshop.Category}</p>
+          <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+          <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
+          <p><strong>Start tijd:</strong> ${workshop.StartTime.split('T')[1].substring(0, 5)}</p>
+          <p><strong>Eind tijd:</strong> ${workshop.EndTime.split('T')[1].substring(0, 5)}</p>
+          <p><strong>Datum:</strong> ${truncateText(workshop.Date.split('T')[0], 10)}</p>
+          <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
+        `);
+        $("#workshop-image").attr("src", workshop.LinkToPicture);
+        $("#workshop-details-modal").modal("show");
+      });
     </script>
+    
     <div id="workshop-details-modal" class="modal fade" role="dialog">
       <div class="modal-dialog custom-modal-dialog">
         <div class="modal-content">
@@ -219,33 +245,5 @@
         </div>
       </div>
     </div>
-
-    <script>
-      $(document).ready(function () {
-        $(document).on("click", ".btn-details", function () {
-          var workshopName = $(this)
-            .closest(".panel")
-            .find(".panel-heading")
-            .text();
-          var workshopDetails = $(this)
-            .closest(".panel")
-            .find(".panel-body")
-            .clone();
-
-          var workshopImage = workshopDetails.find("img");
-
-          workshopImage.remove();
-
-          $("#workshop-name").text(workshopName);
-          $("#workshop-details").html(workshopDetails);
-          $("#workshop-image").attr("src", workshopImage.attr("src"));
-
-          // Voeg CSS toe om de maximale breedte van de afbeelding in te stellen
-          $("#workshop-image").css("max-width", "400px");
-
-          $("#workshop-details-modal").modal("show");
-        });
-      });
-    </script>
   </body>
 </html>
