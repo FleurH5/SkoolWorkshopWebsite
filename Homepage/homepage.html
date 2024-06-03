@@ -45,6 +45,12 @@
         width: 100%;
         text-align: center;
       }
+      .panel-body img {
+        max-height: 150px;
+        width: auto;
+        padding-left: 20px;
+        padding-bottom: 10px;
+      }
     </style>
   </head>
   <body>
@@ -89,67 +95,57 @@
     </nav>
 
     <div class="container">
-      <h2>Today</h2>
-      <div class="scrolling-wrapper">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 1</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <h1>Workshops</h1>
           </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 2</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 3</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
         </div>
       </div>
+      <h2>Vandaag</h2>
+      <div class="scrolling-wrapper" id="today-workshop-container"></div>
+      <script>
+        $(document).ready(function () {
+          console.log("Document ready. Attempting to fetch workshops.");
+          $.get(
+            "https://skoolworkshopapi.azurewebsites.net/workshop/all",
+            function (response) {
+              console.log("API response received:", response);
+              if (response.status === 200) {
+                const workshops = response.data;
+                const todayWorkshopContainer = $("#today-workshop-container");
 
-      <h2>Tomorrow</h2>
-      <div class="scrolling-wrapper">
+                workshops.forEach((workshop) => {
+                  const panel = `
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">${workshop.Name}</div>
+                        <div class="panel-body">
+                          <img src="${workshop.LinkToPicture}" class="img-responsive" alt="Image" />
+                            <p><strong>Category:</strong> ${workshop.Category}</p>
+                            <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+                        </div>
+                        <div class="panel-footer">
+                       <button type="button" class="btn btn-primary">Aanmelden</button>
+                       <button type="button" class="btn btn-primary">Details</button>
+                       </div>
+                `;
+                  todayWorkshopContainer.append(panel);
+                });
+              } else {
+                console.error(
+                  "Failed to fetch workshops. Status code:",
+                  response.status
+                );
+              }
+            }
+          ).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error("Error during API request:", textStatus, errorThrown);
+          });
+        });
+      </script>
+
+      <h2>Morgen</h2>
+      <div class="scrolling-wrapper" id="tomorrow-workshop-container">
         <div class="panel panel-primary">
           <div class="panel-heading">Workshop 4</div>
           <div class="panel-body">
@@ -163,8 +159,8 @@
         </div>
       </div>
 
-      <h2>20/june/2024</h2>
-      <div class="scrolling-wrapper">
+      <h2>Een datum</h2>
+      <div class="scrolling-wrapper" id="specific-date-workshop-container">
         <div class="panel panel-primary">
           <div class="panel-heading">Workshop 4</div>
           <div class="panel-body">
@@ -226,5 +222,81 @@
     <footer>
       <p>Skoolworkshop Copyright © 2024</p>
     </footer>
+
+    <script>
+      $(document).ready(function () {
+        console.log("Document ready. Attempting to fetch workshops.");
+        $.get(
+          "https://skoolworkshopapi.azurewebsites.net/workshop/all",
+          function (response) {
+            console.log("API response received:", response);
+            if (response.status === 200) {
+              const workshops = response.data;
+
+              // Get tomorrow's date
+              const tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+
+              // Filter workshops for tomorrow
+              const tomorrowWorkshops = workshops.filter((workshop) => {
+                const workshopDate = new Date(workshop.Date);
+                return workshopDate.toDateString() === tomorrow.toDateString();
+              });
+
+              const tomorrowWorkshopContainer = $(
+                "#tomorrow-workshop-container"
+              );
+              tomorrowWorkshops.forEach((workshop) => {
+                const panel = `
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">${workshop.Name}</div>
+                    <div class="panel-body">
+                      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" alt="Image" />
+                      <p><strong>Description:</strong> ${workshop.Description}</p>
+                      <p><strong>Category:</strong> ${workshop.Category}</p>
+                      <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+                    </div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                  </div>
+                `;
+                tomorrowWorkshopContainer.append(panel);
+              });
+
+              // Filter workshops for 20 June 2024
+              const specificDateWorkshops = workshops.filter((workshop) => {
+                const workshopDate = new Date(workshop.Date);
+                return workshopDate.toDateString() === "Fri Jun 20 2024";
+              });
+
+              const specificDateWorkshopContainer = $(
+                "#specific-date-workshop-container"
+              );
+              specificDateWorkshops.forEach((workshop) => {
+                const panel = `
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">${workshop.Name}</div>
+                    <div class="panel-body">
+                      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" alt="Image" />
+                      <p><strong>Description:</strong> ${workshop.Description}</p>
+                      <p><strong>Category:</strong> ${workshop.Category}</p>
+                      <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+                    </div>
+                    <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                  </div>
+                `;
+                specificDateWorkshopContainer.append(panel);
+              });
+            } else {
+              console.error(
+                "Failed to fetch workshops. Status code:",
+                response.status
+              );
+            }
+          }
+        ).fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("Error during API request:", textStatus, errorThrown);
+        });
+      });
+    </script>
   </body>
 </html>
