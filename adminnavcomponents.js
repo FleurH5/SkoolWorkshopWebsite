@@ -24,7 +24,7 @@ class SideNav extends HTMLElement {
             </a>
             <ul class="dropdown-menu" aria-labelledby="sidebardropdown">
               <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
-              <li><a class="dropdown-item" href="#">Opdracht</a></li>
+              <li><a class="dropdown-item" href="./Opdrachten/addAssignment.html">Opdracht</a></li>
               <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
             </ul>
           </li>
