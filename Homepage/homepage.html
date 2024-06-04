@@ -156,19 +156,22 @@
               const todayWorkshopContainer = $("#today-workshop-container");
     
               const currentDate = new Date();
-    
+        
               result.forEach((workshop) => {
                 const workshopDate = new Date(workshop.Date);
-                const workshopStartTime = new Date(workshop.Date.split('T')[0] + 'T' + workshop.StartTime.split('T')[1]);
+                const workshopStartTime = new Date(`${workshop.Date}T${workshop.StartTime}`);
     
                 // Check if the workshop is today
-                const isSameDay = workshopDate.toDateString() === currentDate.toDateString();
+                const isSameDay = 
+                  workshopDate.getDate() === currentDate.getDate() &&
+                  workshopDate.getMonth() === currentDate.getMonth() &&
+                  workshopDate.getFullYear() === currentDate.getFullYear();
     
                 // Check if the workshop start time is later than the current time
                 const isAfterCurrentTime = workshopStartTime > currentDate;
     
                 if (isSameDay && isAfterCurrentTime) {
-                  const truncatedDate = truncateText(workshop.Date.split('T')[0], 10);
+                  const truncatedDate = truncateText(workshop.Date);
                   const panelContent = `
                     <div class="panel custom-panel" data-workshop='${JSON.stringify(workshop)}'>
                       <div class="panel-heading ">${workshop.WorkshopName}</div>
@@ -177,8 +180,8 @@
                         <p><strong>Category:</strong> ${workshop.Category}</p>
                         <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
                         <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
-                        <p><strong>Start tijd:</strong> ${workshop.StartTime.split('T')[1].substring(0, 5)}</p>
-                        <p><strong>Eind tijd:</strong> ${workshop.EndTime.split('T')[1].substring(0, 5)}</p>
+                        <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
+                        <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
                         <p><strong>Datum:</strong> ${truncatedDate}</p>
                         <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
                       </div>
@@ -188,10 +191,7 @@
                 }
               });
             } else {
-              console.error(
-                "Failed to fetch workshops. Status code:",
-                response.status
-              );
+              console.error("Failed to fetch workshops. Status code:", response.status);
             }
           }
         ).fail(function (jqXHR, textStatus, errorThrown) {
@@ -206,7 +206,7 @@
         }
         return text;
       }
-
+    
       // Modal handling for entire panel click
       $(document).on("click", ".custom-panel", function () {
         const workshop = $(this).data("workshop");
@@ -223,7 +223,7 @@
         $("#workshop-image").attr("src", workshop.LinkToPicture);
         $("#workshop-details-modal").modal("show");
       });
-    </script>
+    </script>    
     
     <div id="workshop-details-modal" class="modal fade" role="dialog">
       <div class="modal-dialog custom-modal-dialog">
