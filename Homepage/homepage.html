@@ -101,7 +101,7 @@
                   workshopDate.getFullYear() === currentDate.getFullYear();
                   
                 const isTomorrow = 
-                  workshopDate.getDate() === currentDate.getDate() + 1&&
+                  workshopDate.getDate() === currentDate.getDate() + 1 &&
                   workshopDate.getMonth() === currentDate.getMonth() &&
                   workshopDate.getFullYear() === currentDate.getFullYear();
     
@@ -143,7 +143,7 @@
       });
     
       // Function to short date
-      function truncateText(text, maxLength) {
+      function truncateText(text, maxLength = 10) {
         if (text.length > maxLength) {
           return text.substring(0, maxLength);
         }
@@ -158,9 +158,9 @@
           <p><strong>Category:</strong> ${workshop.Category}</p>
           <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
           <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
-          <p><strong>Start tijd:</strong> ${workshop.StartTime.split('T')[1].substring(0, 5)}</p>
-          <p><strong>Eind tijd:</strong> ${workshop.EndTime.split('T')[1].substring(0, 5)}</p>
-          <p><strong>Datum:</strong> ${truncateText(workshop.Date.split('T')[0], 10)}</p>
+          <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
+          <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
+          <p><strong>Datum:</strong> ${workshop.Date}</p>
           <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
         `);
         $("#workshop-image").attr("src", workshop.LinkToPicture);
