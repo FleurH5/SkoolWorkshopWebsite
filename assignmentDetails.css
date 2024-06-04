@@ -48,6 +48,7 @@ footer {
   .btn {
     background-color: #F49700;
     border-color: #F49700;
+    margin: 2px;
 }
 
 .btn:hover {

@@ -69,12 +69,12 @@
       </div>
 
       <!-- extra info commission -->
-      <button
+      <button style="padding: 2px;"
         type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#commissionModal"
-      ></button>
+      >meer</button>
 
       <div
         class="modal fade"
@@ -140,6 +140,7 @@
               //voor elke workshop wordt deze code uitgevoerd
               const hours = calculateWorkedHours(workshop);
                 const totalPrice = calculateTotalPrice(workshop);
+                const salaryPerHour = workshop.Users[0].SalaryPerHourInEuro || 0;
 
 
               const workshopCard = document.createElement("div");
@@ -205,8 +206,8 @@
                             <div class="card card-body">
                                 <h5>Opbrengst</h5>
                                 <p> <span>${hours.toFixed(2)}</span> uur</p>
-                                <p>x euro per uur</p>
-                                <p>Totaal</p>
+                                <p>€${salaryPerHour} per uur</p>
+                                <p>Totaal:</p>
                                 <p>€${totalPrice}</p>
                             </div>
                         </div>
@@ -229,11 +230,16 @@
 
       function calculateTotalPrice(workshop) {
         const workedHours = calculateWorkedHours(workshop);
-        const pricePerHour = 20;
-        // salaris van user moet nog in route komen
-        return workedHours * pricePerHour;
-
-      }
+        let salaryPerHour = 0;
+        if(workshop.Users.length > 0 && workshop.Users[0].SalaryPerHourInEuro) {
+          salaryPerHour = workshop.Users[0].SalaryPerHourInEuro;
+        }
+        let totalPrice = workedHours * salaryPerHour;
+        if (totalPrice < 100) {
+          totalPrice = 100;
+        }
+        return totalPrice;
+    }
     </script>
   </body>
 </html>
