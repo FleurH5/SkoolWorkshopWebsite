@@ -30,13 +30,13 @@
       </div>
       <div class="row">
       <div class="form-group col-md-6">
-        <label for="client">Klant *</label>
-      <select required class="form-select" name="client" id="mySelectedClient">
+        <label for="mySelectedClient">Klant *</label>
+      <select required class="form-select" name="mySelectedClient" id="mySelectedClient">
         <option selected>Selecteer een klant</option>
-        <option value="#">#</option>
-        <option value="#">#</option>
-        <option value="#">#</option>
-        <option value="#">#</option>
+        <option value="1">AVANS</option>
+        <option value="2">Basisschool De Regenboog</option>
+        <!-- <option value="#">#</option>
+        <option value="#">#</option> -->
       </select> 
     </div>
     <!-- doe deze automatisch als een klant geselecteerd is -->
@@ -93,12 +93,10 @@
                           <label for="workshop">Workshop *</label>
                           <select required class="form-select" id="workshop">
                               <option selected>Selecteer een workshop</option>
-                              <option value="dans">#</option>
-                              <option value="beeldendeKunst">#</option>
-                              <option value="media">#</option>
-                              <option value="muziek">#</option>
-                              <option value="sport">#</option>
-                              <option value="theater">#</option>
+                              <option value="w1">Vloggen</option>
+                              <option value="w2">Openbaar Spreken</option>
+                              <option value="w3">Python Programmeren</option>
+                              <option value="w4">Java Programmeren</option>
                           </select>
                       </div>
                       <div class="row">
@@ -167,23 +165,22 @@
  <!-- mySelectedClient -->
 <script>
 //fetch options from server
-document.addEventListener('DOMContentLoaded', function() {
-  fetch('/all-clients')
+   fetch('/all-clients')
   .then(response => response.json())
   .then(data => {
-    if (data.status === 200) {
+    try {
     const select = document.getElementById('mySelectedClient');
-    data.data.forEach(option => {
-      const opt = document.createElement('option');
-    opt.value = option.value;
-    opt.textContent = option.text;
-    select.appendChild(opt)
+    data.forEach(item => {
+      const option = document.createElement('option');
+    option.value = item.value;
+    option.textContent = item.text;
+    select.appendChild(option)
     });
-  } else {
-    console.error("Failed to fetch clients:", data.message);
+  }catch {
+    console.error('Error:', error);
   }
   });
-});
+    
 </script>  
 
 
