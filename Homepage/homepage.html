@@ -154,27 +154,38 @@
             if (response.status === 200) {
               const result = response.data;
               const todayWorkshopContainer = $("#today-workshop-container");
-
-              workshops.forEach((workshop) => {
-                const panelContent = `
-            <div class="panel panel-primary">
-              <div class="panel-heading ">${workshop.Name}</div>
-              <div class="panel-body">
-                <img src="${
-                  workshop.LinkToPicture
-                }" class="img-responsive" alt="Image" />
-                <p><strong>Category:</strong> ${workshop.Category}</p>
-                <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
-                <p><strong>Opdracht:</strong>${" opdracht"} </p>
-                <p><strong>Datum:</strong> ${" datum"}</p>
-              </div>
-              <div class="panel-footer">
-                <button type="button" class="btn btn-danger">Aanmelden</button>
-                <button type="button" class="btn btn-primary btn-details">Details</button>
-              </div>
-            </div>
-          `;
-                todayWorkshopContainer.append(panelContent);
+    
+              const currentDate = new Date();
+    
+              result.forEach((workshop) => {
+                const workshopDate = new Date(workshop.Date);
+                const workshopStartTime = new Date(workshop.Date.split('T')[0] + 'T' + workshop.StartTime.split('T')[1]);
+    
+                // Check if the workshop is today
+                const isSameDay = workshopDate.toDateString() === currentDate.toDateString();
+    
+                // Check if the workshop start time is later than the current time
+                const isAfterCurrentTime = workshopStartTime > currentDate;
+    
+                if (isSameDay && isAfterCurrentTime) {
+                  const truncatedDate = truncateText(workshop.Date.split('T')[0], 10);
+                  const panelContent = `
+                    <div class="panel custom-panel" data-workshop='${JSON.stringify(workshop)}'>
+                      <div class="panel-heading ">${workshop.WorkshopName}</div>
+                      <div class="panel-body">
+                        <img src="${workshop.LinkToPicture}" class="img-responsive" alt="Image" />
+                        <p><strong>Category:</strong> ${workshop.Category}</p>
+                        <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+                        <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
+                        <p><strong>Start tijd:</strong> ${workshop.StartTime.split('T')[1].substring(0, 5)}</p>
+                        <p><strong>Eind tijd:</strong> ${workshop.EndTime.split('T')[1].substring(0, 5)}</p>
+                        <p><strong>Datum:</strong> ${truncatedDate}</p>
+                        <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
+                      </div>
+                    </div>
+                  `;
+                  todayWorkshopContainer.append(panelContent);
+                }
               });
             } else {
               console.error(
