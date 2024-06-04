@@ -5,7 +5,7 @@ body{
 }
 .card {
     margin-bottom: 1rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .card-header {
     background-color: #007bff;
@@ -42,3 +42,36 @@ footer {
     padding: 10px;
     height: auto;
   }
+  p { margin: 4px; }
+  h5 { margin: 4px; }
+
+  .btn {
+    background-color: #F49700;
+    border-color: #F49700;
+}
+
+.btn:hover {
+    background-color:#c07805;
+    border-color: #F49700;
+    transition: 0.7s;
+}
+.card-header {
+    background-color: #F49700;
+    color: #030202;
+    font-size: 20px;
+    font-weight: 500;
+}
+body{
+    background-color: #FCE7CC;
+}
+
+.headeritem{
+    display: inline-block;
+    margin-right: 5px;
+}
+.modal-header{
+    background-color: #F49700;
+    color: #030202;
+    font-size: 20px;
+    font-weight: 500;
+}
