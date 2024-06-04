@@ -72,29 +72,38 @@
 
   <div class="container mt-5">
     <div class="content">
-      <h3>Selecteer het template dat u wilt veranderen</h3>
 
+     
+      <h3>Selecteer het template dat u wilt veranderen</h3>
+      <form id="templateForm">
       <div class="dropdown">
         <a class="btn btn-secondary dropdown-toggle" href="#" id="templateDropdown" role="button"
           data-bs-toggle="dropdown" aria-expanded="false">
           <span class="bi bi-plus-lg"></span> Selecteer
         </a>
         <ul class="dropdown-menu" aria-labelledby="templateDropdown">
-          <li><a class="dropdown-item" href="#" data-template="Bedankt">Registratie</a></li>
-          <li><a class="dropdown-item" href="#">Beschikbaarheid ontvangen</a></li>
-          <li><a class="dropdown-item" href="registerClient.html">Beschikbaarheid geweigerd</a></li>
-          <li><a class="dropdown-item" href="#">Beschikbaarheid aanvragen</a></li>
-          <li><a class="dropdown-item" href="#">Bevestiging aanmelding</a></li>
-          <li><a class="dropdown-item" href="#">Annulering bevestiging</a></li>
-          <li><a class="dropdown-item" href="?templateName=BackupList" data-template="BackupList">Backuplijst</a></li>
+          <li><a class="dropdown-item" href="#" data-template="RegistrationConfirmation">Registratie</a></li>
+          <li><a class="dropdown-item" href="#" data-template="AvailabilityConfirmation">Beschikbaarheid ontvangen</a>
+          </li>
+          <li><a class="dropdown-item" href="#" data-template="AvailabilityRejection">Beschikbaarheid geweigerd</a></li>
+          <li><a class="dropdown-item" href="#" data-template="AvailabilityRequest">Beschikbaarheid aanvragen</a></li>
+          <li><a class="dropdown-item" href="#" data-template="Approval">Bevestiging aanmelding</a></li>
+          <li><a class="dropdown-item" href="#" data-template="Cancellation">Annulering bevestiging</a></li>
+          <li><a class="dropdown-item" href="#" data-template="BackupList">Backuplijst</a></li>
         </ul>
       </div>
 
 
       <div class="mt-3">
         <label for="templateContent" class="form-label">Inhoud:</label>
-        <textarea class="form-control" id="templateContent" rows="20"></textarea>
+        <textarea class="form-control" id="templateContent" rows="15"></textarea>
+
+
       </div>
+      <div class="mt-4">
+        <button type="submit" class="btn btn-secondary">Bevestigen</button>
+      </div>
+
 
     </div>
 
@@ -102,48 +111,106 @@
   </div>
 
   <script>
+
+    let template;
     document.addEventListener("DOMContentLoaded", function () {
-    const dropdownItems = document.querySelectorAll('.dropdown-item');
-    const templateContent = document.getElementById('templateContent');
+      const dropdownItems = document.querySelectorAll('.dropdown-item');
 
-    dropdownItems.forEach(item => {
+      const templateContent = document.getElementById('templateContent');
+
+      dropdownItems.forEach(item => {
         item.addEventListener('click', function (e) {
-            e.preventDefault();
-            const template = this.getAttribute('data-template'); // Extract templateName from href
-            console.log(template);
-            fetchTemplateContent(template);
+          e.preventDefault();
+          template = this.getAttribute('data-template'); // Extract templateName from href
+          console.log(template);
+          fetchTemplateContent(template);
         });
-    });
+      });
 
-    function fetchTemplateContent(template) {
-        const url = `http://skoolworkshopapi.azurewebsites.net/email/templates?templateName=${template}`;
+      function fetchTemplateContent(template) {
+        const url = `https://skoolworkshopapi.azurewebsites.net/email/templates?templateName=${template}`;
 
         fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
         })
-        .then(response => {
+          .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+              throw new Error('Network response was not ok');
             }
             return response.json();
-        })
-        .then(data => {
+          })
+          .then(data => {
             if (data.status === 200) {
-                const templateContentValue = data.data;
-                // Assuming templateContent is the ID of your text field
-                templateContent.value = templateContentValue;
+              const templateContentValue = data.data;
+              // Assuming templateContent is the ID of your text field
+              templateContent.value = templateContentValue;
             } else {
-                console.error(data.error);
+              console.error(data.error);
             }
-        })
-        .catch(error => {
+          })
+          .catch(error => {
             console.error('Error fetching template content:', error);
+          });
+      }
+    });
+
+  </script>
+
+
+  <script>
+
+    const thisForm = document.getElementById('templateForm');
+    thisForm.addEventListener('submit', async function (event) {
+
+      event.preventDefault();
+      console.log(template);
+      //waardes ophalen
+      const templateNameValue = template;
+      const contents = document.getElementById('templateContent').value;
+
+      //object aanmaken
+      const formObject = {
+        templateName: templateNameValue,
+        content: contents
+      };
+
+      console.log(formObject);
+      console.log(contents);
+
+      const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/email/templates'
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formObject)
+          
         });
-    }
-});
+        console.log(formObject);
+
+        
+        if (response.ok) {
+          console.log("Template updated successfully")
+          const result = await response.json();
+        } else {
+          console.error('Failed to update template')
+        }
+      } catch (error) {
+        console.error('Error', error);
+      }
+    })
+
+
+  </script>
+
+  <script>
+
+    const templateContent = document.getElementById('templateContent');
 
   </script>
 
