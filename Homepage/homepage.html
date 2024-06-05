@@ -195,9 +195,36 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">
               Close
             </button>
+
+            
           </div>
+          
         </div>
+        
       </div>
+      <footer>
+        <p>Skoolworkshop Copyright © 2024</p>
+      </footer>
+    
+      <script>
+        $(document).ready(function(){
+          $(window).scroll(function() {
+            // Calculate the distance scrolled from the top of the page
+            var scrollDistance = $(document).height() - $(window).height() - $(window).scrollTop();
+            
+            // If the user is close to the bottom of the page, show the footer
+            if (scrollDistance < 50) {
+              $("footer").fadeIn();
+            } else {
+              $("footer").fadeOut();
+            }
+          });
+        });
+      </script>
+     
+      
     </div>
+
+    
   </body>
 </html>
