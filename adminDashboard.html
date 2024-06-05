@@ -68,6 +68,11 @@
             localStorage.removeItem("accessToken");
             window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina in het geval van een fout
           });
+
+        // Verwijder de token uit de localStorage bij het sluiten van het tabblad
+        window.addEventListener("beforeunload", function (e) {
+          localStorage.removeItem("accessToken");
+        });
       });
     </script>
   </body>
