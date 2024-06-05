@@ -45,7 +45,7 @@
           </div> 
           <div class="form-group mb-3">
             <label for="notes">Extra Toelichting</label>
-            <textarea class="form-control" name="notes" id="notes" rows="3" placeholder="Voer de benodigde extra toelichtingen in indien nodig"></textarea>
+            <textarea class="form-control" name="notes" id="notes" rows="3" placeholder="Voer de benodigde extra toelichtingen in, indien nodig"></textarea>
           </div>
           <div class="form-group mb-3" id="new-input-container"></div>
           <p class="add-new-shareholders-p">
@@ -140,7 +140,7 @@
                 <div class="form-group md-3">Duur van de workshop: X minuten</div><br>
                 <div class="form-group md-3">
                   <label for="location">Werklocatie</label>
-                  <input type="text" class="form-control" name="location" placeholder="Werklocatie, indien anders dan adres"></input>
+                  <input type="text" class="form-control" name="location" placeholder="Werklocatie, indien afwijkend"></input>
                 </div>
                 <div class="form-group md-3">
                   <label for="workshopNotes">Notities</label>
@@ -236,6 +236,46 @@
           successPopup.style.display = 'none';
         }, 3000);
       }
+
+      // Fetch client address when a client is selected
+      document.getElementById('mySelectedClient').addEventListener('change', function() {
+        const clientName = this.value;
+        if (clientName !== 'Selecteer een klant') {
+          fetchClientAddress(clientName);
+        }
+      });
+
+      function fetchClientAddress(clientName) {
+        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/client/address';
+        const requestData = {
+            clientname: clientName
+        };
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 200 && data.data.length > 0) {
+                const address = data.data[0].Address;
+                document.getElementById('address').value = address;
+                document.querySelectorAll('input[name="location"]').forEach(input => {
+                    if (input.closest('.form-container')) {
+                        input.value = address;
+                    }
+                });
+            } else {
+                console.error('No address found for client');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching client address:', error);
+        });
+    }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
