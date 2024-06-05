@@ -236,6 +236,46 @@
           successPopup.style.display = 'none';
         }, 3000);
       }
+
+      // Fetch client address when a client is selected
+      document.getElementById('mySelectedClient').addEventListener('change', function() {
+        const clientName = this.value;
+        if (clientName !== 'Selecteer een klant') {
+          fetchClientAddress(clientName);
+        }
+      });
+
+      function fetchClientAddress(clientName) {
+        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/client/address';
+        const requestData = {
+            clientname: clientName
+        };
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 200 && data.data.length > 0) {
+                const address = data.data[0].Address;
+                document.getElementById('address').value = address;
+                document.querySelectorAll('input[name="location"]').forEach(input => {
+                    if (input.closest('.form-container')) {
+                        input.value = address;
+                    }
+                });
+            } else {
+                console.error('No address found for client');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching client address:', error);
+        });
+    }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
