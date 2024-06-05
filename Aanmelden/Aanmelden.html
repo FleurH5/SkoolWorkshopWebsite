@@ -25,9 +25,34 @@
         border: 1px solid red;
         background-color: #ffcccc;
       }
+
       .form-check {
-  margin-bottom: 10px; /* Voeg wat ruimte toe tussen de radio-opties */
-}
+        margin-bottom: 10px;
+      }
+
+      .row.border.rounded-5 {
+        height: auto;
+      }
+
+      .right-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      #kvkField {
+        display: none;
+      }
+
+      .input-group.mb-3 {
+        margin-bottom: 1.5rem;
+      }
+
+      @media (max-width: 768px) {
+        #kvkField {
+          margin-top: 1rem;
+        }
+      }
     </style>
     <title>Registratie</title>
   </head>
@@ -37,17 +62,17 @@
       class="container padded-container d-flex justify-content-center align-items-center min-vh-100"
     >
       <!-- Registratiecontainer -->
-      <div class="row border rounded-5 p-3 bg-white shadow box-area">
+      <div class="row border rounded-5 p-3 bg-white shadow box-area w-100">
         <!-- Linker box -->
         <div
           class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-          style="background: #3a2d2d"
+          style="background: #000000"
         >
           <div class="featured-image mb-3">
             <img
               src="../Login/Skool_Workshop_Logo_White.png"
               class="img-fluid"
-              style="width: 350px"
+              style="width: 300px"
             />
           </div>
         </div>
@@ -70,7 +95,9 @@
                     value="zzp"
                     required
                   />
-                  <label class="form-check-label" for="docentZZP">Docent ZZP</label>
+                  <label class="form-check-label" for="docentZZP"
+                    >Docent ZZP</label
+                  >
                 </div>
                 <div class="form-check">
                   <input
@@ -84,8 +111,6 @@
                   <label class="form-check-label" for="docentFlex">Flex</label>
                 </div>
               </div>
-            </form>
-
               <div class="input-group mb-3">
                 <input
                   type="text"
@@ -116,25 +141,26 @@
                   required
                 />
               </div>
-              <div class="input-group mb-3">
-                <input
-                  type="tel"
-                  id="telefoonnummer"
-                  class="form-control form-control-lg"
-                  placeholder="Telefoonnummer*"
-                  name="telefoonnummer"
-                  required
-                />
-              </div>
-
-              <div class="input-group mb-3" id="kvkField">
-                <input
-                  type="text"
-                  id="kvknummer"
-                  class="form-control form-control-lg"
-                  placeholder="(KvK) nummer*"
-                  name="kvknummer"
-                />
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <input
+                    type="tel"
+                    id="telefoonnummer"
+                    class="form-control form-control-lg"
+                    placeholder="Telefoonnummer*"
+                    name="telefoonnummer"
+                    required
+                  />
+                </div>
+                <div class="col-md-6" id="kvkField">
+                  <input
+                    type="text"
+                    id="kvknummer"
+                    class="form-control form-control-lg"
+                    placeholder="(KvK) nummer*"
+                    name="kvknummer"
+                  />
+                </div>
               </div>
               <div class="input-group mb-3">
                 <input
@@ -169,7 +195,8 @@
               <div class="input-group mb-3">
                 <button
                   type="submit"
-                  class="btn rounded-5 btn-lg btn-primary w-100 fs-6"
+                  class="btn rounded-5 btn-lg w-100 fs-6"
+                  style="background-color: #fd7e14; color: white"
                 >
                   Registreren
                 </button>
@@ -195,7 +222,7 @@
 
         zzpRadio.addEventListener("change", function () {
           if (zzpRadio.checked) {
-            kvkField.style.display = "";
+            kvkField.style.display = "block";
           }
         });
 

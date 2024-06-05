@@ -12,43 +12,9 @@
     <link rel="icon" href="../Login/SKWLogoS.jpg" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-      .navbar {
-        margin-bottom: 50px;
-        border-radius: 0;
-      }
-
-      .custom-img-size {
-        width: 200px;
-        padding: 10px;
-        height: auto;
-      }
-
-      /*horizontal scroll*/
-      .scrolling-wrapper {
-        overflow-x: auto;
-        white-space: nowrap;
-        margin-bottom: 30px;
-      }
-
-      .scrolling-wrapper .panel {
-        display: inline-block;
-        width: 300px;
-        margin-right: 10px;
-      }
-
-      footer {
-        background-color: #f8f8f8;
-        padding: 25px;
-        position: relative;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-      }
-    </style>
   </head>
   <body>
-    <nav class="navbar navbar-inverse" style="background: #3a2d2d">
+    <nav class="navbar navbar-inverse" style="background: #000000">
       <div class="container-fluid">
         <div class="navbar-header">
           <button
@@ -73,7 +39,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#"
-                ><span class="glyphicon glyphicon-user"></span> Your Account</a
+                ><span class="glyphicon glyphicon-user"></span> Account</a
               >
             </li>
             <li>
@@ -89,142 +55,149 @@
     </nav>
 
     <div class="container">
-      <h2>Today</h2>
-      <div class="scrolling-wrapper">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 1</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <h1>Workshops</h1>
           </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 2</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 3</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
         </div>
       </div>
+      <h2>Vandaag</h2>
+      <div class="scrolling-wrapper" id="today-workshop-container"></div>
 
-      <h2>Tomorrow</h2>
-      <div class="scrolling-wrapper">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 4</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-      </div>
+      <h2>Morgen</h2>
+      <div class="scrolling-wrapper" id="tomorrow-workshop-container"></div>
 
-      <h2>20/june/2024</h2>
-      <div class="scrolling-wrapper">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 4</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 6</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">Workshop 5</div>
-          <div class="panel-body">
-            <img
-              src="https://placehold.it/150x80?text=IMAGE"
-              class="img-responsive"
-              alt="Image"
-            />
-          </div>
-          <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-        </div>
-      </div>
-    </div>
+      <h2>Later</h2>
+      <div class="scrolling-wrapper" id="specific-date-workshop-container"></div>
 
     <footer>
       <p>Skoolworkshop Copyright © 2024</p>
     </footer>
+
+    <script>
+      $(document).ready(function () {
+        console.log("Document ready. Attempting to fetch workshops.");
+        $.get(
+          "https://skoolworkshopapi.azurewebsites.net/workshopcommission/all",
+          function (response) {
+            console.log("API response received:", response);
+            if (response.status === 200) {
+              const result = response.data;
+              const todayWorkshopContainer = $("#today-workshop-container");
+              const tomorrowWorkshopContainer = $("#tomorrow-workshop-container");
+              const specificWorkshopContainer = $("#specific-date-workshop-container");
+    
+              const currentDate = new Date();
+        
+              result.forEach((workshop) => {
+                const workshopDate = new Date(workshop.Date);
+                const workshopStartTime = new Date(`${workshop.Date}T${workshop.StartTime}`);
+    
+                // Check if the workshop is today
+                const isSameDay = 
+                  workshopDate.getDate() === currentDate.getDate() &&
+                  workshopDate.getMonth() === currentDate.getMonth() &&
+                  workshopDate.getFullYear() === currentDate.getFullYear();
+                  
+                const isTomorrow = 
+                  workshopDate.getDate() === currentDate.getDate() + 1 &&
+                  workshopDate.getMonth() === currentDate.getMonth() &&
+                  workshopDate.getFullYear() === currentDate.getFullYear();
+    
+                // Check if the workshop start time is later than the current time
+                const isAfterCurrentTime = workshopStartTime > currentDate;
+    
+                const truncatedDate = truncateText(workshop.Date);
+                const panelContent = `
+                  <div class="panel custom-panel" data-workshop='${JSON.stringify(workshop)}'>
+                    <div class="panel-heading ">${workshop.WorkshopName}</div>
+                    <div class="panel-body">
+                      <img src="${workshop.LinkToPicture}" class="img-responsive" alt="Image" />
+                      <p><strong>Category:</strong> ${workshop.Category}</p>
+                      <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+                      <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
+                      <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
+                      <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
+                      <p><strong>Datum:</strong> ${truncatedDate}</p>
+                      <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
+                      </div>
+                      </div>
+                      `;
+
+                if (isSameDay && isAfterCurrentTime) {
+                  todayWorkshopContainer.append(panelContent);
+                } else if (isTomorrow) {
+                  tomorrowWorkshopContainer.append(panelContent)
+                } else if (workshopDate.getDate() > currentDate.getDate()) {
+                  specificWorkshopContainer.append(panelContent)
+                }
+              });
+            } else {
+              console.error("Failed to fetch workshops. Status code:", response.status);
+            }
+          }
+        ).fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("Error during API request:", textStatus, errorThrown);
+        });
+      });
+    
+      // Function to short date
+      function truncateText(text, maxLength = 10) {
+        if (text.length > maxLength) {
+          return text.substring(0, maxLength);
+        }
+        return text;
+      }
+    
+      // Modal handling for entire panel click
+      $(document).on("click", ".custom-panel", function () {
+        const workshop = $(this).data("workshop");
+        $("#workshop-name").text(workshop.WorkshopName);
+        $("#workshop-details").html(`
+          <p><strong>Category:</strong> ${workshop.Category}</p>
+          <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+          <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
+          <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
+          <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
+          <p><strong>Datum:</strong> ${workshop.Date}</p>
+          <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
+        `);
+        $("#workshop-image").attr("src", workshop.LinkToPicture);
+        $("#workshop-details-modal").modal("show");
+      });
+    </script>    
+    
+    <div id="workshop-details-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog custom-modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title" id="workshop-name"></h4>
+          </div>
+          <div class="modal-body custom-modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <img
+                  id="workshop-image"
+                  class="img-responsive"
+                  alt="Workshop Image"
+                />
+              </div>
+              <div class="col-sm-6">
+                <div id="workshop-details"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
