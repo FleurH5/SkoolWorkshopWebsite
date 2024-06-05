@@ -120,7 +120,7 @@
                       <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
                       <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
                       <p><strong>Datum:</strong> ${truncatedDate}</p>
-                      <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
+                      <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '..'}</p>
                       </div>
                       </div>
                       `;
@@ -161,7 +161,7 @@
           <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
           <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
           <p><strong>Datum:</strong> ${workshop.Date}</p>
-          <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
+          <p><strong>Location:</strong> ${workshop.Location}</p>
         `);
         $("#workshop-image").attr("src", workshop.LinkToPicture);
         $("#workshop-details-modal").modal("show");
