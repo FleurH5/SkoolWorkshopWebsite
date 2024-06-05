@@ -15,7 +15,7 @@
     <!-- de links werken niet omdat ze niet allemaal in hetzelfde mapje zitten -->
   
     <!-- popup -->
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success" role="alert" style="display: none;">
       <strong>Succes!</strong> Opdracht is succesvol toegevoegd.
     </div>
     <div class="container mt-5">
@@ -95,7 +95,7 @@
             <div class="content-extra-box">
               <button type="button" class="close-btn" onclick="removeForm(this)">X</button>
               <p><b>Voeg een workshop toe</b></p>
-              <form id="workshopIncommissionForm" class="set-center">
+              <div class="set-center">
                 <div class="form-group mb-3">
                   <label for="workshop">Workshop *</label>
                   <select required class="form-select" name="workshop">
@@ -146,7 +146,7 @@
                   <label for="workshopNotes">Notities</label>
                   <textarea class="form-control" name="workshopNotes" placeholder="Voer notities in"></textarea>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         `;
@@ -158,84 +158,86 @@
       }
 
       // Add to the database (for now only the 'opdracht' parts)
-      const thisForm = document.getElementById('commissionForm');
-      thisForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        // Values
-        const commissionName = document.getElementById('commissionName').value;
-        const client = document.getElementById('mySelectedClient').value;
-        const address = document.getElementById('address').value;
-        const date = document.getElementById('date').value;
-        const notes = document.getElementById('notes').value;
+  document.getElementById('commissionForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  
+  // Values
+  const commissionName = document.getElementById('commissionName').value;
+  const clientName = document.getElementById('mySelectedClient').value;
+  const address = document.getElementById('address').value;
+  const date = document.getElementById('date').value;
+  const commissionNotes = document.getElementById('notes').value;
 
-        // Workshop values
-        const workshops = [];
-        document.querySelectorAll('.form-container').forEach(container => {
-          const workshop = container.querySelector('select[name="workshop"]').value;
-          const teachersNeeded = container.querySelector('input[name="teachersNeeded"]').value;
-          const participants = container.querySelector('input[name="participants"]').value;
-          const grade = container.querySelector('input[name="grade"]').value;
-          const level = container.querySelector('select[name="level"]').value;
-          const startTime = container.querySelector('input[name="startTime"]').value;
-          const endTime = container.querySelector('input[name="endTime"]').value;
-          const location = container.querySelector('input[name="location"]').value;
-          const workshopNotes = container.querySelector('textarea[name="workshopNotes"]').value;
-          workshops.push({
-            workshop: workshop,
-            teachersNeeded: teachersNeeded,
-            participants: participants,
-            grade: grade,
-            level: level,
-            startTime: startTime,
-            endTime: endTime,
-            location: location,
-            workshopNotes: workshopNotes
-          });
-        });
+  // Workshop values
+  const workshops = [];
+  document.querySelectorAll('.form-container').forEach(container => {
+    const workshopName = container.querySelector('select[name="workshop"]').value;
+    const maxUsers = container.querySelector('input[name="teachersNeeded"]').value;
+    const numberOfParticipants = container.querySelector('input[name="participants"]').value;
+    const targetGroup = container.querySelector('input[name="grade"]').value;
+    const level = container.querySelector('select[name="level"]').value;
+    const startTime = container.querySelector('input[name="startTime"]').value;
+    const endTime = container.querySelector('input[name="endTime"]').value;
+    const location = container.querySelector('input[name="location"]').value;
+    const workshopNotes = container.querySelector('textarea[name="workshopNotes"]').value;
+    workshops.push({
+      workshopname: workshopName,
+      maxusers: maxUsers,
+      numberofparticipents: numberOfParticipants,
+      targetgroup: targetGroup,
+      level: level,
+      starttime: startTime,
+      endtime: endTime,
+      location: location,
+      workshopnotes: workshopNotes
+    });
+  });
 
-        // Object creation
-        const formObject = {
-          commissionName: commissionName,
-          client: client,
-          address: address,
-          date: date,
-          notes: notes,
-          workshops: workshops
-        };
-        console.log(formObject);
+  // Object creation
+  const formObject = {
+    commissionname: commissionName,
+    clientname: clientName,
+    address: address,
+    date: date,
+    commissionnotes: commissionNotes,
+    workshops: workshops
+  };
 
-        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/commission/add';
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formObject)
-          });
-          if(response.ok){
-            console.log('Opdracht toegevoegd');
-            const result = await response.json();
-            // Show success popup
-            showPopup();
-            // Clear form
-            document.getElementById('commissionForm').reset();
-            document.getElementById('new-input-container').innerHTML = '';
-          } else {
-            console.error('Opdracht niet toegevoegd');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      });
+  console.log(formObject);
 
-      function showPopup() {
-        const successPopup = document.querySelector('.alert-success');
-        successPopup.style.display = 'block';
-        setTimeout(() => {
-          successPopup.style.display = 'none';
-        }, 3000);
-      }
+  const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/commission/add';
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formObject)
+    });
+    if(response.ok){
+      console.log('Opdracht toegevoegd');
+      const result = await response.json();
+      // Show success popup
+      showPopup();
+      // Clear form
+      document.getElementById('commissionForm').reset();
+      document.getElementById('new-input-container').innerHTML = '';
+    } else {
+      console.error('Opdracht niet toegevoegd');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
+function showPopup() {
+  const successPopup = document.querySelector('.alert-success');
+  successPopup.style.display = 'block';
+  setTimeout(() => {
+    successPopup.style.display = 'none';
+  }, 3000);
+}
+
 
       // Fetch client address when a client is selected
       document.getElementById('mySelectedClient').addEventListener('change', function() {
