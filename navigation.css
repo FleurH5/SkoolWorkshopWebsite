@@ -1,0 +1,22 @@
+footer {
+    background-color: #f8f8f8;
+    padding: 25px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .navbar {
+    margin-bottom: 50px;
+    border-radius: 0;
+  }
+
+  .custom-img-size {
+    width: 200px;
+    padding: 10px;
+    height: auto;
+  }
+
+  

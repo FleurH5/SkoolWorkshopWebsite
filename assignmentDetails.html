@@ -16,50 +16,11 @@
     />
     <link rel="stylesheet" href="assignmentDetails.css" />
     <link rel="icon" href="../Login/SKWLogoS.jpg" />
+    <link rel="stylesheet" href="navigation.css">
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark"
-      style="background: #3a2d2d"
-    >
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img
-            class="img-fluid custom-img-size"
-            src="Images/SKWLogoTransparentWhite.png"
-            alt="SkoolWorkshop Logo"
-          />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#myNavbar"
-          aria-controls="myNavbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#"
-                ><span class="bi bi-person"></span> Your Account</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://weather.com/nl-NL/weer/vandaag/l/NLXX0002:1:NL?Goto=Redirected"
-                target="_blank"
-                ><span class="bi bi-globe"></span> Weather</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <script src="navigation.js"></script>
+    <main-nav></main-nav>
 
     <div class="container mt-3" id="workshopsContainer">
       <div class="col-md-12">
@@ -69,12 +30,15 @@
       </div>
 
       <!-- extra info commission -->
-      <button style="padding: 2px;"
+      <button
+        style="padding: 2px"
         type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#commissionModal"
-      >meer</button>
+      >
+        meer
+      </button>
 
       <div
         class="modal fade"
@@ -97,18 +61,15 @@
               ></button>
             </div>
             <div class="modal-body">
-                <p>Werklocatie: <span id="commissionAddress"></span></p>
-                <p>Opdrachtnotities: <br><span id="commissionNotes"></span></p>
+              <p>Werklocatie: <span id="commissionAddress"></span></p>
+              <p>Opdrachtnotities: <br /><span id="commissionNotes"></span></p>
             </div>
-            <div class="modal-footer">
-            </div>
+            <div class="modal-footer"></div>
           </div>
         </div>
       </div>
     </div>
-    <footer>
-      <p>Skoolworkshop Copyright © 2024</p>
-    </footer>
+    <main-footer></main-footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -119,7 +80,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const apiUrl =
-          "https://skoolworkshopapi.azurewebsites.net/commission/1";
+          "https://skoolworkshopapi.azurewebsites.net/commission/" +
+          commissionId;
         fetch(apiUrl)
           .then((res) => res.json())
           .then((data) => {
@@ -129,8 +91,10 @@
               data.data.ClientName;
             document.getElementById("commissionName").innerText =
               data.data.CommissionName;
-             document.getElementById('commissionAddress').innerText = data.data.CommissionAddress;
-             document.getElementById('commissionNotes').innerText = data.data.CommissionNotes;
+            document.getElementById("commissionAddress").innerText =
+              data.data.CommissionAddress;
+            document.getElementById("commissionNotes").innerText =
+              data.data.CommissionNotes;
 
             // generate cards for each workshop mbv info api
             const workshopsContainer =
@@ -139,9 +103,8 @@
             data.data.Workshops.forEach((workshop, index) => {
               //voor elke workshop wordt deze code uitgevoerd
               const hours = calculateWorkedHours(workshop);
-                const totalPrice = calculateTotalPrice(workshop);
-                const salaryPerHour = workshop.Users[0].SalaryPerHourInEuro || 0;
-
+              const totalPrice = calculateTotalPrice(workshop);
+              const salaryPerHour = workshop.Users[0].SalaryPerHourInEuro || 0;
 
               const workshopCard = document.createElement("div");
               workshopCard.classList.add("col-md-12", "mb-3");
@@ -231,7 +194,10 @@
       function calculateTotalPrice(workshop) {
         const workedHours = calculateWorkedHours(workshop);
         let salaryPerHour = 0;
-        if(workshop.Users.length > 0 && workshop.Users[0].SalaryPerHourInEuro) {
+        if (
+          workshop.Users.length > 0 &&
+          workshop.Users[0].SalaryPerHourInEuro
+        ) {
           salaryPerHour = workshop.Users[0].SalaryPerHourInEuro;
         }
         let totalPrice = workedHours * salaryPerHour;
@@ -239,7 +205,14 @@
           totalPrice = 100;
         }
         return totalPrice;
-    }
+      }
+
+      //hiermee wordt id uit de url gehaald
+      const queryString = window.location.search;
+      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      const commissionId = urlParams.get("id");
+      console.log("commissionId: " + commissionId);
     </script>
   </body>
 </html>

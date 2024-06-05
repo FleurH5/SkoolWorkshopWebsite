@@ -1,0 +1,66 @@
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+  }
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .card {
+    min-width: 300px;
+  }
+  .btn {
+    background-color: #F49700;
+    border-color: #F49700;
+    margin: 2px;
+}
+
+.btn:hover {
+    background-color:#c07805;
+    border-color: #F49700;
+    transition: 0.7s;
+}
+.card{
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border-radius: 8px;
+
+}
+.card:hover{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.card-title {
+    font-size: 1.5rem;
+}
+.card-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+}
+.card-text {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+.scroll-container{
+    min-height: 100px;
+}
+p { margin: 4px; }
+
+.card-body{
+    padding: 1.25rem;
+}
+.card-header {
+    background-color: #F49700;
+    color: #030202;
+    font-size: 20px;
+    font-weight: 500;
+}
+body{
+    background-color: #FCE7CC;
+}
+    
+
