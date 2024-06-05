@@ -9,7 +9,7 @@ class MainNav extends HTMLElement {
         <a class="navbar-brand" href="#">
           <img
             class="img-fluid custom-img-size"
-            src="Images/SKWLogoTransparentWhite.png"
+            src="../Images/SKWLogoTransparentWhite.png"
             alt="SkoolWorkshop Logo"
           />
         </a>
@@ -27,7 +27,7 @@ class MainNav extends HTMLElement {
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#"
+              <a class="nav-link" href="addWorkshops.html"
                 ><span class="bi bi-person"></span> Your Account</a
               >
             </li>

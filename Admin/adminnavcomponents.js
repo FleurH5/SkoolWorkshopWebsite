@@ -18,13 +18,14 @@ class SideNav extends HTMLElement {
           <li>
             <a class="nav-link" href="#"><span class="bi bi-suitcase-lg"></span> Docenten</a>
           </li>
+          <li><a class="nav-link" href="EmailTemplatesPage.html"><span class="bi bi-mailbox"></span> Email Templates</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="sidebardropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="bi bi-plus-lg"></span> Nieuw
             </a>
             <ul class="dropdown-menu" aria-labelledby="sidebardropdown">
               <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
-              <li><a class="dropdown-item" href="./Opdrachten/addAssignment.html">Opdracht</a></li>
+              <li><a class="dropdown-item" href="addCommission.html">Opdracht</a></li>
               <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
             </ul>
           </li>
@@ -41,9 +42,8 @@ class NavBar extends HTMLElement {
     this.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        <img src="Images/SKWLogoTransparentWhite.png" alt="Logo" width="55" height="24" class="d-inline-block align-text-top">
-                        SkoolWorkshop
+                    <a class="navbar-brand" href="../Homepage.html">
+                        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="75" height="44" class="d-inline-block align-text-top">
                     </a>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
