@@ -113,7 +113,7 @@
 
             if (response.ok) {
               const data = await response.json();
-              localStorage.setItem("accessToken", data.accessToken);
+              localStorage.setItem("accessToken", data.data.token);
 
               // Check the user's role and redirect accordingly
               const userRole = data.data.userRole; // Assuming the role is returned in the response
