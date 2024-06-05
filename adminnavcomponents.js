@@ -18,6 +18,7 @@ class SideNav extends HTMLElement {
           <li>
             <a class="nav-link" href="#"><span class="bi bi-suitcase-lg"></span> Docenten</a>
           </li>
+          <li><a class="nav-link" href="EmailTemplatesPage.html"><span class="bi bi-mailbox"></span> E-mails </a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="sidebardropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="bi bi-plus-lg"></span> Nieuw
