@@ -220,11 +220,54 @@
             }
           });
         });
-      </script>
-     
-      
-    </div>
 
-    
+         $(document).ready(function() {
+    // Function to hide the footer
+    function hideFooter() {
+      $("footer").fadeOut();
+    }
+
+    // Function to show the footer
+    function showFooter() {
+      $("footer").fadeIn();
+    }
+
+    // Modal handling for entire panel click
+    $(document).on("click", ".custom-panel", function() {
+      // Hide the footer when a detail is clicked
+      hideFooter();
+
+      
+      const workshop = $(this).data("workshop");
+      $("#workshop-name").text(workshop.WorkshopName);
+      $("#workshop-details").html(`
+        <p><strong>Category:</strong> ${workshop.Category}</p>
+        <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+        <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
+        <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
+        <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
+        <p><strong>Datum:</strong> ${workshop.Date}</p>
+        <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '.'}</p>
+      `);
+      $("#workshop-image").attr("src", workshop.LinkToPicture);
+      $("#workshop-details-modal").modal("show");
+    });
+
+    // Show the footer when the modal is closed
+    $("#workshop-details-modal").on("hidden.bs.modal", function() {
+      showFooter();
+    });
+
+    // Function to short date
+    function truncateText(text, maxLength = 10) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength);
+      }
+      return text;
+    }
+  });
+
+      </script>
+    </div>
   </body>
 </html>

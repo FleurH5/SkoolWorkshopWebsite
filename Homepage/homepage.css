@@ -35,18 +35,16 @@ body{
     margin-right: 10px;
     margin-bottom: 50px;
   }
+  
 
   footer {
     background-color: #f2f2f2;
-    padding: 20px;
-    margin-top: 30px; /* Voeg ruimte toe boven de footer */
+    padding: 20px; 
     text-align: center;
     width: 100%;
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 100;
-    display: none;
   }
   .panel-body img {
     max-height: 160px;
