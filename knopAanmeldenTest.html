@@ -33,7 +33,9 @@ const data = {
     signup: 'Afwachtend'            // standaard dit bij aanmelding
 };
 
-fetch('/add', {
+const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/workshopcommissionuser/add';
+
+fetch(apiURL, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
