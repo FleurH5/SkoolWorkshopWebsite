@@ -27,11 +27,11 @@
       }
 
       .form-check {
-        margin-bottom: 10px; /* Voeg wat ruimte toe tussen de radio-opties */
+        margin-bottom: 10px;
       }
 
       .row.border.rounded-5 {
-        height: auto; /* Pas deze waarde aan op basis van je lay-out */
+        height: auto;
       }
 
       .right-box {
@@ -42,6 +42,16 @@
 
       #kvkField {
         display: none;
+      }
+
+      .input-group.mb-3 {
+        margin-bottom: 1.5rem;
+      }
+
+      @media (max-width: 768px) {
+        #kvkField {
+          margin-top: 1rem;
+        }
       }
     </style>
     <title>Registratie</title>
@@ -185,7 +195,8 @@
               <div class="input-group mb-3">
                 <button
                   type="submit"
-                  class="btn rounded-5 btn-lg btn-primary w-100 fs-6"
+                  class="btn rounded-5 btn-lg w-100 fs-6"
+                  style="background-color: #fd7e14; color: white"
                 >
                   Registreren
                 </button>
