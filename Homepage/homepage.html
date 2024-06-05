@@ -191,8 +191,11 @@
               </div>
             </div>
           </div>
+          <!-- de aanmeldknop voor docenten -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">
+            <span id="confirm" style="margin-left: 10px;"></span>
+            <button id="signup" type="button" class="btn btn-default" onclick="confirmation()">Aanmelden</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearText()">
               Close
             </button>
 
@@ -245,6 +248,23 @@
             }
           });
         });
+      </script>
+
+      <!-- script voor het aanmelden -->
+      <script>
+        function clearText() {
+          document.getElementById("confirm").textContent = ""
+        }
+
+
+        function confirmation() {
+            let result = confirm("Klik op OK om je aan te melden");
+            if(result === true) {
+                document.getElementById("confirm").textContent = "U verzoek is ontvangen!";
+                console.log("User clicked OK");
+                isConfirmed();
+            }
+        }
       </script>
     </div>
   </body>
