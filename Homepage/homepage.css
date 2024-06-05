@@ -33,15 +33,20 @@ body{
     display: inline-block;
     width: 300px;
     margin-right: 10px;
+    margin-bottom: 50px;
   }
 
   footer {
-    background-color: #f8f8f8;
-    padding: 25px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-top: 30px; /* Voeg ruimte toe boven de footer */
     text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: none;
   }
   .panel-body img {
     max-height: 160px;
