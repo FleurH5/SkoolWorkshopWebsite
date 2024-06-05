@@ -116,7 +116,7 @@
               localStorage.setItem("accessToken", data.accessToken);
 
               // Check the user's role and redirect accordingly
-              const userRole = data.role; // Assuming the role is returned in the response
+              const userRole = data.data.userRole; // Assuming the role is returned in the response
 
               switch (userRole) {
                 case "Admin":
