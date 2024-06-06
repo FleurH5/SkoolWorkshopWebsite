@@ -33,6 +33,9 @@ const data = {
     signup: 'Afwachtend'            // standaard dit bij aanmelding
 };
 
+console.log(data);
+
+// const apiUrl = 'localhost:3000/workshopcommissionuser/add';
 const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/workshopcommissionuser/add';
 
 fetch(apiUrl, {
@@ -46,6 +49,7 @@ fetch(apiUrl, {
 .then(data => {
     console.log('Success:', data);
     document.getElementById("confirm").textContent = "Aanmelding succesvol verstuurd";
+    console.log(data);
 })
 .catch((error) => {
     console.error('Error:', error);

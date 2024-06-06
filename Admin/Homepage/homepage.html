@@ -30,7 +30,7 @@
           <div class="w-25">
             <img
               class="img-fluid custom-img-size"
-              src="../Login/Skool_Workshop_Logo_White.png"
+              src="../../Login/Skool_Workshop_Logo_White.png"
               alt="SkoolWorkshop Logo"
             />
           </div>
@@ -38,7 +38,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a href="#"
+              <a href="../addWorkshops.html"
                 ><span class="glyphicon glyphicon-user"></span> Account</a
               >
             </li>
@@ -191,8 +191,11 @@
               </div>
             </div>
           </div>
+          <!-- de aanmeldknop voor docenten -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">
+            <span id="confirm" style="margin-left: 10px;"></span>
+            <button id="signup" type="button" class="btn btn-default" onclick="confirmation()">Aanmelden</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearText()">
               Close
             </button>
 
@@ -245,6 +248,23 @@
             }
           });
         });
+      </script>
+
+      <!-- script voor het aanmelden -->
+      <script>
+        function clearText() {
+          document.getElementById("confirm").textContent = ""
+        }
+
+
+        function confirmation() {
+            let result = confirm("Klik op OK om je aan te melden");
+            if(result === true) {
+                document.getElementById("confirm").textContent = "U verzoek is ontvangen!";
+                console.log("User clicked OK");
+                isConfirmed();
+            }
+        }
       </script>
     </div>
   </body>
