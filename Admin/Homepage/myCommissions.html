@@ -79,7 +79,7 @@
       $(document).ready(function () {
         console.log("Document ready. Attempting to fetch workshops.");
         $.get(
-          "https://skoolworkshopapi.azurewebsites.net/workshopcommission/all/:id",
+          "https://skoolworkshopapi.azurewebsites.net/workshopcommission/:id",
           function (response) {
             console.log("API response received:", response);
             if (response.status === 200) {
