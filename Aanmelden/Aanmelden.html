@@ -149,6 +149,16 @@
               <div class="input-group mb-3">
                 <input
                   type="text"
+                  id="woonplaats"
+                  class="form-control form-control-lg"
+                  placeholder="Woonplaats*"
+                  name="Woonplaats"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
                   id="postcode"
                   class="form-control form-control-lg"
                   placeholder="Postcode*"
@@ -294,12 +304,18 @@
 
         // Fetch workshop names from the server and populate the select field
         let workshopOptions = "";
+        let addedCategories = new Set(); // Set om bij te houden welke categorieën al zijn toegevoegd
+
         fetch("https://skoolworkshopapi.azurewebsites.net/workshop/all")
           .then((response) => response.json())
           .then((data) => {
             workshopOptions += `<option value="" disabled selected>Category?</option>`; // Placeholder option
             data.data.forEach((item) => {
-              workshopOptions += `<option value="${item.Category}">${item.Category}</option>`;
+              // Controleer of de categorie nog niet is toegevoegd
+              if (!addedCategories.has(item.Category)) {
+                workshopOptions += `<option value="${item.Category}">${item.Category}</option>`;
+                addedCategories.add(item.Category); // Voeg de categorie toe aan de set
+              }
             });
             document.getElementById("workshopSelect").innerHTML =
               workshopOptions; // Set workshop options
