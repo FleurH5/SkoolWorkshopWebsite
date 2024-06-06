@@ -13,6 +13,7 @@ class MainNav extends HTMLElement {
             alt="SkoolWorkshop Logo"
           />
         </a>
+        
         <button
           class="navbar-toggler"
           type="button"
@@ -39,6 +40,8 @@ class MainNav extends HTMLElement {
                 ><span class="bi bi-globe"></span> Weather</a
               >
             </li>
+            <li class="nav-item"><a class="nav-link" href="myCommissions.html">Mijn Opdrachten
+            </a> </li>
           </ul>
         </div>
       </div>

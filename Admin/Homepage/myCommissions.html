@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Mijn Workshops</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="homepage.css" />
+    <link rel="icon" href="../Login/SKWLogoS.jpg" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse" style="background: #000000">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#myNavbar"
+          >
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="w-25">
+            <img
+              class="img-fluid custom-img-size"
+              src="../../Login/Skool_Workshop_Logo_White.png"
+              alt="SkoolWorkshop Logo"
+            />
+          </div>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="../addWorkshops.html"
+                ><span class="glyphicon glyphicon-user"></span> Account</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://weather.com/nl-NL/weer/vandaag/l/NLXX0002:1:NL?Goto=Redirected"
+                target="_blank"
+                ><span class="glyphicon glyphicon-globe"></span> Weather</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <h1>Mijn Workshops</h1>
+          </div>
+        </div>
+      </div>
+      <h2>Vandaag</h2>
+      <div class="scrolling-wrapper" id="today-workshop-container"></div>
+
+      <h2>Morgen</h2>
+      <div class="scrolling-wrapper" id="tomorrow-workshop-container"></div>
+
+      <h2>Later</h2>
+      <div class="scrolling-wrapper" id="specific-date-workshop-container"></div>
+
+    <footer>
+      <p>Skoolworkshop Copyright © 2024</p>
+    </footer>
+
+    <script>
+      $(document).ready(function () {
+        console.log("Document ready. Attempting to fetch workshops.");
+        $.get(
+          "https://skoolworkshopapi.azurewebsites.net/workshopcommission/all/:id",
+          function (response) {
+            console.log("API response received:", response);
+            if (response.status === 200) {
+              const result = response.data;
+              const todayWorkshopContainer = $("#today-workshop-container");
+              const tomorrowWorkshopContainer = $("#tomorrow-workshop-container");
+              const specificWorkshopContainer = $("#specific-date-workshop-container");
+    
+              const currentDate = new Date();
+        
+              result.forEach((workshop) => {
+                const workshopDate = new Date(workshop.Date);
+                const workshopStartTime = new Date(`${workshop.Date}T${workshop.StartTime}`);
+    
+                // Check if the workshop is today
+                const isSameDay = 
+                  workshopDate.getDate() === currentDate.getDate() &&
+                  workshopDate.getMonth() === currentDate.getMonth() &&
+                  workshopDate.getFullYear() === currentDate.getFullYear();
+                  
+                const isTomorrow = 
+                  workshopDate.getDate() === currentDate.getDate() + 1 &&
+                  workshopDate.getMonth() === currentDate.getMonth() &&
+                  workshopDate.getFullYear() === currentDate.getFullYear();
+    
+                // Check if the workshop start time is later than the current time
+                const isAfterCurrentTime = workshopStartTime > currentDate;
+    
+                const truncatedDate = truncateText(workshop.Date);
+                const panelContent = `
+                  <div class="panel custom-panel" data-workshop='${JSON.stringify(workshop)}'>
+                    <div class="panel-heading ">${workshop.WorkshopName}</div>
+                    <div class="panel-body">
+                      <img src="${workshop.LinkToPicture}" class="img-responsive" alt="Image" />
+                      <p><strong>Category:</strong> ${workshop.Category}</p>
+                      <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+                      <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
+                      <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
+                      <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
+                      <p><strong>Datum:</strong> ${truncatedDate}</p>
+                      <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '..'}</p>
+                      </div>
+                      </div>
+                      `;
+
+                if (isSameDay && isAfterCurrentTime) {
+                  todayWorkshopContainer.append(panelContent);
+                } else if (isTomorrow) {
+                  tomorrowWorkshopContainer.append(panelContent)
+                } else if (workshopDate.getDate() > currentDate.getDate()) {
+                  specificWorkshopContainer.append(panelContent)
+                }
+              });
+            } else {
+              console.error("Failed to fetch workshops. Status code:", response.status);
+            }
+          }
+        ).fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("Error during API request:", textStatus, errorThrown);
+        });
+      });
+    
+      // Function to short date
+      function truncateText(text, maxLength = 10) {
+        if (text.length > maxLength) {
+          return text.substring(0, maxLength);
+        }
+        return text;
+      }
+    
+      // Modal handling for entire panel click
+      $(document).on("click", ".custom-panel", function () {
+        const workshop = $(this).data("workshop");
+        $("#workshop-name").text(workshop.WorkshopName);
+        $("#workshop-details").html(`
+          <p><strong>Category:</strong> ${workshop.Category}</p>
+          <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+          <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
+          <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
+          <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
+          <p><strong>Datum:</strong> ${workshop.Date}</p>
+          <p><strong>Location:</strong> ${workshop.Location}</p>
+        `);
+        $("#workshop-image").attr("src", workshop.LinkToPicture);
+        $("#workshop-details-modal").modal("show");
+      });
+    </script>    
+    
+    <div id="workshop-details-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog custom-modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title" id="workshop-name"></h4>
+          </div>
+          <div class="modal-body custom-modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <img
+                  id="workshop-image"
+                  class="img-responsive"
+                  alt="Workshop Image"
+                />
+              </div>
+              <div class="col-sm-6">
+                <div id="workshop-details"></div>
+              </div>
+            </div>
+          </div>
+          <!-- de aanmeldknop voor docenten -->
+          <div class="modal-footer">
+            <span id="confirm" style="margin-left: 10px;"></span>
+            <button id="signup" type="button" class="btn btn-default" onclick="confirmation()">Aanmelden</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearText()">
+              Close
+            </button>
+
+            
+          </div>
+          
+        </div>
+        
+      </div>
+      <footer>
+        <p>Skoolworkshop Copyright © 2024</p>
+      </footer>
+  
+      <script>
+        $(document).ready(function() {
+          // Function to hide the footer
+          function hideFooter() {
+            $("footer").fadeOut();
+          }
+  
+          // Function to show the footer
+          function showFooter() {
+            $("footer").fadeIn();
+          }
+  
+          // Modal handling for entire panel click
+          $(document).on("click", ".custom-panel", function() {
+            // Hide the footer when a detail is clicked
+            hideFooter();
+  
+            // Other modal handling code...
+          });
+  
+          // Show the footer when the modal is closed
+          $("#workshop-details-modal").on("hidden.bs.modal", function() {
+            showFooter();
+          });
+  
+          // Show footer when scrolling down
+          $(window).scroll(function() {
+            // Calculate the distance scrolled from the top of the page
+            var scrollDistance =
+              $(document).height() - $(window).height() - $(window).scrollTop();
+  
+            // If the user is close to the bottom of the page, show the footer
+            if (scrollDistance < 50) {
+              $("footer").fadeIn();
+            } else {
+              $("footer").fadeOut();
+            }
+          });
+        });
+</script>
+    </div>
+  </body>
+</html>
