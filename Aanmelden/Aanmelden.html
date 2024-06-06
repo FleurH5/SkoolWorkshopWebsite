@@ -119,7 +119,7 @@
                   type="text"
                   id="naam"
                   class="form-control form-control-lg"
-                  placeholder="Naam*"
+                  placeholder="Voornaam*"
                   name="naam"
                   required
                 />
@@ -134,8 +134,13 @@
                   required
                 />
               </div>
-              <div class="mb-3">
-                <select class="form-select" id="land" name="land" required>
+              <div class="input-group mb-3">
+                <select
+                  class="form-select form-select-lg col-md-6"
+                  id="land"
+                  name="land"
+                  required
+                >
                   <option value="" disabled selected>Selecteer uw land</option>
                   <option value="Nederland">Nederland</option>
                   <option value="Belgie">België</option>
@@ -167,7 +172,7 @@
                     type="text"
                     id="btwnummer"
                     class="form-control form-control-lg"
-                    placeholder="BTW nummer*"
+                    placeholder="BTW id*"
                     name="btwnummer"
                   />
                 </div>
@@ -205,14 +210,14 @@
                 />
               </div>
               <div class="input-group mb-3">
-                <input
-                  type="text"
-                  id="trainingen"
-                  class="form-control form-control-lg"
-                  placeholder="Soort trainingen die u geeft!*"
-                  name="trainingen"
+                <select
+                  id="workshopSelect"
+                  class="form-select form-select-lg"
                   required
-                />
+                >
+                  <option value="" disabled selected>Categorie?</option>
+                  <!-- Workshop opties worden ingevuld door JavaScript -->
+                </select>
               </div>
               <div class="input-group mb-3">
                 <input
@@ -286,60 +291,35 @@
             btwField.style.display = "none";
           }
         });
+
+        // Fetch workshop names from the server and populate the select field
+        let workshopOptions = "";
+        fetch("https://skoolworkshopapi.azurewebsites.net/workshop/all")
+          .then((response) => response.json())
+          .then((data) => {
+            workshopOptions += `<option value="" disabled selected>Category?</option>`; // Placeholder option
+            data.data.forEach((item) => {
+              workshopOptions += `<option value="${item.Category}">${item.Category}</option>`;
+            });
+            document.getElementById("workshopSelect").innerHTML =
+              workshopOptions; // Set workshop options
+          })
+          .catch((error) => {
+            console.error("Error fetching workshop names:", error);
+          });
+
+        document
+          .querySelector(".add-workshop-btn")
+          .addEventListener("click", createNewInputFields);
       });
 
-      // Functie voor het valideren van de postcode met behulp van het opgegeven regex-patroon
-      function validatePostcode(postcode, land) {
-        let regex;
-        if (land === "Nederland") {
-          regex = new RegExp("^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$", "i"); // Regex-patroon voor Nederlandse postcode
-        } else if (land === "Belgie") {
-          regex = new RegExp("^\\d{4}$"); // Regex-patroon voor Belgische postcode
-        }
-
-        return regex.test(postcode);
+      // Function to create new input fields for workshops
+      function createNewInputFields() {
+        // Implement functionality to create new input fields for workshops here
+        console.log("Implement createNewInputFields function here");
       }
 
-      document
-        .getElementById("registrationForm")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault();
-
-          // Andere code voor het verwerken van het formulier blijft hier hetzelfde...
-
-          const postcode = document.getElementById("postcode").value;
-          const land = document.querySelector('select[name="land"]').value;
-
-          // Valideer de postcode voordat het wordt verzonden
-          if (!validatePostcode(postcode, land)) {
-            alert("Ongeldige postcode. Voer een geldige postcode in.");
-            return;
-          }
-
-          // Als de postcode geldig is, vervolgen met het verzenden van het formulier
-          // Rest van de code blijft hier hetzelfde...
-        });
-
-      function showPopup() {
-        const successPopup = document.querySelector(".alert-success");
-        successPopup.style.display = "block";
-        setTimeout(() => {
-          successPopup.style.display = "none";
-        }, 3000);
-      }
-
-      document.getElementById("land").addEventListener("change", function () {
-        const land = this.value;
-        const postcodeInput = document.getElementById("postcode");
-
-        if (land === "Nederland") {
-          postcodeInput.placeholder = "Postcode*";
-          // Voeg eventuele andere validatie toe voor Nederlandse postcodes
-        } else if (land === "Belgie") {
-          postcodeInput.placeholder = "Postcode*";
-          // Voeg eventuele andere validatie toe voor Belgische postcodes
-        }
-      });
+      // Rest of your existing script...
     </script>
   </body>
 </html>
