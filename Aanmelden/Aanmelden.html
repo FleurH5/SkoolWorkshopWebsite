@@ -44,12 +44,17 @@
         display: none;
       }
 
+      #btwField {
+        display: none;
+      }
+
       .input-group.mb-3 {
         margin-bottom: 1.5rem;
       }
 
       @media (max-width: 768px) {
-        #kvkField {
+        #kvkField,
+        #btwField {
           margin-top: 1rem;
         }
       }
@@ -129,15 +134,43 @@
                   required
                 />
               </div>
+              <div class="mb-3">
+                <select class="form-select" id="land" name="land" required>
+                  <option value="" disabled selected>Selecteer uw land</option>
+                  <option value="Nederland">Nederland</option>
+                  <option value="Belgie">België</option>
+                </select>
+              </div>
               <div class="input-group mb-3">
                 <input
                   type="text"
-                  id="adres"
+                  id="postcode"
                   class="form-control form-control-lg"
-                  placeholder="Adres*"
-                  name="adres"
+                  placeholder="Postcode*"
+                  name="postcode"
                   required
                 />
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    id="adres"
+                    class="form-control form-control-lg"
+                    placeholder="Adres*"
+                    name="adres"
+                    required
+                  />
+                </div>
+                <div class="col-md-6" id="btwField">
+                  <input
+                    type="text"
+                    id="btwnummer"
+                    class="form-control form-control-lg"
+                    placeholder="BTW nummer*"
+                    name="btwnummer"
+                  />
+                </div>
               </div>
               <div class="row mb-3">
                 <div class="col-md-6">
@@ -155,10 +188,31 @@
                     type="text"
                     id="kvknummer"
                     class="form-control form-control-lg"
-                    placeholder="(KvK) nummer*"
+                    placeholder="(KvK) nummer"
                     name="kvknummer"
                   />
                 </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  id="bankrekeningnummer"
+                  class="form-control form-control-lg"
+                  placeholder="Bankrekeningnummer*"
+                  name="bankrekeningnummer"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  id="trainingen"
+                  class="form-control form-control-lg"
+                  placeholder="Soort trainingen die u geeft!*"
+                  name="trainingen"
+                  required
+                />
               </div>
               <div class="input-group mb-3">
                 <input
@@ -215,18 +269,21 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const kvkField = document.getElementById("kvkField");
+        const btwField = document.getElementById("btwField");
         const zzpRadio = document.getElementById("docentZZP");
         const flexRadio = document.getElementById("docentFlex");
 
         zzpRadio.addEventListener("change", function () {
           if (zzpRadio.checked) {
             kvkField.style.display = "block";
+            btwField.style.display = "block";
           }
         });
 
         flexRadio.addEventListener("change", function () {
           if (flexRadio.checked) {
             kvkField.style.display = "none";
+            btwField.style.display = "none";
           }
         });
       });
@@ -242,11 +299,17 @@
           const telefoonnummer =
             document.getElementById("telefoonnummer").value;
           const kvknummer = document.getElementById("kvknummer").value;
+          const btwnummer = document.getElementById("btwnummer").value;
           const email = document.getElementById("email").value;
           const wachtwoord = document.getElementById("wachtwoord").value;
           const bevestigWachtwoord = document.getElementById(
             "bevestig_wachtwoord"
           ).value;
+          const bankrekeningnummer =
+            document.getElementById("bankrekeningnummer").value;
+          const postcode = document.getElementById("postcode").value;
+          const land = document.querySelector('select[name="land"]').value;
+          const trainingen = document.getElementById("trainingen").value;
 
           const formObject = {
             naam: eerstNaam,
@@ -256,9 +319,16 @@
             kvknummer: document.getElementById("docentZZP").checked
               ? kvknummer
               : null,
+            btwnummer: document.getElementById("docentZZP").checked
+              ? btwnummer
+              : null,
             email: email,
             wachtwoord: wachtwoord,
             bevestig_wachtwoord: bevestigWachtwoord,
+            bankrekeningnummer: bankrekeningnummer,
+            postcode: postcode,
+            land: land,
+            trainingen: trainingen,
           };
           console.log(formObject);
 
