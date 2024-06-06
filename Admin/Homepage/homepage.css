@@ -19,7 +19,7 @@ body{
   .scrolling-wrapper {
     overflow-x: auto;
     white-space: nowrap;
-    margin-bottom: 30px;
+    margin-bottom: 120px;
   }
   .custom-panel {
     border-color: #fd7e14; /* Set the border color to $orange-500 */
