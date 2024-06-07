@@ -16,13 +16,18 @@
     />
     <link rel="stylesheet" href="assignmentDetails.css" />
     <link rel="icon" href="../Login/SKWLogoS.jpg" />
-    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="adminstyles.css">
   </head>
   <body>
+    
+    <!-- <main-nav></main-nav> -->
+    <nav-bar></nav-bar>
+    <side-nav></side-nav>
     <script src="navigation.js"></script>
-    <main-nav></main-nav>
-
+    <script src="adminnavcomponents.js"></script>
+    <div class="content" style="margin-top: 50px;">
     <div class="container mt-3" id="workshopsContainer">
+      
       <div class="col-md-12">
         <h2 class="headeritem" id="clientName"></h2>
         <h2 class="headeritem">-</h2>
@@ -68,8 +73,8 @@
           </div>
         </div>
       </div>
+      </div>
     </div>
-    <main-footer></main-footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -103,8 +108,8 @@
             data.data.Workshops.forEach((workshop, index) => {
               //voor elke workshop wordt deze code uitgevoerd
               const hours = calculateWorkedHours(workshop);
-              const totalPrice = calculateTotalPrice(workshop);
-              const salaryPerHour = workshop.Users[0].SalaryPerHourInEuro || 0;
+              const totalPrice = workshop.Users.length > 0 ? calculateTotalPrice(workshop) : 0;
+              const salaryPerHour = workshop.Users.length > 0 ? workshop.Users[0].SalaryPerHourInEuro : 0;
 
               const workshopCard = document.createElement("div");
               workshopCard.classList.add("col-md-12", "mb-3");
@@ -119,6 +124,7 @@
                                 <h5 class="card-title">${
                                   workshop.WorkshopName
                                 }</h5>
+                                <p class="card-text"><span class="bi bi-person"></span>${workshop.Users.length > 0 ? workshop.Users[0].Username : "Geen docent toegewezen"}</p>  
                                 <p class="card-text">${
                                   workshop.WorkshopDescription
                                 }</p>
@@ -138,7 +144,7 @@
                                 <p class="teachedBy">Wordt gegeven door: ${
                                   workshop.Users.length > 0
                                     ? workshop.Users[0].Username
-                                    : "Niemand"
+                                    : "-"
                                 }</p>
                                 <p class="emailTeacher">Email docent: ${
                                   workshop.Users.length > 0
@@ -148,10 +154,7 @@
                                 <p class="attendees">Aantal deelnemers: ${
                                   workshop.NumberOfParticipants
                                 }</p>
-                                <p class="targetAudience">Doelgroep: ${
-                                  workshop.TargetGroup
-                                }</p>
-                                <p class="level">Niveau: ${workshop.Level}</p>
+                                <p class="level">Niveau: ${workshop.Level ?? 'n.v.t'}</p>
                                 <p class="description">${
                                   workshop.WorkshopNotes
                                 }</p>
