@@ -24,24 +24,24 @@
     <script src="adminnavcomponents.js"></script>
     <div class="container mt-md-4">
       <div class="content">
-      <!-- <h1 class="text-center" style="margin-bottom: 25px; font-size: 35px;">Opdrachten Overzicht</h1> -->
+        <!-- <h1 class="text-center" style="margin-bottom: 25px; font-size: 35px;">Opdrachten Overzicht</h1> -->
 
-      <h2 class="mt-md-4">Vandaag</h2>
-      <div class="scroll-container" id="today">
-        <!-- Opdrachten voor vandaag komen hier -->
-      </div>
+        <h2 class="mt-md-4">Vandaag</h2>
+        <div class="scroll-container" id="today">
+          <!-- Opdrachten voor vandaag komen hier -->
+        </div>
 
-      <h2 class="mt-md-4">Morgen</h2>
-      <div class="scroll-container" id="tomorrow">
-        <!-- Opdrachten voor morgen komen hier -->
-      </div>
+        <h2 class="mt-md-4">Morgen</h2>
+        <div class="scroll-container" id="tomorrow">
+          <!-- Opdrachten voor morgen komen hier -->
+        </div>
 
-      <h2 class="mt-md-4">Later</h2>
-      <div class="scroll-container" id="later">
-        <!-- Opdrachten voor later komen hier -->
+        <h2 class="mt-md-4">Later</h2>
+        <div class="scroll-container" id="later">
+          <!-- Opdrachten voor later komen hier -->
+        </div>
       </div>
     </div>
-  </div>
     <main-footer></main-footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -104,13 +104,15 @@
                     
           <div class="card-body">
             <h5 class="card-title">${commission.CommissionName}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">${new Date(
-              commission.Date
-            ).toLocaleDateString()}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">${formatDate(commission.Date)}</h6>
             <p class="card-text"><span class="bi bi-geo-alt"></span> ${
-              commission.Address   
+              commission.Address
             }
-            <p class="overall-status">Opdracht compleet: ${isCommissionComplete(commission.Workshops) ? '<span class="text-success">Ja</span>' : '<span class="text-danger">Nee</span>'}</p>
+            <p class="overall-status">Opdracht compleet: ${
+              isCommissionComplete(commission.Workshops)
+                ? '<span class="text-success">Ja</span>'
+                : '<span class="text-danger">Nee</span>'
+            }</p>
           </div>
         `;
                 commissionList.appendChild(commissionElement); //hierboven wordt id meegestuurt naar de assignmentDetails.html en daar nog eruit halen
@@ -119,10 +121,19 @@
           });
         }
       });
-        
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        // toLocaleDateString zet de datum om naar nederlandse notatie
+        return date.toLocaleDateString("nl-NL", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
+      }
 
       function isCommissionComplete(workshops) {
-        return workshops.every(workshop => workshop.assignedTeacher);}
+        return workshops.every((workshop) => workshop.assignedTeacher);
+      }
     </script>
   </body>
 </html>
