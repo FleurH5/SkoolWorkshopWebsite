@@ -69,9 +69,6 @@
                 <div class="col-12">
                     <h1>Profiel</h1>
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <img src="./Images/SKWLogoS.jpg" alt="pfp" class="rounded-circle">
-                        </div>
                         <div>
                             <h1>{naam}</h1>
                         </div>
@@ -79,10 +76,10 @@
                             <h1>{status}</h1>
                         </div>
                     </div>
-                        <div class="col md-3">
-                            <p>Type docent</p>
-                            <p>{typedocent}</p>
-                        </div>
+                    <div class="col md-3">
+                        <p>Type docent</p>
+                        <p>{typedocent}</p>
+                    </div>
                     <br>
                     <div class="col md-3">
                         <p>email</p>
@@ -94,23 +91,121 @@
                     </div>
                 </div>
             </div>
-        
 
-    <div class="container mt-4">
-        <!-- Button to toggle the text -->
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#toggleTextHorizontal" aria-expanded="false" aria-controls="toggleTextHorizontal">
-            Toggle Text
-        </button>
-    
-        <!-- Collapsible text section -->
-        <div class="collapse collapse-horizontal mt-3" id="toggleTextHorizontal">
-            <div class="card card-body">
-                This is some horizontally collapsible text that can be toggled open and closed. Click the button above to show or hide this content.
+            <div class="container mt-4">
+                <!-- Button to toggle the text -->
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#toggleContactInfo" aria-expanded="false" aria-controls="toggleContactInfo">
+                    Contact informatie
+                </button>
+            
+                <!-- Collapsible text section -->
+                <div class="collapse collapse-horizontal mt-3" id="toggleContactInfo">
+                    <div class="card card-body">
+                        <div class="col md-3">
+                            <p>telefoonnummer</p>
+                            <p>{telnr}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>adres</p>
+                            <p>{adres}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>postcode</p>
+                            <p>{postcode}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="container mt-4">
+                <!-- Button to toggle the text -->
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#togglePersonalInfo" aria-expanded="false" aria-controls="togglePersonalInfo">
+                    Persoonlijke informatie
+                </button>
+            
+                <!-- Collapsible text section -->
+                <div class="collapse collapse-horizontal mt-3" id="togglePersonalInfo">
+                    <div class="card card-body">
+                        <div class="col md-3">
+                            <p>dob</p>
+                            <p>{dob}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>land</p>
+                            <p>{land}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>adres</p>
+                            <p>{adres}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>postcode</p>
+                            <p>{postcode}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>gesproken talen</p>
+                            <p>{talen}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                <!-- Button to toggle the text -->
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#toggleTravelInfo" aria-expanded="false" aria-controls="toggleTravelInfo">
+                    Reisinformatie
+                </button>
+            
+                <!-- Collapsible text section -->
+                <div class="collapse collapse-horizontal mt-3" id="toggleTravelInfo">
+                    <div class="card card-body">
+                        <div class="col md-3">
+                            <p>Ov</p>
+                            <p>{ov}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>Rijbewijs</p>
+                            <p>{rijbewijs}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>auto</p>
+                            <p>{auto}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                <!-- Button to toggle the text -->
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#togglePaymentInfo" aria-expanded="false" aria-controls="togglePaymentInfo">
+                    Betalingsgegevens
+                </button>
+            
+                <!-- Collapsible text section -->
+                <div class="collapse collapse-horizontal mt-3" id="togglePaymentInfo">
+                    <div class="card card-body">
+                        <div class="col md-3">
+                            <p>salaris per uur</p>
+                            <p>{geld}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>banknummer</p>
+                            <p>{banknummer}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>btwnr</p>
+                            <p>{btwnr}</p>
+                        </div>
+                        <div class="col md-3">
+                            <p>kvknr</p>
+                            <p>{kvknr}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
-
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
