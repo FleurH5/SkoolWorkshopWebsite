@@ -280,7 +280,7 @@
         fetch("https://skoolworkshopapi.azurewebsites.net/workshop/all")
           .then((response) => response.json())
           .then((data) => {
-            workshopOptions += `<option value="" disabled selected>Category?</option>`; // Placeholder option
+            workshopOptions += `<option value="" disabled selected>Categorie?</option>`; // Placeholder option
             data.data.forEach((item) => {
               // Controleer of de categorie nog niet is toegevoegd
               if (!addedCategories.has(item.Category)) {
