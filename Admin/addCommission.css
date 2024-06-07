@@ -99,3 +99,10 @@ body{
 .content-extra-box{
     align-items: center;
 }
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5em;
+    margin-right: 20px;
+}
