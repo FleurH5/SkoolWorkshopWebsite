@@ -189,6 +189,11 @@
                   name="bankrekeningnummer"
                   required
                 />
+                <span
+                  id="valid-iban-icon"
+                  style="display: none; margin-left: 5px; margin-top: 10px"
+                  >&#10004;</span
+                >
               </div>
               <div class="input-group mb-3">
                 <select
@@ -258,6 +263,8 @@
         const btwField = document.getElementById("btwField");
         const zzpRadio = document.getElementById("docentZZP");
         const flexRadio = document.getElementById("docentFlex");
+        const ibanInput = document.getElementById("bankrekeningnummer");
+        const validIcon = document.getElementById("valid-iban-icon");
 
         zzpRadio.addEventListener("change", function () {
           if (zzpRadio.checked) {
@@ -275,17 +282,17 @@
 
         // Fetch workshop names from the server and populate the select field
         let workshopOptions = "";
-        let addedCategories = new Set(); // Set om bij te houden welke categorieën al zijn toegevoegd
+        let addedCategories = new Set(); // Set to keep track of added categories
 
         fetch("https://skoolworkshopapi.azurewebsites.net/workshop/all")
           .then((response) => response.json())
           .then((data) => {
             workshopOptions += `<option value="" disabled selected>Category?</option>`; // Placeholder option
             data.data.forEach((item) => {
-              // Controleer of de categorie nog niet is toegevoegd
+              // Check if the category has not been added yet
               if (!addedCategories.has(item.Category)) {
                 workshopOptions += `<option value="${item.Category}">${item.Category}</option>`;
-                addedCategories.add(item.Category); // Voeg de categorie toe aan de set
+                addedCategories.add(item.Category); // Add category to the set
               }
             });
             document.getElementById("workshopSelect").innerHTML =
@@ -295,16 +302,55 @@
             console.error("Error fetching workshop names:", error);
           });
 
-        document
-          .querySelector(".add-workshop-btn")
-          .addEventListener("click", createNewInputFields);
-      });
+        // Add event listener to the form
+        const registrationForm = document.getElementById("registrationForm");
+        registrationForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          validateIBAN(() => registrationForm.submit());
+        });
 
-      // Function to create new input fields for workshops
-      function createNewInputFields() {
-        // Implement functionality to create new input fields for workshops here
-        console.log("Implement createNewInputFields function here");
-      }
+        // Add event listener to the IBAN input for real-time validation
+        ibanInput.addEventListener("input", function () {
+          validateIBAN();
+        });
+
+        // Function to validate IBAN
+        function validateIBAN(callback) {
+          const iban = ibanInput.value;
+
+          if (iban.length === 0) {
+            validIcon.style.display = "none";
+            validIcon.classList.remove("valid", "invalid");
+            return;
+          }
+
+          fetch(`https://api.api-ninjas.com/v1/iban?iban=${iban}`, {
+            method: "GET",
+            headers: {
+              "X-Api-Key": "ok6d642VlAFXbnaLPkCf9w==bUIO2k4FesuljgY2", // Replace with your actual API key
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              validIcon.style.display = "inline";
+              if (data.valid) {
+                validIcon.classList.add("valid");
+                validIcon.classList.remove("invalid");
+                validIcon.innerHTML = "&#10004;"; // Unicode for check mark
+                if (callback) callback(); // Call the callback function if provided
+              } else {
+                validIcon.classList.add("invalid");
+                validIcon.classList.remove("valid");
+                validIcon.innerHTML = "&#10008;"; // Unicode for cross mark
+                if (callback) alert("Ongeldige IBAN, probeer het opnieuw.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error validating IBAN:", error);
+              alert("Er is een fout opgetreden bij het valideren van de IBAN.");
+            });
+        }
+      });
     </script>
   </body>
 </html>
