@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(`https://api.api-ninjas.com/v1/iban?iban=${iban}`, {
       method: "GET",
       headers: {
-        "X-Api-Key": "ok6d642VlAFXbnaLPkCf9w==bUIO2k4FesuljgY2", // Replace with your actual API key
+        "X-Api-Key": "ok6d642VlAFXbnaLPkCf9w==bUIO2k4FesuljgY2",
       },
     })
       .then((response) => response.json())
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
           validIcon.classList.add("valid");
           validIcon.classList.remove("invalid");
           validIcon.innerHTML = "&#10004;"; // Unicode for check mark
-          if (callback) callback(); // Call the callback function if provided
+          if (callback) callback();
         } else {
           validIcon.classList.add("invalid");
           validIcon.classList.remove("valid");
