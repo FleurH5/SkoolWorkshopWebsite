@@ -10,7 +10,7 @@ class SideNav extends HTMLElement {
             <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
           </li>
           <li>
-            <a class="nav-link" href="#"> <span class="bi bi-calendar"></span> Opdrachten</a>
+            <a class="nav-link" href="assignmentOverview.html"> <span class="bi bi-calendar"></span> Opdrachten</a>
           </li>
           <li>
             <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
@@ -42,8 +42,8 @@ class NavBar extends HTMLElement {
     this.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="../Homepage.html">
-                        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="75" height="44" class="d-inline-block align-text-top">
+                    <a class="navbar-brand" href="Homepage/Homepage.html">
+                        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="100" height="30" class="d-inline-block align-text-top">
                     </a>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
