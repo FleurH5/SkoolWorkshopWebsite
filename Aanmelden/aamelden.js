@@ -90,3 +90,46 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 });
+
+// EMAIL VERZENDEN
+
+document.addEventListener("DOMContentLoaded", function () {
+  const registrationForm = document.getElementById("registrationForm");
+
+  registrationForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Verzamel de ingevoerde gegevens
+    const formData = new FormData(registrationForm);
+    const email = formData.get("email");
+
+    // AJAX-verzoek om de verificatie-e-mail te verzenden
+    fetch("backend_endpoint_url", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Toon een succesbericht aan de gebruiker
+          alert(
+            "Een verificatie-e-mail is verzonden naar uw e-mailadres. Controleer uw inbox om het registratieproces te voltooien."
+          );
+        } else {
+          // Toon een foutmelding aan de gebruiker
+          alert(
+            "Er is een fout opgetreden bij het verzenden van de verificatie-e-mail. Probeer het later opnieuw."
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Toon een foutmelding aan de gebruiker
+        alert(
+          "Er is een fout opgetreden bij het verzenden van de verificatie-e-mail. Probeer het later opnieuw."
+        );
+      });
+  });
+});
