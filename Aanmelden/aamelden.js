@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // EMAIL VERZENDEN
-
 document.addEventListener("DOMContentLoaded", function () {
   const registrationForm = document.getElementById("registrationForm");
 
