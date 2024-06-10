@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     const userId = 1; //hardcoded 1 voor nu voor janine doe
-    fetch(`/user/${userId}`)
+    fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 200) {
             const user = data.data[0];
             //upper information
             document.getElementById('userName').innerText = user.Username;
+            console.log(user.Username);
             document.getElementById('status').innerText = user.Status;
             document.getElementById('userType').innerText = user.Role;
             document.getElementById('email').innerText = user.Email;
