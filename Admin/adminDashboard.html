@@ -90,6 +90,11 @@
                 <i class="bi bi-person"></i>
               </a>
             </li>
+            <li class="nav-item">
+              <button class="btn btn-outline-light" id="logout-button">
+                Log uit
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -148,6 +153,14 @@
               "http://127.0.0.1:5500/SkoolWorkshopWebsite/Login/login.html"; // Redirect de gebruiker naar de inlogpagina in het geval van een fout
           });
       });
+      // Voeg dit script toe onderaan je bestaande script
+      document
+        .getElementById("logout-button")
+        .addEventListener("click", function () {
+          localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
+          window.location.href =
+            "http://127.0.0.1:5500/SkoolWorkshopWebsite/Login/login.html"; // Leid de gebruiker om naar de loginpagina
+        });
     </script>
   </body>
 </html>
