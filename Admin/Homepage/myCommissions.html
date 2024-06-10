@@ -88,9 +88,9 @@
       
       $(document).ready(function () {
         const userId = localStorage.getItem("userId");
-        console.log(userId);
+        console.log(userId); //hoe krijg ik die userid????
         console.log("Document ready. Attempting to fetch workshops.");
-        const apiUrl = "https://skoolworkshopapi.azurewebsites.net/workshopcommission/1";
+        const apiUrl = "https://skoolworkshopapi.azurewebsites.net/workshopcommission/" + userId;
         
         $.get(
           apiUrl,
@@ -215,15 +215,10 @@
               </div>
             </div>
           </div>
-          <!-- de aanmeldknop voor docenten -->
           <div class="modal-footer">
-            <span id="confirm" style="margin-left: 10px;"></span>
-            <button id="signup" type="button" class="btn btn-default" onclick="confirmation()">Aanmelden</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearText()">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
               Close
             </button>
-
-            
           </div>
           
         </div>

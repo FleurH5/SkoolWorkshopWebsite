@@ -18,7 +18,7 @@
     <script src="adminnavcomponents.js"></script>
     
      <!-- popup -->
-     <div class="alert alert-success" role="alert">
+     <div class="alert alert-success" style="display: none; position: fixed; top: 10px; right: 10px; z-index: 1000;">
       <strong>Succes!</strong> Workshop is succesvol toegevoegd.
     </div>
     <div class="alert alert-danger" style="display: none; position:fixed; top: 10px; right: 10px; z-index: 1000;">
@@ -53,6 +53,10 @@
         <label for="requirements">Benodigdheden</label>
         <textarea class="form-control" name="requirements" id="requirements" rows="3" placeholder="Voer uw benodigdheden in"></textarea>
       </div> 
+      <div class="form-group mb-3">
+        <label for="image">Afbeelding</label>
+        <input type="url" class="form-control" id="image" name="image" required>
+      </div>
       <button type="submit" class="btn ">Voeg toe</button>
     </div>
     </div>
@@ -67,12 +71,14 @@
         const category = document.getElementById('category').value;
         const requirements = document.getElementById('requirements').value;
         const description = document.getElementById('description').value;
+        const linktopicture = document.getElementById('image').value;
         //object aanmaken
         const formObject = {
           name: name,
           category: category,
           requirements: requirements,
-          description: description
+          description: description,
+          linktopicture: linktopicture
         };
         console.log(formObject);
 
