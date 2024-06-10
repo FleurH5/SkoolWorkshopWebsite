@@ -110,7 +110,8 @@
 
         // Controleer of er een token aanwezig is
         if (!token) {
-          window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina als er geen token is
+          window.location.href =
+            "http://127.0.0.1:5500/SkoolWorkshopWebsite/Login/login.html"; // Redirect de gebruiker naar de inlogpagina als er geen token is
           return;
         }
 
@@ -143,13 +144,9 @@
           .catch((error) => {
             console.error("Error:", error);
             localStorage.removeItem("accessToken");
-            window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina in het geval van een fout
+            window.location.href =
+              "http://127.0.0.1:5500/SkoolWorkshopWebsite/Login/login.html"; // Redirect de gebruiker naar de inlogpagina in het geval van een fout
           });
-
-        // Verwijder de token uit de localStorage bij het sluiten van het tabblad
-        window.addEventListener("beforeunload", function (e) {
-          localStorage.removeItem("accessToken");
-        });
       });
     </script>
   </body>
