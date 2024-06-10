@@ -8,7 +8,6 @@ body {
     margin-left: 250px;
     padding: 20px;
     width: calc(100% - 250px);
-    background-color: #f8f9fa;
   }
   
   .rounded-circle {
@@ -90,5 +89,9 @@ body {
     height: 50px;
     background: #333; 
     z-index: 1000;
+  }
+
+  .align-items-center {
+    align-items: center;
   }
   
