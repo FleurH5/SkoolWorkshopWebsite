@@ -82,11 +82,16 @@
     <footer>
       <p>Skoolworkshop Copyright © 2024</p>
     </footer>
+    <script src="authenticate.js"></script>
 
     <script>
-      const apiUrl = "https://skoolworkshopapi.azurewebsites.net/workshopcommission/1"
+      
       $(document).ready(function () {
+        const userId = localStorage.getItem("userId");
+        console.log(userId);
         console.log("Document ready. Attempting to fetch workshops.");
+        const apiUrl = "https://skoolworkshopapi.azurewebsites.net/workshopcommission/1";
+        
         $.get(
           apiUrl,
           function (response) {
@@ -290,7 +295,6 @@
     window.location.href = "myCommissions.html";
   });
 });
-
 
 </script>
     </div>
