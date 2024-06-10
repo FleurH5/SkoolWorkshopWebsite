@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const userId = 1; //hardcoded 1 voor nu voor janine doe
-    fetch('/user/${userId}')
+    fetch(`/user/${userId}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 200) {
