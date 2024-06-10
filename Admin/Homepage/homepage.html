@@ -55,6 +55,14 @@
     </nav>
 
     <div class="container">
+      <div class="btn-group" role="group" aria-label="Toggle workshops">
+        <button type="button" class="btn btn-default" id="showAllBtn">Alle Workshops</button>
+        <button type="button" class="btn btn-default" id="showEnrolledBtn">Aangemelde Workshops</button>
+      </div>
+    </div>
+    
+
+    <div class="container">
       <div class="container">
         <div class="row">
           <div class="col text-center">
@@ -119,7 +127,7 @@
                       <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
                       <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
                       <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
-                      <p><strong>Datum:</strong> ${truncatedDate}</p>
+                      <p><strong>Datum:</strong> ${formatDate(truncatedDate)}</p>
                       <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '..'}</p>
                       </div>
                       </div>
@@ -160,12 +168,22 @@
           <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
           <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
           <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
-          <p><strong>Datum:</strong> ${workshop.Date}</p>
+          <p><strong>Datum:</strong> ${formatDate(workshop.Date)}</p> 
           <p><strong>Location:</strong> ${workshop.Location}</p>
         `);
         $("#workshop-image").attr("src", workshop.LinkToPicture);
         $("#workshop-details-modal").modal("show");
       });
+
+      function formatDate(dateString) {
+    const date = new Date(dateString); 
+    // toLocaleDateString zet de datum om naar nederlandse notatie
+    return date.toLocaleDateString("nl-NL", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    });
+  }
     </script>    
     
     <div id="workshop-details-modal" class="modal fade" role="dialog">
@@ -265,6 +283,29 @@
                 isConfirmed();
             }
         }
+
+        $(document).ready(function () {
+  // Bepaal de huidige URL van de gebruiker
+  var currentUrl = window.location.pathname;
+
+  // Controleer welke knop actief moet zijn op basis van de huidige URL
+  if (currentUrl.includes("homepage.html")) {
+    $("#showAllBtn").addClass("active");
+  } else if (currentUrl.includes("myCommissions.html")) {
+    $("#showEnrolledBtn").addClass("active");
+  }
+
+  // Event listeners voor de knoppen
+  $("#showAllBtn").click(function () {
+    // Verander de URL naar homepage.html
+    window.location.href = "homepage.html";
+  });
+
+  $("#showEnrolledBtn").click(function () {
+    // Verander de URL naar myCommissions.html
+    window.location.href = "myCommissions.html";
+  });
+});
       </script>
     </div>
   </body>
