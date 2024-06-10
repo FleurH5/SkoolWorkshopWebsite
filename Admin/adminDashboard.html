@@ -145,12 +145,15 @@
             localStorage.removeItem("accessToken");
             window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina in het geval van een fout
           });
-
-        // Verwijder de token uit de localStorage bij het sluiten van het tabblad
-        window.addEventListener("beforeunload", function (e) {
-          localStorage.removeItem("accessToken");
-        });
       });
+
+      document
+        .getElementById("logout-button")
+        .addEventListener("click", function () {
+          localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
+          window.location.href =
+            "http://127.0.0.1:5500/SkoolWorkshopWebsite/Login/login.html"; // Leid de gebruiker om naar de loginpagina
+        });
     </script>
   </body>
 </html>
