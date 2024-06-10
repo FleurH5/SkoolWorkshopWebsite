@@ -93,6 +93,16 @@
                 />
               </div>
               <div class="input-group mb-3">
+                <input
+                  type="date"
+                  id="geboortedatum"
+                  class="form-control form-control-lg"
+                  placeholder="Geboortedatum*"
+                  name="geboortedatum"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
                 <select
                   class="form-select form-select-lg col-md-6"
                   id="land"
@@ -196,13 +206,16 @@
                   >&#10004;</span
                 >
               </div>
+
               <div class="input-group mb-3">
                 <select
                   id="workshopSelect"
                   class="form-select form-select-lg"
                   required
                 >
-                  <option value="" disabled selected>Categorie?</option>
+                  <option value="" disabled selected>
+                    Welke workshop geeft U?
+                  </option>
                   <!-- Workshop opties worden ingevuld door JavaScript -->
                 </select>
               </div>
@@ -225,6 +238,10 @@
                   name="wachtwoord"
                   required
                 />
+                <div id="passwordRequirements" class="invalid-feedback">
+                  Het wachtwoord moet minstens 8 tekens lang zijn en minstens
+                  één hoofdletter bevatten.
+                </div>
               </div>
               <div class="input-group mb-3">
                 <input
@@ -235,6 +252,9 @@
                   name="bevestig_wachtwoord"
                   required
                 />
+                <div id="passwordMismatch" class="invalid-feedback">
+                  Wachtwoorden komen niet overeen.
+                </div>
               </div>
               <div class="input-group mb-3">
                 <button
@@ -258,3 +278,5 @@
     </div>
   </body>
 </html>
+
+<button class="btn btn-outline-light m-5" id="logout-button">Log uit</button>
