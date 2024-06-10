@@ -64,24 +64,6 @@
                   required
                 />
               </div>
-              <div class="input-group mb-3">
-                <input
-                  type="checkbox"
-                  id="show-password"
-                  onchange="togglePasswordVisibility()"
-                />
-                <label class="form-check-label p-1" for="show-password">
-                  Wachtwoord weergeven
-                </label>
-              </div>
-              <script>
-                function togglePasswordVisibility() {
-                  const passwordField = document.getElementById("password");
-                  const checkbox = document.getElementById("show-password");
-
-                  passwordField.type = checkbox.checked ? "text" : "password";
-                }
-              </script>
 
               <div class="forgot mb-4">
                 <small><a href="#">Wachtwoord vergeten?</a></small>
