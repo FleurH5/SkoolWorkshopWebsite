@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const userId = 1; //hardcoded 1 voor nu voor janine doe
-    fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
+  function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return Object.fromEntries(params.entries());
+  }
+
+  const queryParams = getQueryParams();
+  const userId = queryParams.userId;
+
+  if (!userId) {
+    console.error('No userId found in query parameters');
+    return;
+  }
+
+  fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 200) {

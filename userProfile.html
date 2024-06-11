@@ -1,235 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Template</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background-color: #343a40;
-            padding-top: 20px;
-            color: white;
-        }
-        .sidebar a {
-            padding: 15px;
-            text-decoration: none;
-            font-size: 18px;
-            color: white;
-            display: block;
-        }
-        .sidebar a:hover {
-            background-color: #575d63;
-        }
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px);
-            background-color: #f8f9fa;
-        }
-        .rounded-circle {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-        }
-        .collapse-horizontal {
-            width: 0;
-            overflow: hidden;
-            transition: width 0.35s ease;
-        }
-        .collapse-horizontal.show {
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profiel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="userstyle.css" />
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <a href="#homepage"><img src="./Images/SKWLogoTransparentWhite.png" alt="logo" class="img-fluid"></a>
-        <a href="userProfile.html">Profiel</a>
-        <a href="#">Mijn opdrachten</a>
-        <a href="#">Mijn inschrijvingen</a>
-        <a href="#">Geschiedenis</a>
-        <a href="#settings">Instellingen</a>
-        <a href="#logout">Uitloggen</a>
+  <div class="sidenav">
+    <ul class="nav flex-column">
+      <li>
+        <a class="nav-link" href="userProfile.html"><span class="bi bi-file-person"></span> Profiel</a>
+      </li>
+      <li>
+        <a class="nav-link" href="#"><span class="bi bi-calendar2-week"></span> Mijn opdrachten</a>
+      </li>
+      <li>
+        <a class="nav-link" href="#"><span class="bi bi-bell"></span> Mijn inschrijvingen</a>
+      </li>
+      <li>
+        <a class="nav-link" href="#"><span class="bi bi-clock-history"></span> Geschiedenis</a>
+      </li>
+      <li>
+        <a class="nav-link" href="settings.html"><span class="bi bi-gear-fill"></span> Instellingen</a>
+      </li>
+      <li>
+        <a class="nav-link" href="./Login/login.html"><span class="bi bi-box-arrow-in-left"></span> Uitloggen</a>
+      </li>
+    </ul>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./Homepage/Homepage.html">
+        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="75" height="44" class="d-inline-block align-text-top" />
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="bi bi-person"></i></a>
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <!-- Content -->
-    <div class="content">
-        <!-- Main Content -->
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <h1 class="display-4">Profiel</h1>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 mb-4 text-center">
-                            <img src="./Images/SKWLogoS.jpg" alt="pfp" class="rounded-circle mb-3">
-                            <h2>{naam}</h2>
-                            <h4 class="text-muted">{status}</h4>
-                        </div>
-                        <div class="col-lg-8 col-md-6">
-                            <div class="mb-3">
-                                <h5>Type docent</h5>
-                                <p>{typedocent}</p>
-                            </div>
-                            <div class="mb-3">
-                                <h5>Email</h5>
-                                <p>{email}</p>
-                            </div>
-                            <div class="mb-3">
-                                <h5>Workshops</h5>
-                                <p>{workshops}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="accordion" id="profileAccordion">
-                        <div class="card">
-                            <div class="card-header" id="headingContactInfo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseContactInfo" aria-expanded="true" aria-controls="collapseContactInfo">
-                                        Contact Informatie
-                                    </button>
-                                </h2>
-                            </div>
-
-                            <div id="collapseContactInfo" class="collapse show" aria-labelledby="headingContactInfo" data-parent="#profileAccordion">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h6>Telefoonnummer</h6>
-                                            <p>{telnr}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Adres</h6>
-                                            <p>{adres}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Postcode</h6>
-                                            <p>{postcode}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingPersonalInfo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsePersonalInfo" aria-expanded="false" aria-controls="collapsePersonalInfo">
-                                        Persoonlijke Informatie
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapsePersonalInfo" class="collapse" aria-labelledby="headingPersonalInfo" data-parent="#profileAccordion">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h6>Geboortedatum</h6>
-                                            <p>{dob}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Land</h6>
-                                            <p>{land}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Adres</h6>
-                                            <p>{adres}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Postcode</h6>
-                                            <p>{postcode}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Gesproken Talen</h6>
-                                            <p>{talen}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingTravelInfo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTravelInfo" aria-expanded="false" aria-controls="collapseTravelInfo">
-                                        Reisinformatie
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTravelInfo" class="collapse" aria-labelledby="headingTravelInfo" data-parent="#profileAccordion">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h6>OV</h6>
-                                            <p>{ov}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Rijbewijs</h6>
-                                            <p>{rijbewijs}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Auto</h6>
-                                            <p>{auto}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingPaymentInfo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsePaymentInfo" aria-expanded="false" aria-controls="collapsePaymentInfo">
-                                        Betalingsgegevens
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapsePaymentInfo" class="collapse" aria-labelledby="headingPaymentInfo" data-parent="#profileAccordion">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h6>Salaris per uur</h6>
-                                            <p>{geld}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Banknummer</h6>
-                                            <p>{banknummer}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>BTW-nummer</h6>
-                                            <p>{btwnr}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>KVK-nummer</h6>
-                                            <p>{kvknr}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+  </nav>
+  <div class="content">
+    <!-- Main Content -->
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12 mb-4">
+            <br><br>
+        <div class="align-items-center">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 text-center">
+              <img src="../Images/SKWLogoS.jpg" alt="pfp" class="rounded-circle mb-3">
+              <h2 id="userName">{naam}</h2>
+              <h4 class="text-muted" id="status">{status}</h4>
             </div>
+            <div class="col-lg-8 col-md-6">
+              <div class="mb-3">
+                <h5>Type docent</h5>
+                <p id="userType">{typedocent}</p>
+              </div>
+              <div class="mb-3">
+                <h5>Email</h5>
+                <p id="email">{email}</p>
+              </div>
+              <div class="mb-3">
+                <h5>Workshops</h5>
+                <p id="workshops">{workshops}</p>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div class="col-12">
+          <div class="accordion" id="profileAccordion">
+            <div class="card">
+              <div class="card-header" id="headingContactInfo">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactInfo" aria-expanded="true" aria-controls="collapseContactInfo">
+                    Contact Informatie
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseContactInfo" class="collapse show" aria-labelledby="headingContactInfo" data-bs-parent="#profileAccordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h6>Telefoonnummer</h6>
+                      <p id="phoneNumber">{telnr}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Adres</h6>
+                      <p id="address">{adres}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Postcode</h6>
+                      <p id="postalcode">{postcode}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingPersonalInfo">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePersonalInfo" aria-expanded="false" aria-controls="collapsePersonalInfo">
+                    Persoonlijke Informatie
+                  </button>
+                </h2>
+              </div>
+              <div id="collapsePersonalInfo" class="collapse" aria-labelledby="headingPersonalInfo" data-bs-parent="#profileAccordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h6>Geboortedatum</h6>
+                      <p id="DOB">{dob}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Land</h6>
+                      <p id="country">{land}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Gesproken Talen</h6>
+                      <p id="languagesSpoken">{talen}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTravelInfo">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTravelInfo" aria-expanded="false" aria-controls="collapseTravelInfo">
+                    Reisinformatie
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseTravelInfo" class="collapse" aria-labelledby="headingTravelInfo" data-bs-parent="#profileAccordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h6>OV</h6>
+                      <p id="publicTransit">{ov}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Rijbewijs</h6>
+                      <p id="license">{rijbewijs}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Auto</h6>
+                      <p id="car">{auto}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingPaymentInfo">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePaymentInfo" aria-expanded="false" aria-controls="collapsePaymentInfo">
+                    Betalingsgegevens
+                  </button>
+                </h2>
+              </div>
+              <div id="collapsePaymentInfo" class="collapse" aria-labelledby="headingPaymentInfo" data-bs-parent="#profileAccordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h6>Salaris per uur</h6>
+                      <p id="salary">{geld}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Banknummer</h6>
+                      <p id="bankinfo">{banknummer}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>BTW-nummer</h6>
+                      <p id="btwnr">{btwnr}</p>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>KVK-nummer</h6>
+                      <p id="kvknr">{kvknr}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./Admin/selectedAccount.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
