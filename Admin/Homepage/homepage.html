@@ -55,11 +55,25 @@
     </nav>
 
     <div class="container">
-      <div class="btn-group" role="group" aria-label="Toggle workshops">
+      <div class="row">
+        <div class="col-md-6">
+      <div class="btn-group" role="group" aria-label="Toggle workshops" style="margin-right: 10px;">
         <button type="button" class="btn btn-default" id="showAllBtn">Alle Workshops</button>
         <button type="button" class="btn btn-default" id="showEnrolledBtn">Aangemelde Workshops</button>
       </div>
     </div>
+    
+      
+      <div class="col-md-6 text-right">
+        <label for="workshopFilter">Filter op workshop</label>
+        <select name="workshopFilter" id="workshopFilter"></select>
+      
+      </div>
+    </div>
+    </div>
+
+    
+    
     
 
     <div class="container">
@@ -79,112 +93,16 @@
       <h2>Later</h2>
       <div class="scrolling-wrapper" id="specific-date-workshop-container"></div>
 
+      <h2>Workshops op datum</h2>
+        <label for="dateFilter">Filter op datum:</label>
+        <input type="date" id="dateFilter">
+        <button onclick="applyDateFilter()">Toepassen</button>
+        <div class="scrolling-wrapper" id="filtered-date-workshop-container"></div>
+
     <footer>
       <p>Skoolworkshop Copyright © 2024</p>
     </footer>
-
-    <script>
-      $(document).ready(function () {
-        console.log("Document ready. Attempting to fetch workshops.");
-        $.get(
-          "https://skoolworkshopapi.azurewebsites.net/workshopcommission/all",
-          function (response) {
-            console.log("API response received:", response);
-            if (response.status === 200) {
-              const result = response.data;
-              const todayWorkshopContainer = $("#today-workshop-container");
-              const tomorrowWorkshopContainer = $("#tomorrow-workshop-container");
-              const specificWorkshopContainer = $("#specific-date-workshop-container");
-    
-              const currentDate = new Date();
-        
-              result.forEach((workshop) => {
-                const workshopDate = new Date(workshop.Date);
-                const workshopStartTime = new Date(`${workshop.Date}T${workshop.StartTime}`);
-    
-                // Check if the workshop is today
-                const isSameDay = 
-                  workshopDate.getDate() === currentDate.getDate() &&
-                  workshopDate.getMonth() === currentDate.getMonth() &&
-                  workshopDate.getFullYear() === currentDate.getFullYear();
-                  
-                const isTomorrow = 
-                  workshopDate.getDate() === currentDate.getDate() + 1 &&
-                  workshopDate.getMonth() === currentDate.getMonth() &&
-                  workshopDate.getFullYear() === currentDate.getFullYear();
-    
-                // Check if the workshop start time is later than the current time
-                const isAfterCurrentTime = workshopStartTime > currentDate;
-    
-                const truncatedDate = truncateText(workshop.Date);
-                const panelContent = `
-                  <div class="panel custom-panel" data-workshop='${JSON.stringify(workshop)}'>
-                    <div class="panel-heading ">${workshop.WorkshopName}</div>
-                    <div class="panel-body">
-                      <img src="${workshop.LinkToPicture}" class="img-responsive" alt="Image" />
-                      <p><strong>Category:</strong> ${workshop.Category}</p>
-                      <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
-                      <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
-                      <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
-                      <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
-                      <p><strong>Datum:</strong> ${formatDate(truncatedDate)}</p>
-                      <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '..'}</p>
-                      </div>
-                      </div>
-                      `;
-
-                if (isSameDay && isAfterCurrentTime) {
-                  todayWorkshopContainer.append(panelContent);
-                } else if (isTomorrow) {
-                  tomorrowWorkshopContainer.append(panelContent)
-                } else if (workshopDate.getDate() > currentDate.getDate()) {
-                  specificWorkshopContainer.append(panelContent)
-                }
-              });
-            } else {
-              console.error("Failed to fetch workshops. Status code:", response.status);
-            }
-          }
-        ).fail(function (jqXHR, textStatus, errorThrown) {
-          console.error("Error during API request:", textStatus, errorThrown);
-        });
-      });
-    
-      // Function to short date
-      function truncateText(text, maxLength = 10) {
-        if (text.length > maxLength) {
-          return text.substring(0, maxLength);
-        }
-        return text;
-      }
-    
-      // Modal handling for entire panel click
-      $(document).on("click", ".custom-panel", function () {
-        const workshop = $(this).data("workshop");
-        $("#workshop-name").text(workshop.WorkshopName);
-        $("#workshop-details").html(`
-          <p><strong>Category:</strong> ${workshop.Category}</p>
-          <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
-          <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
-          <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
-          <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
-          <p><strong>Datum:</strong> ${formatDate(workshop.Date)}</p> 
-          <p><strong>Location:</strong> ${workshop.Location}</p>
-        `);
-        $("#workshop-image").attr("src", workshop.LinkToPicture);
-        $("#workshop-details-modal").modal("show");
-      });
-
-      function formatDate(dateString) {
-    const date = new Date(dateString); 
-    // toLocaleDateString zet de datum om naar nederlandse notatie
-    return date.toLocaleDateString("nl-NL", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    });
-  }
-    </script>    
+    <script src="homepage.js"></script>
     
     <div id="workshop-details-modal" class="modal fade" role="dialog">
       <div class="modal-dialog custom-modal-dialog">
