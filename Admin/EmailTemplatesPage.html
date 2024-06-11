@@ -104,17 +104,18 @@
 
   <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const dropdownItems = document.querySelectorAll('.dropdown-item');
     const templateDropdown = document.querySelector('.template-dropdown');
 
     const templateContent = document.getElementById('templateContent');
+    let template; // Declare the template variable here
 
     dropdownItems.forEach(item => {
         item.addEventListener('click', function (e) {
             e.preventDefault();
             if (templateDropdown.contains(e.target)) {
-                const template = this.getAttribute('data-template');
+                template = this.getAttribute('data-template');
                 console.log(template);
                 fetchTemplateContent(template);
             }
