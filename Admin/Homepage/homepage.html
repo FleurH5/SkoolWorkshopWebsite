@@ -37,18 +37,21 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a href="../addWorkshops.html"
-                ><span class="glyphicon glyphicon-user"></span> Account</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://weather.com/nl-NL/weer/vandaag/l/NLXX0002:1:NL?Goto=Redirected"
-                target="_blank"
-                ><span class="glyphicon glyphicon-globe"></span> Weather</a
-              >
-            </li>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="#" id="account-link">
+                  <span class="glyphicon glyphicon-user"></span> Account
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://weather.com/nl-NL/weer/vandaag/l/NLXX0002:1:NL?Goto=Redirected"
+                  target="_blank"
+                >
+                  <span class="glyphicon glyphicon-globe"></span> Weather
+                </a>
+              </li>
+            </ul>
           </ul>
         </div>
       </div>
@@ -266,6 +269,28 @@
             }
           });
         });
+        const user = {
+    userRole: 'admin',
+    userRole: 'default', // Of 'docent', dit zou normaal uit de server respons komen
+  };
+
+  // Functie om de account link te wijzigen op basis van de gebruikersrol
+  function updateAccountLink() {
+    const accountLink = document.getElementById('account-link');
+
+    if (user.userRole === 'admin') {
+      accountLink.href = '../admindashboard.html';
+    } else if (user.userRole === 'default') {
+      accountLink.href = '../../Docent/docentdashboard/docentdashboard.html';
+    } else {
+      console.error('Onbekende rol:', user.userRole);
+    }
+  }
+
+  // Roep de functie aan wanneer de pagina is geladen
+  document.addEventListener('DOMContentLoaded', function() {
+    updateAccountLink();
+  });
       </script>
 
       <!-- script voor het aanmelden -->

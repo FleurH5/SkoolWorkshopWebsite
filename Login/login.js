@@ -27,11 +27,11 @@ document
         switch (userRole) {
           case "Admin":
             window.location.href =
-              "http://127.0.0.1:5500/SkoolWorkshopWebsite/Admin/adminDashboard.html"; // Doorsturen naar het dashboard
+              "http://127.0.0.1:5500/Admin/adminDashboard.html"; // Doorsturen naar het dashboard
             break;
           case "Default":
             window.location.href =
-              "http://127.0.0.1:5500/Admin/Homepage/homepage.html";
+              "http://127.0.0.1:5500/Docent/docentdashboard/docentdashboard.html";
             break;
           case "Moderator":
             window.location.href =
