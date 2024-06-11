@@ -126,7 +126,7 @@
                   </div>
                 `;
                 card.querySelector('.clickable-card').addEventListener('click', () => {
-                  window.location.href = "./selectedAccount.html";
+                  window.location.href = `./selectedAccount.html?userId=${user.UserId}`;
                 });
                 container.appendChild(card);
               });

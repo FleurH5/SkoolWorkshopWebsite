@@ -1,5 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const userId = 1; //hardcoded 1 voor nu voor janine doe
+    // const userId = 1; //hardcoded 1 voor nu voor janine doe
+
+    // get id passed from card in allAccounts.html
+    function getQueryParams() {
+        const params = {};
+        window.location.search.substring(1).split("&").forEach(pair => {
+            const [key, value] = pair.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value);
+        });
+        return params;
+    }
+
+    const queryParams = getQueryParams();
+    const userId = queryParams.userId;
+    console.log(queryParams, ": ", userId)
+
     fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
     .then(response => response.json())
     .then(data => {
