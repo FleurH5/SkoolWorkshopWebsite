@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Workshops</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="homepage.css" />
+  <link rel="icon" href="../Login/SKWLogoS.jpg" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-inverse" style="background: #000000">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- Navbar header content -->
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <!-- Navbar links -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="btn-group" role="group" aria-label="Toggle workshops" style="margin-right: 10px;">
+      <button type="button" class="btn btn-default" id="showAllBtn">Alle Workshops</button>
+      <button type="button" class="btn btn-default" id="showEnrolledBtn">Aangemelde Workshops</button>
+    </div>
+    <label for="dateFilter">Filter op datum:</label>
+    <input type="date" id="dateFilter">
+    <label for="workshopFilter">Filter op workshop:</label>
+    <input type="text" id="workshopFilter">
+    <button onclick="applyFilters()">Toepassen</button>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <h1>Workshops</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Vandaag</h2>
+    <div class="scrolling-wrapper" id="today-workshop-container"></div>
+
+    <h2>Morgen</h2>
+    <div class="scrolling-wrapper" id="tomorrow-workshop-container"></div>
+
+    <h2>{filterdatum}</h2>
+    <div class="scrolling-wrapper" id="filter-date-workshop-container"></div>
+
+    <h2>Later</h2>
+    <div class="scrolling-wrapper" id="specific-date-workshop-container"></div>
+  </div>
+
+  <footer>
+    <p>Skoolworkshop Copyright © 2024</p>
+  </footer>
+
+  <!-- Import external JavaScript files -->
+  <script src="homepage.js"></script>
+  <script src="authenticate.js"></script>
+</body>
+</html>
