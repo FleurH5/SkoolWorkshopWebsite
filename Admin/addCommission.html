@@ -9,36 +9,62 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
   <body>
+    <!-- Sidebar -->
     <div class="sidenav">
-      <ul class="nav flex-column">
-        <li>
-          <a class="nav-link" href="adminDashboard.html"><span class="bi bi-speedometer2"></span> Dashboard</a>
-        </li>
-        <li>
-          <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
-        </li>
-        <li>
-          <a class="nav-link" href="assignmentOverview.html"> <span class="bi bi-calendar"></span> Opdrachten</a>
-        </li>
-        <li>
-          <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
-        </li>
-        <li>
-          <a class="nav-link" href="allAccounts.html"><span class="bi bi-suitcase-lg"></span> Docenten</a>
-        </li>
-        <li><a class="nav-link" href="EmailTemplatesPage.html"><span class="bi bi-mailbox"></span> Email Templates</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="sidebardropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <span class="bi bi-plus-lg"></span> Nieuw
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="sidebardropdown">
-            <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
-            <li><a class="dropdown-item" href="addCommission.html">Opdracht</a></li>
-            <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
-          </ul>
-        </li>
-      </ul>
+        <ul class="nav flex-column">
+          <li>
+            <a class="nav-link" href="adminDashboard.html">
+              <span class="bi bi-speedometer2"></span> Dashboard
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="">
+              <span class="bi bi-person-arms-up"></span> Workshops
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="./assignmentOverview.html">
+              <span class="bi bi-calendar"></span> Opdrachten
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#">
+              <span class="bi bi-person"></span> Klanten
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="./allAccounts.html">
+              <span class="bi bi-suitcase-lg"></span> Docenten
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="EmailTemplatesPage.html">
+              <span class="bi bi-mailbox"></span> Email Templates
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="sidebardropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="bi bi-plus-lg"></span> Nieuw
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="sidebardropdown">
+              <li>
+                <a class="dropdown-item" href="addWorkshops.html">Workshop</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="addCommission.html">Opdracht</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="registerClient.html">Klant</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <button class="btn btn-outline-light m-5" id="logout-button">
+          Log uit
+        </button>
+      </div>
     </div>
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
           <a class="navbar-brand" href="./Homepage/Homepage.html">
@@ -172,22 +198,21 @@
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6">
-                    <label for="startTime">Begintijd *</label>
-                    <input type="time" class="form-control" name="startTime"></input>
-                  </div>
+                    <label for="startTime">Starttijd *</label>
+                    <input required type="time" class="form-control" name="startTime">
+                  </div> 
                   <div class="form-group col-md-6">
                     <label for="endTime">Eindtijd *</label>
-                    <input type="time" class="form-control" name="endTime"></input>
-                  </div>
-                </div><br>
-                <div class="form-group md-3">Duur van de workshop: X minuten</div><br>
-                <div class="form-group md-3">
-                  <label for="location">Werklocatie</label>
-                  <input type="text" class="form-control" name="location" placeholder="Werklocatie, indien afwijkend"></input>
+                    <input required type="time" class="form-control" name="endTime">
+                  </div> 
                 </div>
-                <div class="form-group md-3">
-                  <label for="workshopNotes">Notities</label>
-                  <textarea class="form-control" name="workshopNotes" placeholder="Voer notities in"></textarea>
+                <div class="form-group mb-3">
+                  <label for="location">Locatie *</label>
+                  <input required type="text" class="form-control" name="location" placeholder="Voer de locatie in">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="extraInformation">Extra Toelichting</label>
+                  <textarea class="form-control" name="extraInformation" rows="3" placeholder="Voer de benodigde extra toelichtingen in, indien nodig"></textarea>
                 </div>
               </div>
             </div>
@@ -197,132 +222,58 @@
       }
 
       function removeForm(button) {
-        button.closest('.form-container').remove();
+        const formContainer = button.closest('.form-container');
+        formContainer.remove();
       }
 
-      // Add to the database (for now only the 'opdracht' parts)
-      document.getElementById('commissionForm').addEventListener('submit', async function(event) {
+      document.getElementById('commissionForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        
-        // Values
-        const commissionName = document.getElementById('commissionName').value;
-        const clientName = document.getElementById('mySelectedClient').value;
-        const address = document.getElementById('address').value;
-        const date = document.getElementById('date').value;
-        const commissionNotes = document.getElementById('notes').value;
 
-        // Workshop values
+        const formData = new FormData(this);
         const workshops = [];
-        document.querySelectorAll('.form-container').forEach(container => {
-          const workshopName = container.querySelector('select[name="workshop"]').value;
-          const maxUsers = container.querySelector('input[name="teachersNeeded"]').value;
-          const numberOfParticipants = container.querySelector('input[name="participants"]').value;
-          const targetGroup = container.querySelector('input[name="grade"]').value;
-          const level = container.querySelector('select[name="level"]').value;
-          const startTime = container.querySelector('input[name="startTime"]').value;
-          const endTime = container.querySelector('input[name="endTime"]').value;
-          const location = container.querySelector('input[name="location"]').value;
-          const workshopNotes = container.querySelector('textarea[name="workshopNotes"]').value;
-          workshops.push({
-            workshopname: workshopName,
-            maxusers: maxUsers,
-            numberofparticipents: numberOfParticipants,
-            targetgroup: targetGroup,
-            level: level,
-            starttime: startTime,
-            endtime: endTime,
-            location: location,
-            workshopnotes: workshopNotes
+
+        document.querySelectorAll('#new-input-container .form-container').forEach(container => {
+          const workshop = {};
+          container.querySelectorAll('select, input, textarea').forEach(input => {
+            workshop[input.name] = input.value;
           });
+          workshops.push(workshop);
         });
 
-        // Object creation
-        const formObject = {
-          commissionname: commissionName,
-          clientname: clientName,
-          address: address,
-          date: date,
-          commissionnotes: commissionNotes,
+        const data = {
+          commissionName: formData.get('commissionName'),
+          clientName: formData.get('mySelectedClient'),
+          address: formData.get('address'),
+          date: formData.get('date'),
+          notes: formData.get('notes'),
           workshops: workshops
         };
 
-        console.log(formObject);
-
-        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/workshopcommission/add';
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formObject)
-          });
-          if(response.ok){
-            console.log('Opdracht toegevoegd');
-            const result = await response.json();
-            // Show success popup
-            showPopup();
-            // Clear form
-            document.getElementById('commissionForm').reset();
-            document.getElementById('new-input-container').innerHTML = '';
-          } else {
-            console.error('Opdracht niet toegevoegd');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      });
-
-      function showPopup() {
-        const successPopup = document.querySelector('.alert-success');
-        successPopup.style.display = 'block';
-        setTimeout(() => {
-          successPopup.style.display = 'none';
-        }, 3000);
-      }
-
-
-      // Fetch client address when a client is selected
-      document.getElementById('mySelectedClient').addEventListener('change', function() {
-        const clientName = this.value;
-        if (clientName !== 'Selecteer een klant') {
-          fetchClientAddress(clientName);
-        }
-      });
-
-      function fetchClientAddress(clientName) {
-        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/client/address';
-        const requestData = {
-            clientname: clientName
-        };
-
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)
+        fetch('https://skoolworkshopapi.azurewebsites.net/commission/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 200 && data.data.length > 0) {
-                const address = data.data[0].Address;
-                document.getElementById('address').value = address;
-                document.querySelectorAll('input[name="location"]').forEach(input => {
-                    if (input.closest('.form-container')) {
-                        input.value = address;
-                    }
-                });
-            } else {
-                console.error('No address found for client');
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
             }
-        })
-        .catch(error => {
-            console.error('Error fetching client address:', error);
-        });
-    }
+            document.querySelector('.alert').style.display = 'block';
+            setTimeout(() => {
+              document.querySelector('.alert').style.display = 'none';
+              document.getElementById('commissionForm').reset();
+              document.getElementById('new-input-container').innerHTML = '';
+            }, 3000);
+          })
+          .catch(error => {
+            console.error('Error submitting form:', error);
+          });
+      });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-wwis7GuF5v0I7K7dM/Ud/3ZZwcf1whkgy5A3P92w9zzT8KTX73dChzzup4ZSnNm9" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-29S6uYY9mpC/Dyj5HhwfFfCt3esJ5pOR9FKNJeGDlzcr0wGATxjuhfKLAz0BBaxk" crossorigin="anonymous"></script>
   </body>
 </html>
