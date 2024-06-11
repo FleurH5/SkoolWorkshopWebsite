@@ -95,8 +95,8 @@
                                       <p class="col-md-5" id="status">${status}</p>
                                     </div>
                                     <div class="row">
-                                        <button id="block" class="col-md-6">Blokkeren</button>
-                                        <button id="unblock" class="col-md-6">Deblokkeren</button>
+                                        <button onclick="confirmationBlock()" class="col-md-6">Blokkeren</button>
+                                        <button onclick="confirmationUnblock()" class="col-md-6">Deblokkeren</button>
                                     </div>
                                     </div>
                                   </div>
@@ -236,7 +236,26 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- (de)blokkeren -->
   <script>
-    
-  </script>
+    function confirmationBlock() {
+        let result = confirm("Weet je het zeker?");
+        if(result === true) {
+            block(username); 
+            console.log('Blocked')
+        } else {
+            console.log('Canceled')
+        }
+    }
+
+    function confirmationUnblock() {
+        let result = confirm("Weet je het zeker?");
+        if(result === true) {
+            block(username); 
+            console.log('Unblocked')
+        } else {
+            console.log('Canceled')
+        }
+    }
+    </script>
+
 </body>
 </html>

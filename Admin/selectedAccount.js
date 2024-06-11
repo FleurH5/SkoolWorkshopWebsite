@@ -55,3 +55,33 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Error while fetching user data:', error));
 })
+
+const username = user.Username;
+
+    function block(username) {
+            updateUserStatus(username, 'Geblokkeerd');
+        }
+
+        function unblock(username) {
+            updateUserStatus(username, 'Toegewezen');
+        }
+
+        function updateUserStatus(username, status) {
+            $.ajax({
+                url: 'https://skoolworkshopapi.azurewebsites.net/user/updateStatus',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ Username: username, status: status }),
+                success: function(response) {
+                    if (response.status === 200) {
+                        alert('User status updated successfully');
+                    } else {
+                        alert('Failed to update user status');
+                    }
+                },
+                error: function(error) {
+                    console.error("There was an error updating the user status", error);
+                    alert('Error updating user status');
+                }
+            });
+        }
