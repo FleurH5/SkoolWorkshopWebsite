@@ -67,7 +67,7 @@
                         <div class="col-lg-4 col-md-6 mb-4 text-center">
                             <img src="../Images/SKWLogoS.jpg" alt="pfp" class="rounded-circle mb-3">
                             <h2 id="userName">{naam}</h2>
-                            <h4 class="text-muted" id="status">{status}</h4>
+                            <!-- <h4 class="text-muted" id="status">{status}</h4> -->
                         </div>
                         <!-- Part 2 -->
                         <div class="col-lg-4 col-md-6">
@@ -87,13 +87,21 @@
                         <!-- Part 3 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="mb-3">
-                                <h5>Hello</h5>
-                                <p>Hello</p>
+                                <div class="card clickable-card">
+                                    <div class="card-body">
+                                      <h5>Blokkeren</h5>
+                                      <div class="row">
+                                      <p class="col-md-5">status: </p><p class="col-md-5" id="status">${status}</p>
+                                    </div>
+                                    </div>
+                                  </div>
                             </div>
-                            <div class="mb-3">
-                                <h5>Lolly</h5>
-                                <p>Lolly</p>
-                            </div>
+                            <div class="card clickable-card">
+                                <div class="card-body">
+                                  <h5>some</h5>
+                                  <p>thing</p>
+                                </div>
+                              </div>
                         </div>
                     </div>
                 </div>
