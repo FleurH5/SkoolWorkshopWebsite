@@ -80,8 +80,10 @@
         </div>
     </nav>
 
+    
+
     <div class="container mt-5">
-        <div class="content">
+        <div class="content" id="clickable">
             <h1 class="text-center">Aanmeldingen docenten</h1><br>
             <div class="list-group" id="registration-list">
                 <!-- List items will be inserted here -->
@@ -98,6 +100,15 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // klik op de card en ga naar de profielpagina
+            document.getElementById("clickable").addEventListener("click", () => {
+                window.location.href = "./selectedAccount.html";
+            });
+        })
+    </script>
+
+    <script>
         // Fetch data from the backend
         $.ajax({
             url: 'https://skoolworkshopapi.azurewebsites.net/user/basic',  
@@ -111,7 +122,8 @@
                                 <div>
                                     <strong>${user.Username}</strong><br>
                                     <span>${user.Email}</span><br>
-                                    <span>${user.Role}</span>
+                                    <span>${user.Role}</span><br>
+                                    <span><a href="userDetails.html?username=${user.Username}">Bekijk alle gegevens</a></span>
                                 </div>
                                 <div>
                                     <button class="btn btn-success btn-sm mr-2" onclick="handleAccept('${user.Username}')">
