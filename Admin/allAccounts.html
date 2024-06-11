@@ -108,34 +108,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        fetch(`https://skoolworkshopapi.azurewebsites.net/user/all`)
-          .then(response => response.json())
-          .then(data => {
-            if(data.status === 200) {
-              const users = data.data;
-              const container = document.getElementById('user-cards-container');
-              users.forEach(user => {
-                const card = document.createElement('div');
-                card.className = 'col-lg-4 col-md-6 mb-4';
-                card.innerHTML = `
-                  <div class="card clickable-card">
-                    <div class="card-body">
-                      <h5 class="card-title">${user.Username}</h5>
-                      <p class="card-text">${user.Role}</p>
-                    </div>
-                  </div>
-                `;
-                card.querySelector('.clickable-card').addEventListener('click', () => {
-                  window.location.href = `./selectedAccount.html?userId=${user.UserId}`;
-                });
-                container.appendChild(card);
-              });
-            } else {
-              console.log('Error:', data.message);
-            }
-          })
-          .catch(error => console.error('Error while fetching data:', error));
-      });
+  fetch(`https://skoolworkshopapi.azurewebsites.net/user/all`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 200) {
+        const users = data.data;
+        const container = document.getElementById('user-cards-container');
+        users.forEach(user => {
+          const card = document.createElement('div');
+          card.className = 'col-lg-4 col-md-6 mb-4';
+          card.innerHTML = `
+            <div class="card clickable-card">
+              <div class="card-body">
+                <h5 class="card-title">${user.Username}</h5>
+                <p class="card-text">${user.Role}</p>
+                <p>${user.UserId}</p>
+              </div>
+            </div>
+          `;
+          card.querySelector('.clickable-card').addEventListener('click', () => {
+            window.location.href = `./selectedAccount.html?userId=${user.UserId}`;
+          });
+          container.appendChild(card);
+        });
+      } else {
+        console.log('Error:', data.message);
+      }
+    })
+    .catch(error => console.error('Error while fetching data:', error));
+});
+
     </script>
   </body>
 </html>
