@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             //personal information
             document.getElementById('DOB').innerText = user.Birthdate;
-            document.getElementById('country').innerText = user.Country
+            // document.getElementById('country').innerText = user.
             // bestaat nog niet? city wel...
-            document.getElementById('languagesSpoken').innerText = user.Language
+            // document.getElementById('languagesSpoken').innerText = user.
             // bestaat ook nog niet
 
             //travel information
