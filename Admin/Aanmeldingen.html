@@ -221,7 +221,7 @@
                                     <button class="btn btn-success btn-sm mr-2" onclick="assignJob('${job.CommissionWorkshopId}', '${job.UserId}')">
                                         <span style="color: white;">✔</span>
                                     </button>
-                                    <button class="btn btn-danger btn-sm" onclick="rejectJob('${job.CommissionWorkshopId}')">
+                                    <button class="btn btn-danger btn-sm" onclick="rejectJob('${job.CommissionWorkshopId}', '${job.UserId}')">
                                         <span style="color: white;">✖</span>
                                     </button>
                                 </div>
@@ -243,8 +243,8 @@
             updateJobStatus(commissionWorkshopId, userId);
         }
 
-        function rejectJob(commissionWorkshopId) {
-            deleteJob(commissionWorkshopId);
+        function rejectJob(commissionWorkshopId, userId) {
+            deleteJob(commissionWorkshopId, userId);
         }
 
         function updateJobStatus(commissionWorkshopId, userId) {
@@ -271,7 +271,7 @@
             });
         }
 
-        function deleteJob(commissionWorkshopId) {
+        function deleteJob(commissionWorkshopId, userId) {
             $.ajax({
                 url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommission/delete',
                 method: 'DELETE',
