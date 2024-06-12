@@ -30,6 +30,9 @@ class SideNav extends HTMLElement {
             </ul>
           </li>
         </ul>
+        <button class="nav-btn btn-outline-light m-5" id="logout-button">
+        Log uit
+      </button>
       </div>
         `;
   }
@@ -40,10 +43,10 @@ customElements.define("side-nav", SideNav);
 class NavBar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-white navbar-border-bottom">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="Homepage/Homepage.html">
-                        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="100" height="30" class="d-inline-block align-text-top">
+                        <img src="../Images/Skool-Workshop_Logo_Black.jpg" alt="Logo" width="100" height="30" class="d-inline-block align-text-top">
                     </a>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
@@ -61,3 +64,11 @@ class NavBar extends HTMLElement {
 }
 
 customElements.define("nav-bar", NavBar);
+
+document
+        .getElementById("logout-button")
+        .addEventListener("click", function () {
+          localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
+          window.location.href =
+            "http://127.0.0.1:5500/Login/login.html"; // Leid de gebruiker om naar de loginpagina
+        });
