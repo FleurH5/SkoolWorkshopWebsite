@@ -30,7 +30,7 @@ class SideNav extends HTMLElement {
             </ul>
           </li>
         </ul>
-        <button class="btn btn-outline-light m-5" id="logout-button">
+        <button class="nav-btn btn-outline-light m-5" id="logout-button">
         Log uit
       </button>
       </div>
