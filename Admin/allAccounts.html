@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="adminstyles.css" />
   </head>
   <body>
-
     <side-nav></side-nav>
     <nav-bar></nav-bar>
     <script src="adminnavcomponents.js"></script>
@@ -33,35 +32,81 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-  fetch(`https://skoolworkshopapi.azurewebsites.net/user/all`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === 200) {
-        const users = data.data;
-        const container = document.getElementById('user-cards-container');
-        users.forEach(user => {
-          const card = document.createElement('div');
-          card.className = 'col-lg-4 col-md-6 mb-4';
-          card.innerHTML = `
-            <div class="card clickable-card">
-              <div class="card-body">
-                <h5 class="card-title">${user.Username}</h5>
-                <p class="card-text">${user.Role}</p>
-              </div>
-            </div>
-          `;
-          card.querySelector('.clickable-card').addEventListener('click', () => {
-            window.location.href = `./selectedAccount.html?userId=${user.UserId}`;
-          });
-          container.appendChild(card);
-        });
-      } else {
-        console.log('Error:', data.message);
-      }
-    })
-    .catch(error => console.error('Error while fetching data:', error));
-});
+        // Haal de JWT-token op uit de localStorage
+        const token = localStorage.getItem("accessToken");
 
+        // Controleer of er een token aanwezig is
+        if (!token) {
+          window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina als er geen token is
+          return;
+        }
+
+        // Voer een GET-verzoek uit om de token te valideren
+        fetch(
+          "https://skoolworkshopapi.azurewebsites.net/auth/validate-token",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Voeg de JWT-token toe aan de Authorization header
+            },
+          }
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Invalid token");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (
+              data.message === "Token is valid" &&
+              (data.userRole === "Admin" || data.userRole === "Moderator")
+            ) {
+              // Token is valid, pagina kan geladen worden
+              loadPageContent();
+            } else {
+              throw new Error("Invalid token");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            localStorage.removeItem("accessToken");
+            window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina in het geval van een fout
+          });
+      });
+
+      function loadPageContent() {
+        fetch(`https://skoolworkshopapi.azurewebsites.net/user/all`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === 200) {
+              const users = data.data;
+              const container = document.getElementById("user-cards-container");
+              users.forEach((user) => {
+                const card = document.createElement("div");
+                card.className = "col-lg-4 col-md-6 mb-4";
+                card.innerHTML = `
+                                <div class="card clickable-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${user.Username}</h5>
+                                        <p class="card-text">${user.Role}</p>
+                                    </div>
+                                </div>
+                            `;
+                card
+                  .querySelector(".clickable-card")
+                  .addEventListener("click", () => {
+                    window.location.href = `./selectedAccount.html?userId=${user.UserId}`;
+                  });
+                container.appendChild(card);
+              });
+            } else {
+              console.log("Error:", data.message);
+            }
+          })
+          .catch((error) => console.error("Error while fetching data:", error));
+      }
     </script>
   </body>
 </html>
