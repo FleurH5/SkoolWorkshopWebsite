@@ -23,12 +23,14 @@
                 <br><br>
                 <div class="align-items-center">
                     <div class="row">
+                        <!-- Part 1 -->
                         <div class="col-lg-4 col-md-6 mb-4 text-center">
                             <img src="../Images/SKWLogoS.jpg" alt="pfp" class="rounded-circle mb-3">
                             <h2 id="userName">{naam}</h2>
-                            <h4 class="text-muted" id="status">{status}</h4>
+                            <!-- <h4 class="text-muted" id="status">{status}</h4> -->
                         </div>
-                        <div class="col-lg-8 col-md-6">
+                        <!-- Part 2 -->
+                        <div class="col-lg-4 col-md-6">
                             <div class="mb-3">
                                 <h5>Type docent</h5>
                                 <p id="userType">{typedocent}</p>
@@ -41,13 +43,36 @@
                                 <h5>Workshops</h5>
                                 <p id="workshops">{workshops}</p>
                             </div>
-                    
+                        </div>
+                        <!-- Part 3 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <div class="card clickable-card">
+                                    <div class="card-body">
+                                      <h5>Blokkeren</h5>
+                                      <div class="row">
+                                      <p class="col-md-6">status: </p>
+                                      <p class="col-md-6" id="status">${status}</p>
+                                    </div>
+                                    <div class="row">
+                                        <button onclick="confirmationBlock()" class="col-md-6">Blokkeren</button>
+                                        <button onclick="confirmationUnblock()" class="col-md-6">Deblokkeren</button>
+                                    </div>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="card clickable-card">
+                                <div class="card-body">
+                                  <h5>some</h5>
+                                  <p>thing</p>
+                                </div>
+                              </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
         <div class="col-12">
           <div class="accordion" id="profileAccordion">
             <div class="card">
