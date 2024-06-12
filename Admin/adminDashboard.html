@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="adminstyles.css" />
   </head>
   <body>
-    
     <side-nav></side-nav>
     <nav-bar></nav-bar>
     <script src="adminnavcomponents.js"></script>
@@ -31,16 +30,19 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // Load the sidebar content
-        fetch('sidebar.html')
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById('sidebar-container').innerHTML = data;
+        fetch("sidebar.html")
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("sidebar-container").innerHTML = data;
 
             // Attach logout button event listener
-            document.getElementById("logout-button").addEventListener("click", function () {
-              localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
-              window.location.href = "http://127.0.0.1:5500/SkoolWorkshopWebsite/Login/login.html"; // Leid de gebruiker om naar de loginpagina
-            });
+            document
+              .getElementById("logout-button")
+              .addEventListener("click", function () {
+                localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
+                window.location.href =
+                  "http://127.0.0.1:5500/SkoolWorkshopWebsite/Login/login.html"; // Leid de gebruiker om naar de loginpagina
+              });
           });
 
         // Haal de JWT-token op uit de localStorage
@@ -71,11 +73,15 @@
             return response.json();
           })
           .then((data) => {
-            if (data.message === "Token is valid") {
+            // Controleer of de gebruiker een admin is
+            if (
+              data.message === "Token is valid" &&
+              (data.userRole === "Admin" || data.userRole === "Moderator")
+            ) {
               document.getElementById("admin-name").textContent =
                 data.decoded.username; // Stel de gebruikersnaam in op de pagina
             } else {
-              throw new Error("Invalid token");
+              throw new Error("Unauthorized access");
             }
           })
           .catch((error) => {

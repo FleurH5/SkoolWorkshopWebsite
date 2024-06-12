@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aanmeldingen</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="addWorkshops.css">
-    <link rel="stylesheet" href="adminstyles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="addWorkshops.css" />
+    <link rel="stylesheet" href="adminstyles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .alert {
+            text-align: center;
+        }
+    </style>
 
     <!-- overall css admin zoals voor nav -->
     <style>
-        /* Custom CSS to ensure button colors */
-        .btn-success {
-            background-color: #28a745 !important; /* Bootstrap's green */
-            border-color: #28a745 !important;
-        }
+      /* Custom CSS to ensure button colors */
+      .btn-success {
+        background-color: #28a745 !important; /* Bootstrap's green */
+        border-color: #28a745 !important;
+      }
 
-        .btn-danger {
-            background-color: #dc3545 !important; /* Bootstrap's red */
-            border-color: #dc3545 !important;
-        }
+      .btn-danger {
+        background-color: #dc3545 !important; /* Bootstrap's red */
+        border-color: #dc3545 !important;
+      }
 
-        .btn-success span, .btn-danger span {
-            color: white !important; /* Ensuring the icon color is white */
-        }
+      .btn-success span,
+      .btn-danger span {
+        color: white !important; /* Ensuring the icon color is white */
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <side-nav></side-nav>
     <nav-bar></nav-bar>
     <script src="adminnavcomponents.js"></script>
@@ -46,21 +58,11 @@
             <div class="list-group" id="workshop-registration-list">
                 <!-- List items will be inserted here -->
             </div>
-            <h1 class="text-center">Opdrachten zonder toegewezen gebruikers</h1><br>
-            <div class="list-group" id="no-user-job-list">
-                <!-- List items will be inserted here -->
-            </div>
+          
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // klik op de card en ga naar de profielpagina
-            document.getElementById("clickable").addEventListener("click", () => {
-                window.location.href = "./selectedAccount.html";
-            });
-        })
-    </script>
+  
 
     <script>
         // Fetch data from the backend
@@ -69,47 +71,58 @@
             method: 'GET',
             success: function(response) {
                 if (response.status === 200) {
-                    const data = response.data;
-                    data.forEach(function(user) {
-                        const listItem = `
-                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>${user.Username}</strong><br>
-                                    <span>${user.Email}</span><br>
-                                    <span>${user.Role}</span><br>
-                                    <span><a href="selectedAccount.html?userId=${user.UserId}">View Details</a></span> <!-- Link to another page with userId -->
+                    let data = response.data;
+                    console.log(data);
+                    // Ensure data is an array
+                    if (!Array.isArray(data)) {
+                        data = [];
+                    }
+                    if (data.length === 0) {
+                        $('#registration-list').append('<div class="alert alert-warning">Er zijn geen nieuwe docent aanmeldingen.</div>');
+                    } else {
+                        data.forEach(function(user) {
+                            const listItem = `
+                                <div class="list-group-item d-flex justify-content-between align-items-center" id="user-${user.UserId}" >
+                                    <div>
+                                        <strong>${user.Username}</strong><br>
+                                        <span>${user.Email}</span><br>
+                                        <span>${user.Role}</span><br>
+                                        <span><a href="selectedAccount.html?userId=${user.UserId}">View Details</a></span> <!-- Link to another page with userId -->
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-success btn-sm mr-2" onclick="handleAccept('${user.Username}','${user.UserId}')">
+                                            <span style="color: white;">✔</span>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" onclick="handleReject('${user.Username}','${user.UserId}')">
+                                            <span style="color: white;">✖</span>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button class="btn btn-success btn-sm mr-2" onclick="handleAccept('${user.Username}')">
-                                        <span style="color: white;">✔</span>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" onclick="handleReject('${user.Username}')">
-                                        <span style="color: white;">✖</span>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                        $('#registration-list').append(listItem);
-                    });
+                            `;
+                            $('#registration-list').append(listItem);
+                        });
+                    }
                 } else {
-                    $('#registration-list').append('<div class="alert alert-warning">No users found with the given status.</div>');
+                    $('#registration-list').append('<div class="alert alert-warning">Er zijn geen nieuwe aanmeldingen.</div>');
                 }
             },
             error: function(error) {
-                console.error("Er zijn geen nieuwe aanmedlingen", error);
-                $('#registration-list').append('<div class="alert alert-danger">Er zijn geen nieuwe aanmeldingen.</div>');
+                console.error("There was an error fetching the data", error);
+                $('#registration-list').append('<div class="alert alert-danger">Er was een fout bij het ophalen van de gegevens</div>');
             }
         });
 
-        function handleAccept(username) {
-            updateUserStatus(username, 'Toegewezen');
+        function handleAccept(username, userId) {
+            console.log(userId)
+            updateUserStatus(username, 'Toegewezen', userId);
         }
 
-        function handleReject(username) {
-            deleteUser(username);
+        function handleReject(username, userId) {
+            deleteUser(username, userId);
         }
 
-        function updateUserStatus(username, status) {
+        function updateUserStatus(username, status, userId) {
+            console.log(userId)
             $.ajax({
                 url: 'https://skoolworkshopapi.azurewebsites.net/user/updateStatus',
                 method: 'POST',
@@ -117,11 +130,12 @@
                 data: JSON.stringify({ Username: username, status: status }),
                 success: function(response) {
                     if (response.status === 200) {
-                        alert('User status updated successfully');
+                        alert('De aanmelding van de docent is geaccepteerd!');
+                        console.log(userId);
                         // Optionally, remove the user from the list
-                        $(`#user-${username}`).remove();
+                        $(`#user-${userId}`).remove();
                     } else {
-                        alert('Failed to update user status');
+                        alert('Het accepteren van de docent is niet gelukt, probeer het opnieuw.');
                     }
                 },
                 error: function(error) {
@@ -131,7 +145,7 @@
             });
         }
 
-        function deleteUser(username) {
+        function deleteUser(username, userId) {
             $.ajax({
                 url: 'https://skoolworkshopapi.azurewebsites.net/user/delete',
                 method: 'DELETE',
@@ -139,28 +153,32 @@
                 data: JSON.stringify({ Username: username }), // Use 'Username' in the request body
                 success: function(response) {
                     if (response.status === 200) {
-                        alert('User deleted successfully');
+                        alert('De aanmelding van de docent is succesvol afgewezen!');
                         // Remove the user from the list
-                        $(`#user-${username}`).remove();
+                        $(`#user-${userId}`).remove();
                     } else {
-                        alert('Failed to delete user');
+                        alert('Het afwijzen van de docent is niet gelukt');
+                        console.log(username)
                     }
                 },
                 error: function(error) {
                     console.error("There was an error deleting the user", error);
                     alert('Error deleting user');
+                    console.log(username)
                 }
             });
         }
 
         // Fetch data from the backend for jobs with no assigned users
         $.ajax({
-            url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommission/status/unassigned',
-            method: 'GET',
-            success: function(response) {
-                if (response.status === 200) {
-                    const data = response.data;
-                    console.log(data);
+        url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommission/status/unassigned',
+        method: 'GET',
+        success: function(response) {
+            if (response.status === 200) {
+                const data = response.data;
+                if (data.length === 0) {
+                    $('#workshop-registration-list').append('<div class="alert alert-warning">Er zijn geen nieuwe workshop aanmeldingen.</div>');
+                } else {
                     data.forEach(function(job) {
                         const listItem = `
                             <div class="list-group-item d-flex justify-content-between align-items-center" id="job-${job.CommissionWorkshopId}">
@@ -175,7 +193,7 @@
                                     <button class="btn btn-success btn-sm mr-2" onclick="assignJob('${job.CommissionWorkshopId}', '${job.UserId}')">
                                         <span style="color: white;">✔</span>
                                     </button>
-                                    <button class="btn btn-danger btn-sm" onclick="rejectJob('${job.CommissionWorkshopId}')">
+                                    <button class="btn btn-danger btn-sm" onclick="rejectJob('${job.CommissionWorkshopId}', '${job.UserId}')">
                                         <span style="color: white;">✖</span>
                                     </button>
                                 </div>
@@ -183,22 +201,23 @@
                         `;
                         $('#workshop-registration-list').append(listItem);
                     });
-                } else {
-                    $('#no-user-job-list').append('<div class="alert alert-warning">No jobs found with no assigned users.</div>');
                 }
-            },
-            error: function(error) {
-                console.error("There was an error fetching jobs with no assigned users", error);
-                $('#no-user-job-list').append('<div class="alert alert-danger">Error fetching jobs with no assigned users.</div>');
+            } else {
+                $('#workshop-registration-list').append('<div class="alert alert-warning">No workshop submissions found.</div>');
             }
-        });
+        },
+        error: function(error) {
+            console.error("There was an error fetching jobs with no assigned users", error);
+            $('#workshop-registration-list').append('<div class="alert alert-danger">Error fetching jobs with no assigned users.</div>');
+        }
+    });
 
         function assignJob(commissionWorkshopId, userId) {
-            updateJobStatus(commissionWorkshopId, userId);
+          updateJobStatus(commissionWorkshopId, userId);
         }
 
-        function rejectJob(commissionWorkshopId) {
-            deleteJob(commissionWorkshopId);
+        function rejectJob(commissionWorkshopId, userId) {
+            deleteJob(commissionWorkshopId, userId);
         }
 
         function updateJobStatus(commissionWorkshopId, userId) {
@@ -209,11 +228,11 @@
                 data: JSON.stringify({ commissionWorkshopId: commissionWorkshopId, userId: userId }), // Ensure keys match exactly with backend expectation
                 success: function(response) {
                     if (response.status === 200) {
-                        alert('Job status updated successfully');
+                        alert('De aanmelding voor de workshop is geaccepteerd!');
                         // Optionally, remove the job from the list
                         $(`#job-${commissionWorkshopId}`).remove();
                     } else {
-                        alert('Failed to update job status');
+                        alert('Het accepteren van de aanmelding is niet gelukt, probeer het opnieuw.');
                         console.log(response, commissionWorkshopId, userId);
                     }
                 },
@@ -225,19 +244,19 @@
             });
         }
 
-        function deleteJob(commissionWorkshopId) {
+        function deleteJob(commissionWorkshopId, userId) {
             $.ajax({
-                url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommission/delete',
+                url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommissionuser/delete',
                 method: 'DELETE',
                 contentType: 'application/json',
-                data: JSON.stringify({ CommissionWorkshopId: commissionWorkshopId }), // Use 'CommissionWorkshopId' in the request body
+                data: JSON.stringify({  commissionWorkshopId: commissionWorkshopId, userId: userId }), // Use 'CommissionWorkshopId' in the request body
                 success: function(response) {
                     if (response.status === 200) {
-                        alert('Job deleted successfully');
+                        alert('De aanmelding is afgewezen');
                         // Remove the job from the list
                         $(`#job-${commissionWorkshopId}`).remove();
                     } else {
-                        alert('Failed to delete job');
+                        alert('Er ging iets fout bij het afwijzen van de aanmelding');
                     }
                 },
                 error: function(error) {
@@ -252,6 +271,5 @@
             window.location.href = `jobDetails.html?id=${commissionWorkshopId}`;
         }
     </script>
-
-</body>
+  </body>
 </html>

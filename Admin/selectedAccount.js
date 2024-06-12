@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     const queryParams = getQueryParams();
     const userId = queryParams.userId;
+    console.log(userId);
   
     if (!userId) {
       console.error('No userId found in query parameters');
@@ -110,3 +111,76 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
   
+//   changing roles
+function confirmZZP() {
+    let result = confirm("Weet je het zeker?");
+    if(result === true) {
+        changeToZZP(window.username); 
+        console.log('ZZP');
+    } else {
+        console.log('Canceled');
+    }
+}
+
+function confirmFlex() {
+    let result = confirm("Weet je het zeker?");
+    if(result === true) {
+        const salary = document.getElementById('newSalary').value;
+        if(salary){
+            changeToFlex(window.username, salary);
+            console.log('Flex');
+        } else {
+            alert('Voer een geldig salaris in');
+        }
+    } else {
+        console.log('Canceled');
+    }
+}
+
+function changeToZZP(username) {
+    updateRole(username, 'ZZP', 45);
+}
+
+function changeToFlex(username, salary) {
+    updateRole(username, 'Flex', salary);
+}
+
+function updateRole(username, role, salary) {
+    fetch('https://skoolworkshopapi.azurewebsites.net/user/changeRole', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Username: username, Role: role, SalaryPerHourInEuro: salary })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 200) {
+            alert('User role and salary updated successfully');
+            document.getElementById('userType').innerText = role;
+            document.getElementById('salary').innerText = salary;
+        } else {
+            alert('Failed to update user role and salary');
+        }
+    })
+    .catch(error => {
+        console.error("There was an error updating the user role and salary", error);
+        alert('Error updating user role and salary');
+    });
+}
+
+function makeFlex() {
+    const container = document.getElementById('new-input-container');
+    const inputHtml = `
+    <div class="row">
+        <div class="col-md-8">
+            <input required type="number" class="form-control" id="newSalary" placeholder="Salaris per uur">
+        </div>
+        <div class="col-md-4">
+            <button onclick="confirmFlex()" class="btn btn-success">
+                <span style="color: white;">✔</span>
+            </button>
+        </div>
+    </div>`;
+    container.innerHTML = inputHtml;
+}
