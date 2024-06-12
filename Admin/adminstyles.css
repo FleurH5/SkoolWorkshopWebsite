@@ -9,10 +9,11 @@ body{
     left: 0;
     height: calc(100% - 50px);
     width: 200px;
-    background: #333;
+    background: white;
     color: #fff;
     transition: all 0.3s;
     padding-top: 20px;
+    border-right: 1px solid grey;
 }
 
 .content {
@@ -21,11 +22,15 @@ body{
     flex: 1;
 }
 
+.navbar-border-bottom {
+  border-bottom: 1px solid grey;
+}
+
 .sidenav a {
     padding: 10px 15px;
     text-decoration: none;
     font-size: 25px;
-    color: #fff;
+    color: black;
     display: block;
     transition: 0.3s;
 }
@@ -53,11 +58,11 @@ body{
 .dropdown-menu .dropdown-item:hover {
     background-color: #ddd;
 }
-.btn {
+.nav-btn {
     background-color: #F49700;
 }
  
-.btn:hover {
+.nav-btn:hover {
     background-color:#c07805;
     transition: 0.7s;
 }

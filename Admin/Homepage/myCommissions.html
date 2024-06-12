@@ -88,7 +88,7 @@
       
       $(document).ready(function () {
         const userId = localStorage.getItem("userId");
-        console.log(userId); //hoe krijg ik die userid????
+        console.log(userId); 
         console.log("Document ready. Attempting to fetch workshops.");
         const apiUrl = "https://skoolworkshopapi.azurewebsites.net/workshopcommission/" + userId;
         
@@ -128,13 +128,9 @@
                     <div class="panel-heading ">${workshop.WorkshopName}</div>
                     <div class="panel-body">
                       <img src="${workshop.LinkToPicture}" class="img-responsive" alt="Image" />
-                      <p><strong>Category:</strong> ${workshop.Category}</p>
-                      <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
-                      <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
-                      <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
-                      <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
-                      <p><strong>Datum:</strong> ${formatDate(truncatedDate)}</p>
-                      <p><strong>Location:</strong> ${truncateText(workshop.Location, 23) + '..'}</p>
+                      <p><strong>Categorie:</strong> ${workshop.Category}</p>
+                      <p><strong>Datum:</strong> ${formatDate(truncatedDate)}</p>                                            
+                      <p><strong>Tijd:</strong> ${workshop.StartTime} - ${workshop.EndTime}</p>
                       </div>
                       </div>
                       `;
@@ -169,13 +165,13 @@
         const workshop = $(this).data("workshop");
         $("#workshop-name").text(workshop.WorkshopName);
         $("#workshop-details").html(`
-          <p><strong>Category:</strong> ${workshop.Category}</p>
-          <p><strong>Requirements:</strong> ${workshop.Requirements}</p>
+          <p><strong>Categorie:</strong> ${workshop.Category}</p>
+          <p><strong>Benodigdheden:</strong> ${workshop.Requirements}</p>
           <p><strong>Opdracht:</strong> ${workshop.CommissionName}</p>
-          <p><strong>Start tijd:</strong> ${workshop.StartTime}</p>
-          <p><strong>Eind tijd:</strong> ${workshop.EndTime}</p>
+          <p><strong>Starttijd:</strong> ${workshop.StartTime}</p>
+          <p><strong>Eindtijd:</strong> ${workshop.EndTime}</p>
           <p><strong>Datum:</strong> ${formatDate(workshop.Date)}</p>
-          <p><strong>Location:</strong> ${workshop.Location}</p>
+          <p><strong>Locatie:</strong> ${workshop.Location}</p>
         `);
         $("#workshop-image").attr("src", workshop.LinkToPicture);
         $("#workshop-details-modal").modal("show");
