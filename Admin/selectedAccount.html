@@ -192,6 +192,55 @@
       </div>
     </div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const token = localStorage.getItem("accessToken");
+  
+      if (!token) {
+        window.location.href = "http://127.0.0.1:5500/Login/login.html";
+        return;
+      }
+  
+      fetch(
+        "https://skoolworkshopapi.azurewebsites.net/auth/validate-token",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Invalid token");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.message === "Token is valid") {
+            // Token is valid, pagina kan geladen worden
+            // Voeg hier eventuele verdere acties toe die moeten worden uitgevoerd nadat de token is gevalideerd
+          } else {
+            throw new Error("Invalid token");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          localStorage.removeItem("accessToken");
+          window.location.href = "http://127.0.0.1:5500/Login/login.html";
+        });
+    });
+  
+    function confirmationBlock() {
+      // Voeg hier de logica toe voor het bevestigen en blokkeren van de docent
+    }
+  
+    function confirmationUnblock() {
+      // Voeg hier de logica toe voor het bevestigen en deblokkeren van de docent
+    }
+  </script>
+  
   <script src="selectedAccount.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
