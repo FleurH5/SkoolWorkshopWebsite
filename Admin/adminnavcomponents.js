@@ -29,6 +29,12 @@ class SideNav extends HTMLElement {
               <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
             </ul>
           </li>
+          <li>
+          <a class="nav-link" href="Aanmeldingen.html"><span class="bi bi-bookmark-check-fill"></span> Aanmeldingen</a>
+          </li>
+          <li>
+          <a class="nav-link" href="adminSettings.html"><span class="bi bi-gear"></span> Instellingen</a>
+          </li>
         </ul>
         <button class="nav-btn btn-outline-light m-5" id="logout-button">
         Log uit
