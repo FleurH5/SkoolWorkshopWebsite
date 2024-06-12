@@ -134,6 +134,8 @@
                         console.log(userId);
                         // Optionally, remove the user from the list
                         $(`#user-${userId}`).remove();
+                        templateName = 'RegistrationConfirmation';
+                        sendEmail(userId, templateName);
                     } else {
                         alert('Het accepteren van de docent is niet gelukt, probeer het opnieuw.');
                     }
@@ -213,11 +215,13 @@
     });
 
         function assignJob(commissionWorkshopId, userId) {
-          updateJobStatus(commissionWorkshopId, userId);
+          updateJobStatus(commissionWorkshopId, userId)
+         
         }
 
         function rejectJob(commissionWorkshopId, userId) {
             deleteJob(commissionWorkshopId, userId);
+            
         }
 
         function updateJobStatus(commissionWorkshopId, userId) {
@@ -231,6 +235,8 @@
                         alert('De aanmelding voor de workshop is geaccepteerd!');
                         // Optionally, remove the job from the list
                         $(`#job-${commissionWorkshopId}`).remove();
+                        templateName = 'Approval';
+                        sendEmail(userId, templateName);
                     } else {
                         alert('Het accepteren van de aanmelding is niet gelukt, probeer het opnieuw.');
                         console.log(response, commissionWorkshopId, userId);
@@ -255,6 +261,8 @@
                         alert('De aanmelding is afgewezen');
                         // Remove the job from the list
                         $(`#job-${commissionWorkshopId}`).remove();
+                        templateName = 'BackupList'
+                        sendEmail(userId, templateName);
                     } else {
                         alert('Er ging iets fout bij het afwijzen van de aanmelding');
                     }
@@ -271,5 +279,34 @@
             window.location.href = `jobDetails.html?id=${commissionWorkshopId}`;
         }
     </script>
+
+
+<script>
+function sendEmail(userId, templateName) {
+    templateName = templateName; // Example template name
+    const emailSubject = 'Je aanmelding als workshopdocent is geaccepteerd';
+
+    $.ajax({
+        url: 'https://skoolworkshopapi.azurewebsites.net/email/send',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ userId: userId, templateName: templateName, emailSubject: emailSubject }),
+        success: function(response) {
+            if (response.status === 200) {
+                alert('Email sent successfully');
+            } else {
+                alert('Error sending email: ' + response.error);
+                console.log(response, userId);
+            }
+        },
+        error: function(error) {
+            console.error("Error sending email", error);
+            alert('Error sending email');
+            console.log(userId);
+        }
+    });
+}
+
+</script>
   </body>
 </html>
