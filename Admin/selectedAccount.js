@@ -58,30 +58,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const username = user.Username;
 
-    function block(username) {
+    function confirmationBlock() {
+        let result = confirm('Weet je het zeker?');
+        if(result === true){
             updateUserStatus(username, 'Geblokkeerd');
+            console.log('Blocked')
+        } else {
+            console.log('Canceled')
         }
+            
+    }
 
-        function unblock(username) {
+    function confirmationUnblock() {
+        let result = confirm('Weet je het zeker?');
+        if(result === true){
             updateUserStatus(username, 'Toegewezen');
+            console.log('Blocked')
+        } else {
+            console.log('Canceled')
         }
+            
+    }
 
-        function updateUserStatus(username, status) {
-            $.ajax({
-                url: 'https://skoolworkshopapi.azurewebsites.net/user/updateStatus',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ Username: username, status: status }),
-                success: function(response) {
-                    if (response.status === 200) {
-                        alert('User status updated successfully');
-                    } else {
-                        alert('Failed to update user status');
-                    }
-                },
-                error: function(error) {
-                    console.error("There was an error updating the user status", error);
-                    alert('Error updating user status');
-                }
-            });
-        }
+    function updateUserStatus(username, status) {
+        fetch('https://skoolworkshopapi.azurewebsites.net/user/updateStatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Username: username, status: status}),
+        })
+        .then (response => response.json())
+        .then(data => {
+            if(data.status === 200) {
+                alert('User status has been updated successfully');
+                document.getElementById('status').innerText = status;
+            } else {
+                alert('Failed to update user status');
+            }
+        })
+        .catch(error => {
+            console.error('Error updating user status:', error);
+            alert('Error updating user status');
+        });
+    }
