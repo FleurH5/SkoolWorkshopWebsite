@@ -18,6 +18,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .alert {
+            text-align: center;
+        }
+    </style>
 
     <!-- overall css admin zoals voor nav -->
     <style>
@@ -44,88 +49,40 @@
     <script src="adminnavcomponents.js"></script>
 
     <div class="container mt-5">
-      <div class="content" id="clickable">
-        <h1 class="text-center">Aanmeldingen docenten</h1>
-        <br />
-        <div class="list-group" id="registration-list">
-          <!-- List items will be inserted here -->
+        <div class="content" id="clickable">
+            <h1 class="text-center">Aanmeldingen docenten</h1><br>
+            <div class="list-group" id="registration-list">
+                <!-- List items will be inserted here -->
+            </div>
+            <h1 class="text-center">Aanmeldingen workshops</h1><br>
+            <div class="list-group" id="workshop-registration-list">
+                <!-- List items will be inserted here -->
+            </div>
+          
         </div>
-        <h1 class="text-center">Aanmeldingen workshops</h1>
-        <br />
-        <div class="list-group" id="workshop-registration-list">
-          <!-- List items will be inserted here -->
-        </div>
-        <h1 class="text-center">Opdrachten zonder toegewezen gebruikers</h1>
-        <br />
-        <div class="list-group" id="no-user-job-list">
-          <!-- List items will be inserted here -->
-        </div>
-      </div>
     </div>
 
+  
+
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Haal de JWT-token op uit de localStorage
-        const token = localStorage.getItem("accessToken");
-
-        // Controleer of er een token aanwezig is
-        if (!token) {
-          window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina als er geen token is
-          return;
-        }
-
-        // Voer een GET-verzoek uit om de token te valideren
-        fetch(
-          "https://skoolworkshopapi.azurewebsites.net/auth/validate-token",
-          {
-            // Gebruik de validate-token endpoint
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Voeg de JWT-token toe aan de Authorization header
-            },
-          }
-        )
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Invalid token");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            if (
-              data.message === "Token is valid" &&
-              (data.userRole === "Admin" || data.userRole === "Moderator")
-            ) {
-              // Token is valid, pagina kan geladen worden
-              loadPageContent();
-            } else {
-              throw new Error("Invalid token");
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            localStorage.removeItem("accessToken");
-            window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Redirect de gebruiker naar de inlogpagina in het geval van een fout
-          });
-      });
-
-      function loadPageContent() {
-        // klik op de card en ga naar de profielpagina
-        document.getElementById("clickable").addEventListener("click", () => {
-          window.location.href = "./selectedAccount.html";
-        });
-
         // Fetch data from the backend
         $.ajax({
-          url: "https://skoolworkshopapi.azurewebsites.net/user/basic",
-          method: "GET",
-          success: function (response) {
-            if (response.status === 200) {
-              const data = response.data;
-              data.forEach(function (user) {
-                const listItem = `
-                                <div class="list-group-item d-flex justify-content-between align-items-center">
+            url: 'https://skoolworkshopapi.azurewebsites.net/user/basic',  
+            method: 'GET',
+            success: function(response) {
+                if (response.status === 200) {
+                    let data = response.data;
+                    console.log(data);
+                    // Ensure data is an array
+                    if (!Array.isArray(data)) {
+                        data = [];
+                    }
+                    if (data.length === 0) {
+                        $('#registration-list').append('<div class="alert alert-warning">Er zijn geen nieuwe docent aanmeldingen.</div>');
+                    } else {
+                        data.forEach(function(user) {
+                            const listItem = `
+                                <div class="list-group-item d-flex justify-content-between align-items-center" id="user-${user.UserId}" >
                                     <div>
                                         <strong>${user.Username}</strong><br>
                                         <span>${user.Email}</span><br>
@@ -133,200 +90,186 @@
                                         <span><a href="selectedAccount.html?userId=${user.UserId}">View Details</a></span> <!-- Link to another page with userId -->
                                     </div>
                                     <div>
-                                        <button class="btn btn-success btn-sm mr-2" onclick="handleAccept('${user.Username}')">
+                                        <button class="btn btn-success btn-sm mr-2" onclick="handleAccept('${user.Username}','${user.UserId}')">
                                             <span style="color: white;">✔</span>
                                         </button>
-                                        <button class="btn btn-danger btn-sm" onclick="handleReject('${user.Username}')">
+                                        <button class="btn btn-danger btn-sm" onclick="handleReject('${user.Username}','${user.UserId}')">
                                             <span style="color: white;">✖</span>
                                         </button>
                                     </div>
                                 </div>
                             `;
-                $("#registration-list").append(listItem);
-              });
-            } else {
-              $("#registration-list").append(
-                '<div class="alert alert-warning">No users found with the given status.</div>'
-              );
+                            $('#registration-list').append(listItem);
+                        });
+                    }
+                } else {
+                    $('#registration-list').append('<div class="alert alert-warning">Er zijn geen nieuwe aanmeldingen.</div>');
+                }
+            },
+            error: function(error) {
+                console.error("There was an error fetching the data", error);
+                $('#registration-list').append('<div class="alert alert-danger">Er was een fout bij het ophalen van de gegevens</div>');
             }
-          },
-          error: function (error) {
-            console.error("Er zijn geen nieuwe aanmedlingen", error);
-            $("#registration-list").append(
-              '<div class="alert alert-danger">Er zijn geen nieuwe aanmeldingen.</div>'
-            );
-          },
         });
 
-        function handleAccept(username) {
-          updateUserStatus(username, "Toegewezen");
+        function handleAccept(username, userId) {
+            console.log(userId)
+            updateUserStatus(username, 'Toegewezen', userId);
         }
 
-        function handleReject(username) {
-          deleteUser(username);
+        function handleReject(username, userId) {
+            deleteUser(username, userId);
         }
 
-        function updateUserStatus(username, status) {
-          $.ajax({
-            url: "https://skoolworkshopapi.azurewebsites.net/user/updateStatus",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ Username: username, status: status }),
-            success: function (response) {
-              if (response.status === 200) {
-                alert("User status updated successfully");
-                // Optionally, remove the user from the list
-                $(`#user-${username}`).remove();
-              } else {
-                alert("Failed to update user status");
-              }
-            },
-            error: function (error) {
-              console.error(
-                "There was an error updating the user status",
-                error
-              );
-              alert("Error updating user status");
-            },
-          });
+        function updateUserStatus(username, status, userId) {
+            console.log(userId)
+            $.ajax({
+                url: 'https://skoolworkshopapi.azurewebsites.net/user/updateStatus',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ Username: username, status: status }),
+                success: function(response) {
+                    if (response.status === 200) {
+                        alert('De aanmelding van de docent is geaccepteerd!');
+                        console.log(userId);
+                        // Optionally, remove the user from the list
+                        $(`#user-${userId}`).remove();
+                    } else {
+                        alert('Het accepteren van de docent is niet gelukt, probeer het opnieuw.');
+                    }
+                },
+                error: function(error) {
+                    console.error("There was an error updating the user status", error);
+                    alert('Error updating user status');
+                }
+            });
         }
 
-        function deleteUser(username) {
-          $.ajax({
-            url: "https://skoolworkshopapi.azurewebsites.net/user/delete",
-            method: "DELETE",
-            contentType: "application/json",
-            data: JSON.stringify({ Username: username }), // Use 'Username' in the request body
-            success: function (response) {
-              if (response.status === 200) {
-                alert("User deleted successfully");
-                // Remove the user from the list
-                $(`#user-${username}`).remove();
-              } else {
-                alert("Failed to delete user");
-              }
-            },
-            error: function (error) {
-              console.error("There was an error deleting the user", error);
-              alert("Error deleting user");
-            },
-          });
+        function deleteUser(username, userId) {
+            $.ajax({
+                url: 'https://skoolworkshopapi.azurewebsites.net/user/delete',
+                method: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify({ Username: username }), // Use 'Username' in the request body
+                success: function(response) {
+                    if (response.status === 200) {
+                        alert('De aanmelding van de docent is succesvol afgewezen!');
+                        // Remove the user from the list
+                        $(`#user-${userId}`).remove();
+                    } else {
+                        alert('Het afwijzen van de docent is niet gelukt');
+                        console.log(username)
+                    }
+                },
+                error: function(error) {
+                    console.error("There was an error deleting the user", error);
+                    alert('Error deleting user');
+                    console.log(username)
+                }
+            });
         }
 
         // Fetch data from the backend for jobs with no assigned users
         $.ajax({
-          url: "https://skoolworkshopapi.azurewebsites.net/workshopcommission/status/unassigned",
-          method: "GET",
-          success: function (response) {
+        url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommission/status/unassigned',
+        method: 'GET',
+        success: function(response) {
             if (response.status === 200) {
-              const data = response.data;
-              console.log(data);
-              data.forEach(function (job) {
-                const listItem = `
-                                <div class="list-group-item d-flex justify-content-between align-items-center" id="job-${job.CommissionWorkshopId}">
-                                    <div>
-                                        <span><strong>${job.Username}</strong></span><br>
-                                        <span>${job.WorkshopName}</span><br>
-                                        <span>Locatie: ${job.Location}</span> <br>
-                                        <span>Klantnaam: ${job.ClientName}</span> <br>
-                                        <span>Categorie: ${job.Category}</span>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-success btn-sm mr-2" onclick="assignJob('${job.CommissionWorkshopId}', '${job.UserId}')">
-                                            <span style="color: white;">✔</span>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm" onclick="rejectJob('${job.CommissionWorkshopId}')">
-                                            <span style="color: white;">✖</span>
-                                        </button>
-                                    </div>
+                const data = response.data;
+                if (data.length === 0) {
+                    $('#workshop-registration-list').append('<div class="alert alert-warning">Er zijn geen nieuwe workshop aanmeldingen.</div>');
+                } else {
+                    data.forEach(function(job) {
+                        const listItem = `
+                            <div class="list-group-item d-flex justify-content-between align-items-center" id="job-${job.CommissionWorkshopId}">
+                                <div>
+                                    <span><strong>${job.Username}</strong></span><br>
+                                    <span>${job.WorkshopName}</span><br>
+                                    <span>Locatie: ${job.Location}</span> <br>
+                                    <span>Klantnaam: ${job.ClientName}</span> <br>
+                                    <span>Categorie: ${job.Category}</span>
                                 </div>
-                            `;
-                $("#workshop-registration-list").append(listItem);
-              });
+                                <div>
+                                    <button class="btn btn-success btn-sm mr-2" onclick="assignJob('${job.CommissionWorkshopId}', '${job.UserId}')">
+                                        <span style="color: white;">✔</span>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="rejectJob('${job.CommissionWorkshopId}', '${job.UserId}')">
+                                        <span style="color: white;">✖</span>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        $('#workshop-registration-list').append(listItem);
+                    });
+                }
             } else {
-              $("#no-user-job-list").append(
-                '<div class="alert alert-warning">No jobs found with no assigned users.</div>'
-              );
+                $('#workshop-registration-list').append('<div class="alert alert-warning">No workshop submissions found.</div>');
             }
-          },
-          error: function (error) {
-            console.error(
-              "There was an error fetching jobs with no assigned users",
-              error
-            );
-            $("#no-user-job-list").append(
-              '<div class="alert alert-danger">Error fetching jobs with no assigned users.</div>'
-            );
-          },
-        });
+        },
+        error: function(error) {
+            console.error("There was an error fetching jobs with no assigned users", error);
+            $('#workshop-registration-list').append('<div class="alert alert-danger">Error fetching jobs with no assigned users.</div>');
+        }
+    });
 
         function assignJob(commissionWorkshopId, userId) {
           updateJobStatus(commissionWorkshopId, userId);
         }
 
-        function rejectJob(commissionWorkshopId) {
-          deleteJob(commissionWorkshopId);
+        function rejectJob(commissionWorkshopId, userId) {
+            deleteJob(commissionWorkshopId, userId);
         }
 
         function updateJobStatus(commissionWorkshopId, userId) {
-          $.ajax({
-            url: "https://skoolworkshopapi.azurewebsites.net/workshopcommissionuser/updateStatus",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-              commissionWorkshopId: commissionWorkshopId,
-              userId: userId,
-            }), // Ensure keys match exactly with backend expectation
-            success: function (response) {
-              if (response.status === 200) {
-                alert("Job status updated successfully");
-                // Optionally, remove the job from the list
-                $(`#job-${commissionWorkshopId}`).remove();
-              } else {
-                alert("Failed to update job status");
-                console.log(response, commissionWorkshopId, userId);
-              }
-            },
-            error: function (error) {
-              console.error(
-                "There was an error updating the job status",
-                error
-              );
-              alert("Error updating job status");
-              console.log(commissionWorkshopId, userId);
-            },
-          });
+            $.ajax({
+                url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommissionuser/updateStatus',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ commissionWorkshopId: commissionWorkshopId, userId: userId }), // Ensure keys match exactly with backend expectation
+                success: function(response) {
+                    if (response.status === 200) {
+                        alert('De aanmelding voor de workshop is geaccepteerd!');
+                        // Optionally, remove the job from the list
+                        $(`#job-${commissionWorkshopId}`).remove();
+                    } else {
+                        alert('Het accepteren van de aanmelding is niet gelukt, probeer het opnieuw.');
+                        console.log(response, commissionWorkshopId, userId);
+                    }
+                },
+                error: function(error) {
+                    console.error("There was an error updating the job status", error);
+                    alert('Error updating job status');
+                    console.log(commissionWorkshopId, userId);
+                }
+            });
         }
 
-        function deleteJob(commissionWorkshopId) {
-          $.ajax({
-            url: "https://skoolworkshopapi.azurewebsites.net/workshopcommission/delete",
-            method: "DELETE",
-            contentType: "application/json",
-            data: JSON.stringify({
-              CommissionWorkshopId: commissionWorkshopId,
-            }), // Use 'CommissionWorkshopId' in the request body
-            success: function (response) {
-              if (response.status === 200) {
-                alert("Job deleted successfully");
-                // Remove the job from the list
-                $(`#job-${commissionWorkshopId}`).remove();
-              } else {
-                alert("Failed to delete job");
-              }
-            },
-            error: function (error) {
-              console.error("There was an error deleting the job", error);
-              alert("Error deleting job");
-            },
-          });
+        function deleteJob(commissionWorkshopId, userId) {
+            $.ajax({
+                url: 'https://skoolworkshopapi.azurewebsites.net/workshopcommissionuser/delete',
+                method: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify({  commissionWorkshopId: commissionWorkshopId, userId: userId }), // Use 'CommissionWorkshopId' in the request body
+                success: function(response) {
+                    if (response.status === 200) {
+                        alert('De aanmelding is afgewezen');
+                        // Remove the job from the list
+                        $(`#job-${commissionWorkshopId}`).remove();
+                    } else {
+                        alert('Er ging iets fout bij het afwijzen van de aanmelding');
+                    }
+                },
+                error: function(error) {
+                    console.error("There was an error deleting the job", error);
+                    alert('Error deleting job');
+                }
+            });
         }
 
         function viewJobDetails(commissionWorkshopId) {
-          // Redirect to another screen or page to view the job details
-          window.location.href = `jobDetails.html?id=${commissionWorkshopId}`;
+            // Redirect to another screen or page to view the job details
+            window.location.href = `jobDetails.html?id=${commissionWorkshopId}`;
         }
-      }
     </script>
   </body>
 </html>
