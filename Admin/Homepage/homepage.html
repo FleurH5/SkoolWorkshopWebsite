@@ -145,6 +145,37 @@
       </footer>
   
       <script>
+         const user = {
+    isAuthenticated: false, // Zet dit op true als de gebruiker is aangemeld
+    role: 'docent' // Of 'admin', dit zou normaal uit de server respons komen
+  };
+
+  // Functie om te controleren of de gebruiker is aangemeld
+  function checkAuthentication() {
+    if (!user.isAuthenticated) {
+      // Als de gebruiker niet is aangemeld, stuur door naar de inlogpagina
+      window.location.href = 'http://127.0.0.1:5500/Login/login.html';
+    }
+  }
+
+  // Functie om de account link te wijzigen op basis van de gebruikersrol
+  function updateAccountLink() {
+    const accountLink = document.getElementById('account-link');
+
+    if (user.role === 'admin') {
+      accountLink.href = '../admindashboard.html';
+    } else if (user.role === 'docent') {
+      accountLink.href = '../../Docent/docentdashboard/docentdashboard.html';
+    } else {
+      console.error('Onbekende rol:', user.role);
+    }
+  }
+
+  // Roep de functies aan wanneer de pagina is geladen
+  document.addEventListener('DOMContentLoaded', function() {
+    checkAuthentication();
+    updateAccountLink();
+  });
         $(document).ready(function() {
           // Function to hide the footer
           function hideFooter() {
@@ -183,7 +214,7 @@
             }
           });
         });
-        const user = {
+        const Uuser = {
     userRole: 'admin',
     userRole: 'default', // Of 'docent', dit zou normaal uit de server respons komen
   };
@@ -192,12 +223,12 @@
   function updateAccountLink() {
     const accountLink = document.getElementById('account-link');
 
-    if (user.userRole === 'admin') {
+    if (Uuser.userRole === 'admin') {
       accountLink.href = '../admindashboard.html';
-    } else if (user.userRole === 'default') {
+    } else if (Uuser.userRole === 'default') {
       accountLink.href = '../../Docent/docentdashboard/docentdashboard.html';
     } else {
-      console.error('Onbekende rol:', user.userRole);
+      console.error('Onbekende rol:', Uuser.userRole);
     }
   }
 
