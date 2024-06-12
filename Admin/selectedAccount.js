@@ -131,3 +131,35 @@ function confirmFlex() {
           console.log('Canceled')
       }
 }
+
+function changeToZZP(username) {
+    updateRole(username, 'ZZP', 45);
+}
+
+function changeToFlex(username) {
+    updateRole(username, 'Flex', salary);
+}
+
+function updateRole(username, role, salary) {
+    fetch('https://skoolworkshopapi.azurewebsites.net/user/changeRole', {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ Username: username, Role: role, SalaryPerHourInEuro: salary })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === 200) {
+              alert('User role and salary updated successfully');
+              document.getElementById('role').innerText = role;
+              document.getElementById('salary').innerText = salary;
+          } else {
+              alert('Failed to update user role and salary');
+          }
+      })
+      .catch(error => {
+          console.error("There was an error updating the user role and salary", error);
+          alert('Error updating user role and salary');
+      });
+}
