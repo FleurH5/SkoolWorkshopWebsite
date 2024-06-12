@@ -111,3 +111,23 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
   
+//   changing roles
+function confirmZZP() {
+    let result = confirm("Weet je het zeker?");
+      if(result === true) {
+          changeToZZP() 
+          console.log('ZZP')
+      } else {
+          console.log('Canceled')
+      }
+}
+
+function confirmFlex() {
+    let result = confirm("Weet je het zeker?");
+      if(result === true) {
+          changeToFlex();
+          console.log('Flex')
+      } else {
+          console.log('Canceled')
+      }
+}
