@@ -3,7 +3,7 @@ let allWorkshops = []; //to save all workshops
 $(document).ready(function () {
   console.log("Document ready. Attempting to fetch workshops.");
   $.get(
-    "https://skoolworkshopapi.azurewebsites.net/workshopcommission/all",
+    "https://skoolworkshopapi.azurewebsites.net/commission/all/nouser",
     function (response) {
       console.log("API response received:", response);
       if (response.status === 200) {
@@ -58,7 +58,7 @@ $(document).ready(function () {
 function createPanelContent(workshop){
   const truncatedDate = truncateText(workshop.Date);
   return `
-            <div class="panel custom-panel" data-workshop='${JSON.stringify(workshop)}' data-workshop-name="${workshop.WorkshopName}">
+            <div class="panel custom-panel" data-workshop='${JSON.stringify({ ...workshop, CommissionWorkshopId: workshop.CommissionWorkshopId})}' data-workshop-name="${workshop.WorkshopName}">
               <div class="panel-heading ">${workshop.WorkshopName}</div>
               <div class="panel-body">
                 <img src="${workshop.LinkToPicture}" class="img-responsive" alt="Image" />

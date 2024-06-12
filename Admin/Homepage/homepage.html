@@ -62,19 +62,12 @@
         <button type="button" class="btn btn-default" id="showEnrolledBtn">Aangemelde Workshops</button>
       </div>
     </div>
-    
-      
       <div class="col-md-6 text-right">
         <label for="workshopFilter">Filter op workshop</label>
         <select name="workshopFilter" id="workshopFilter"></select>
-      
       </div>
     </div>
     </div>
-
-    
-    
-    
 
     <div class="container">
       <div class="container">
@@ -84,6 +77,7 @@
           </div>
         </div>
       </div>
+
       <h2>Vandaag</h2>
       <div class="scrolling-wrapper" id="today-workshop-container"></div>
 
@@ -127,10 +121,11 @@
               </div>
             </div>
           </div>
+
           <!-- de aanmeldknop voor docenten -->
           <div class="modal-footer">
             <span id="confirm" style="margin-left: 10px;"></span>
-            <button id="signup" type="button" class="btn btn-default" onclick="confirmation()">Aanmelden</button>
+            <button id="signup" type="button" class="btn btn-default signup-button" onclick="confirmation()">Aanmelden</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearText()">
               Close
             </button> 
@@ -142,6 +137,7 @@
       </footer>
   
       <script>
+        let currentWorkshopId; //workshopId van de huidige workshop waarop is geklikt, wordt later gebruikt bij het aanmelden
         $(document).ready(function() {
           // Function to hide the footer
           function hideFooter() {
@@ -155,6 +151,10 @@
   
           // Modal handling for entire panel click
           $(document).on("click", ".custom-panel", function() {
+            const workshop = $(this).data("workshop");
+            currentWorkshopId = workshop.CommissionWorkshopId;
+            console.log("clicked on workshop", workshop);
+            console.log("workshopId: ", workshop.CommissionWorkshopId);
             // Hide the footer when a detail is clicked
             hideFooter();
   
@@ -186,18 +186,61 @@
       <script>
         function clearText() {
           document.getElementById("confirm").textContent = ""
+          //confirmation gaat weg als je op close klikt
         }
 
 
-        function confirmation() {
+        function confirmation(workshopId) {
             let result = confirm("Klik op OK om je aan te melden");
             if(result === true) {
                 document.getElementById("confirm").textContent = "Uw verzoek is ontvangen!";
                 console.log("User clicked OK");
-                isConfirmed(); //wat is isConfirmed?
+                signUp(currentWorkshopId);
             }
         }
 
+        function signUp(workshopId) {
+            // Hier komt de code om de gebruiker aan te melden voor de workshop
+            const userIdString = localStorage.getItem("userId");
+            if(userIdString === null) {
+                console.error("User is not logged in");
+                return;
+            }
+            
+            const commissionWorkshopId = workshopId; 
+            const userId = parseInt(userIdString, 10);
+            const status = "Afwachtend";
+            const formObject = {
+                CommissionWorkshopId: commissionWorkshopId,
+                UserId: userId,
+                Status: status
+            };
+            console.log(formObject);
+            const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/workshopcommissionuser/add'
+            fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'  //json wordt verstuurd
+            },
+            body: JSON.stringify(formObject)  //object wordt omgezet naar json
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();  
+        })
+        .then(data => {
+            console.log('Success:', data); 
+            document.getElementById("confirm").textContent = "Aanmelding succesvol!";//bericht na aanmelden
+        })
+        .catch(error => {
+            console.error('Error:', error);  
+            document.getElementById("confirm").textContent = "Er is een fout opgetreden. Probeer het opnieuw.";
+        });
+                
+        }
+                
         $(document).ready(function () {
   // Bepaal de huidige URL van de gebruiker
   var currentUrl = window.location.pathname;
