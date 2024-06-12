@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     const queryParams = getQueryParams();
     const userId = queryParams.userId;
+    console.log(userId);
   
     if (!userId) {
       console.error('No userId found in query parameters');
