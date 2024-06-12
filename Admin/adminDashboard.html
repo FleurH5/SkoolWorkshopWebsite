@@ -76,7 +76,7 @@
             // Controleer of de gebruiker een admin is
             if (
               data.message === "Token is valid" &&
-              data.decoded.userRole === "Admin"
+              (data.userRole === "Admin" || data.userRole === "Moderator")
             ) {
               document.getElementById("admin-name").textContent =
                 data.decoded.username; // Stel de gebruikersnaam in op de pagina

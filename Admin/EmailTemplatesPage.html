@@ -130,7 +130,10 @@
             return response.json();
           })
           .then((data) => {
-            if (data.message === "Token is valid") {
+            if (
+              data.message === "Token is valid" &&
+              (data.userRole === "Admin" || data.userRole === "Moderator")
+            ) {
               // Token is valid, pagina kan geladen worden
               // Voeg hier eventuele verdere acties toe die moeten worden uitgevoerd nadat de token is gevalideerd
             } else {
