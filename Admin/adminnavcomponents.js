@@ -16,7 +16,7 @@ class SideNav extends HTMLElement {
             <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
           </li>
           <li>
-            <a class="nav-link" href="#"><span class="bi bi-suitcase-lg"></span> Docenten</a>
+            <a class="nav-link" href="allAccounts.html"><span class="bi bi-suitcase-lg"></span> Docenten</a>
           </li>
           <li><a class="nav-link" href="EmailTemplatesPage.html"><span class="bi bi-mailbox"></span> Email Templates</a></li>
           <li class="nav-item dropdown">
