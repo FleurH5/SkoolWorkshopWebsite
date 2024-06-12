@@ -146,15 +146,22 @@ function changeToFlex(username, salary) {
 }
 
 function updateRole(username, role, salary) {
+    const requestBody = { Username: username, Role: role, SalaryPerHourInEuro: salary };
+    console.log('Sending request to update role with body:', requestBody);
+
     fetch('https://skoolworkshopapi.azurewebsites.net/user/changeRole', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ Username: username, Role: role, SalaryPerHourInEuro: salary })
+        body: JSON.stringify(requestBody)
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+    })
     .then(data => {
+        console.log('Response data:', data);
         if (data.status === 200) {
             alert('User role and salary updated successfully');
             document.getElementById('userType').innerText = role;
