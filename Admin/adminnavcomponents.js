@@ -43,10 +43,10 @@ customElements.define("side-nav", SideNav);
 class NavBar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-white navbar-border-bottom">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="Homepage/Homepage.html">
-                        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="100" height="30" class="d-inline-block align-text-top">
+                        <img src="../Images/Skool-Workshop_Logo_Black.jpg" alt="Logo" width="100" height="30" class="d-inline-block align-text-top">
                     </a>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
