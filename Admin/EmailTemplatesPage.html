@@ -1,269 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="addWorkshops.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- overall css admin zoals voor nav -->
+    <link rel="stylesheet" href="adminstyles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="addWorkshops.css">
-  <link rel="stylesheet" href="adminstyles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <!-- overall css admin zoals voor nav -->
-  <link rel="stylesheet" href="adminstyles.css"> 
-</head>
+  <body>
+    <side-nav></side-nav>
+    <nav-bar></nav-bar>
+    <script src="adminnavcomponents.js"></script>
 
-<body>
-  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="Images/SKWLogoTransparentWhite.png" alt="Logo" width="55" height="24"
-          class="d-inline-block align-text-top">
-        SkoolWorkshop
-      </a>
-    </div>
-  </nav>
-  <div class="sidenav">
-    <ul class="nav flex-column">
-      <li>
-        <a class="nav-link" href="adminDashboard.html"><span class="bi bi-speedometer2"></span> Dashboard</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"> <span class="bi bi-calendar"></span> Opdrachten</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-suitcase-lg"></span> Docenten</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-mailbox"></span> Email Templates</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardropdown" role="button" aria-haspopup="true"
-          aria-expanded="false">
-          <span class="bi bi-plus-lg"></span> Nieuw
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbardropdown">
-          <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
-          <li><a class="dropdown-item" href="#">Opdracht</a></li>
-          <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
-          <li><a class="dropdown-item" href="#">Docent</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div> -->
-  <div class="sidenav">
-    <ul class="nav flex-column">
-      <li>
-        <a class="nav-link" href="adminDashboard.html"><span class="bi bi-speedometer2"></span> Dashboard</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
-      </li>
-      <li>
-        <a class="nav-link" href="assignmentOverview.html"> <span class="bi bi-calendar"></span> Opdrachten</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
-      </li>
-      <li>
-        <a class="nav-link" href="./allAccounts.html"><span class="bi bi-suitcase-lg"></span> Docenten</a>
-      </li>
-      <li><a class="nav-link" href="EmailTemplatesPage.html"><span class="bi bi-mailbox"></span> Email Templates</a></li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="sidebardropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          <span class="bi bi-plus-lg"></span> Nieuw
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="sidebardropdown">
-          <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
-          <li><a class="dropdown-item" href="addCommission.html">Opdracht</a></li>
-          <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="./Homepage/Homepage.html">
-            <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="75" height="44" class="d-inline-block align-text-top">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-person"></i>
-                    </a>
-                </li>
+    <div class="container mt-5">
+      <div class="content">
+        <h3>Selecteer het template dat u wilt veranderen</h3>
+        <form id="templateForm">
+          <div class="dropdown template-dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="templateDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="bi bi-plus-lg"></span> Selecteer
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="templateDropdown">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-template="RegistrationConfirmation"
+                  >Registratie</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-template="AvailabilityConfirmation"
+                  >Beschikbaarheid ontvangen</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-template="AvailabilityRejection"
+                  >Beschikbaarheid geweigerd</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-template="AvailabilityRequest"
+                  >Beschikbaarheid aanvragen</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-template="Approval"
+                  >Bevestiging aanmelding</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-template="Cancellation"
+                  >Annulering bevestiging</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-template="BackupList"
+                  >Backuplijst</a
+                >
+              </li>
             </ul>
-        </div>
-    </div>
-</nav>
+          </div>
 
-  <!-- //   document.addEventListener("DOMContentLoaded", function () {
-  //     var dropdown = document.querySelector('.nav-item.dropdown');
-  //     dropdown.addEventListener('mouseenter', function () {
-  //       var menu = this.querySelector('.dropdown-menu');
-  //       menu.classList.add('show');
-  //     });
-  //     dropdown.addEventListener('mouseleave', function () {
-  //       var menu = this.querySelector('.dropdown-menu');
-  //       menu.classList.remove('show');
-  //     });
-  //   });
-  // </script> -->
-
-  <div class="container mt-5">
-    <div class="content">
-
-      <h3>Selecteer het template dat u wilt veranderen</h3>
-      <form id="templateForm">
-      <div class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" id="templateDropdown" role="button"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          <span class="bi bi-plus-lg"></span> Selecteer
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="templateDropdown">
-          <li><a class="dropdown-item" href="#" data-template="RegistrationConfirmation">Registratie</a></li>
-          <li><a class="dropdown-item" href="#" data-template="AvailabilityConfirmation">Beschikbaarheid ontvangen</a>
-          </li>
-          <li><a class="dropdown-item" href="#" data-template="AvailabilityRejection">Beschikbaarheid geweigerd</a></li>
-          <li><a class="dropdown-item" href="#" data-template="AvailabilityRequest">Beschikbaarheid aanvragen</a></li>
-          <li><a class="dropdown-item" href="#" data-template="Approval">Bevestiging aanmelding</a></li>
-          <li><a class="dropdown-item" href="#" data-template="Cancellation">Annulering bevestiging</a></li>
-          <li><a class="dropdown-item" href="#" data-template="BackupList">Backuplijst</a></li>
-        </ul>
+          <div class="mt-3">
+            <label for="templateContent" class="form-label">Inhoud:</label>
+            <textarea
+              class="form-control"
+              id="templateContent"
+              rows="15"
+            ></textarea>
+          </div>
+          <div class="mt-4">
+            <button type="submit" class="btn btn-secondary">Bevestigen</button>
+          </div>
+        </form>
       </div>
-
-
-      <div class="mt-3">
-        <label for="templateContent" class="form-label">Inhoud:</label>
-        <textarea class="form-control" id="templateContent" rows="15"></textarea>
-
-
-      </div>
-      <div class="mt-4">
-        <button type="submit" class="btn btn-secondary">Bevestigen</button>
-      </div>
-
-
     </div>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("accessToken");
 
-  </div>
+        if (!token) {
+          window.location.href = "http://127.0.0.1:5500/Login/login.html";
+          return;
+        }
 
-  <script>
-
-    let template;
-    document.addEventListener("DOMContentLoaded", function () {
-      const dropdownItems = document.querySelectorAll('.dropdown-item');
-
-      const templateContent = document.getElementById('templateContent');
-
-      dropdownItems.forEach(item => {
-        item.addEventListener('click', function (e) {
-          e.preventDefault();
-          template = this.getAttribute('data-template'); // Extract templateName from href
-          console.log(template);
-          fetchTemplateContent(template);
-        });
-      });
-
-      function fetchTemplateContent(template) {
-        const url = `https://skoolworkshopapi.azurewebsites.net/email/templates?templateName=${template}`;
-
-        fetch(url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        })
-          .then(response => {
+        fetch(
+          "https://skoolworkshopapi.azurewebsites.net/auth/validate-token",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+          .then((response) => {
             if (!response.ok) {
-              throw new Error('Network response was not ok');
+              throw new Error("Invalid token");
             }
             return response.json();
           })
-          .then(data => {
-            if (data.status === 200) {
-              const templateContentValue = data.data;
-              // Assuming templateContent is the ID of your text field
-              templateContent.value = templateContentValue;
+          .then((data) => {
+            if (data.message === "Token is valid") {
+              // Token is valid, pagina kan geladen worden
+              // Voeg hier eventuele verdere acties toe die moeten worden uitgevoerd nadat de token is gevalideerd
             } else {
-              console.error(data.error);
+              throw new Error("Invalid token");
             }
           })
-          .catch(error => {
-            console.error('Error fetching template content:', error);
+          .catch((error) => {
+            console.error("Error:", error);
+            localStorage.removeItem("accessToken");
+            window.location.href = "http://127.0.0.1:5500/Login/login.html";
           });
-      }
-    });
+      });
 
-  </script>
+      const thisForm = document.getElementById("clientForm");
+      thisForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const clientname = document.getElementById("clientname").value;
+        const organisation = document.getElementById("organisation").value;
+        const targetaudience = document.getElementById("targetaudience").value;
+        const email = document.getElementById("email").value;
+        const phonenumber = document.getElementById("phonenumber").value;
+        const contactperson = document.getElementById("contactperson").value;
+        const address = document.getElementById("address").value;
+        const kvknumber = document.getElementById("kvknumber").value;
 
+        const formObject = {
+          clientname: clientname,
+          organisation: organisation,
+          targetaudience: targetaudience,
+          email: email,
+          phonenumber: phonenumber,
+          contactperson: contactperson,
+          address: address,
+          kvknumber: kvknumber,
+        };
 
-  <script>
-
-    const thisForm = document.getElementById('templateForm');
-    thisForm.addEventListener('submit', async function (event) {
-
-      event.preventDefault();
-      console.log(template);
-      //waardes ophalen
-      const templateNameValue = template;
-      const contents = document.getElementById('templateContent').value;
-
-      //object aanmaken
-      const formObject = {
-        templateName: templateNameValue,
-        content: contents
-      };
-
-      console.log(formObject);
-      console.log(contents);
-
-      const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/email/templates'
-
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formObject)
-          
-        });
-        console.log(formObject);
-
-        
-        if (response.ok) {
-          console.log("Template updated successfully")
-          const result = await response.json();
-        } else {
-          console.error('Failed to update template')
+        const apiUrl = "https://skoolworkshopapi.azurewebsites.net/client/add";
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formObject),
+          });
+          if (response.ok) {
+            console.log("Klant is toegevoegd");
+            const result = await response.json();
+            showPopup();
+            document.getElementById("clientForm").reset();
+          } else {
+            showFailPopup();
+            console.error("Klant niet toegevoegd");
+          }
+        } catch (error) {
+          showFailPopup();
+          console.error("Error:", error);
         }
-      } catch (error) {
-        console.error('Error', error);
+      });
+
+      function showFailPopup() {
+        const failPopup = document.querySelector(".alert-fail");
+        failPopup.style.display = "block";
+        setTimeout(() => {
+          failPopup.style.display = "none";
+        }, 3000);
       }
-    })
 
+      function showPopup() {
+        const successPopup = document.querySelector(".alert-success");
+        successPopup.style.display = "block";
+        setTimeout(() => {
+          successPopup.style.display = "none";
+        }, 3000);
+      }
+    </script>
 
-  </script>
-
-  <script>
-
-    const templateContent = document.getElementById('templateContent');
-
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
