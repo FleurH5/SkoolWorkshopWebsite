@@ -146,11 +146,8 @@ function changeToFlex(username, salary) {
 }
 
 function updateRole(username, role, salary) {
-    const requestBody = { Username: username, Role: role, SalaryPerHourInEuro: salary };
-    console.log('Sending request to update role with body:', requestBody);
-
     fetch('https://skoolworkshopapi.azurewebsites.net/user/changeRole', {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
