@@ -16,17 +16,13 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="aamelden.js"></script>
     <title>Registratie</title>
   </head>
   <body>
-    <!-- Hoofdcontainer -->
     <div
       class="container padded-container d-flex justify-content-center align-items-center min-vh-100"
     >
-      <!-- Registratiecontainer -->
       <div class="row border rounded-5 p-3 bg-white shadow box-area w-100">
-        <!-- Linker box -->
         <div
           class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
           style="background: #000000"
@@ -39,8 +35,6 @@
             />
           </div>
         </div>
-
-        <!-- Rechter box -->
         <div class="col-md-6 right-box">
           <div class="row align-items-center">
             <div class="header-text mb-4">
@@ -188,7 +182,7 @@
                   </option>
                   <option value="Nederlands">Nederlands</option>
                   <option value="Engels">Engels</option>
-                  <option value="Nederland&Engels">Nederlands & Engels</option>
+                  <option value="Nederlands&Engels">Nederlands & Engels</option>
                 </select>
               </div>
               <div class="input-group mb-3">
@@ -206,18 +200,29 @@
                   >&#10004;</span
                 >
               </div>
-
               <div class="input-group mb-3">
-                <select
-                  id="workshopSelect"
-                  class="form-select form-select-lg"
-                  required
+                <div
+                  class="dropdown w"
+                  style="width: 100%; height: 30; text-align: left"
                 >
-                  <option value="" disabled selected>
-                    Welke workshop geeft U?
-                  </option>
-                  <!-- Workshop opties worden ingevuld door JavaScript -->
-                </select>
+                  <button
+                    class="btn custom-button dropdown-toggle w-100"
+                    type="button"
+                    id="workshopDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Welke workshops geeft U?
+                  </button>
+                  <ul
+                    class="dropdown-menu w-100"
+                    style="margin: 10px"
+                    aria-labelledby="workshopDropdown"
+                    id="workshopOptions"
+                  >
+                    <!-- Workshop opties worden ingevuld door JavaScript -->
+                  </ul>
+                </div>
               </div>
               <div class="input-group mb-3">
                 <input
@@ -276,5 +281,6 @@
         </div>
       </div>
     </div>
+    <script src="aamelden.js"></script>
   </body>
 </html>

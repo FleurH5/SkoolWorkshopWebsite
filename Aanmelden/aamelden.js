@@ -5,11 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const flexRadio = document.getElementById("docentFlex");
   const ibanInput = document.getElementById("bankrekeningnummer");
   const validIcon = document.getElementById("valid-iban-icon");
+  const geboortedatumInput = document.getElementById("geboortedatum");
 
+  // Show/hide BTW field based on selected docent type
   zzpRadio.addEventListener("change", function () {
     if (zzpRadio.checked) {
       kvkField.style.display = "block";
       btwField.style.display = "block";
+      document.getElementById("btwnummer").setAttribute("required", "true");
     }
   });
 
@@ -17,25 +20,32 @@ document.addEventListener("DOMContentLoaded", function () {
     if (flexRadio.checked) {
       kvkField.style.display = "none";
       btwField.style.display = "none";
+      document.getElementById("btwnummer").removeAttribute("required");
     }
   });
 
-  // Fetch workshop names from the server and populate the select field
-  let workshopOptions = "";
-  let addedCategories = new Set(); // Set to keep track of added categories
-
+  // Fetch workshop names from the server and populate the select field with checkboxes
   fetch("https://skoolworkshopapi.azurewebsites.net/workshop/allnames")
     .then((response) => response.json())
     .then((data) => {
-      workshopOptions += `<option value="" disabled selected>Welke workshop geeft u?</option>`; // Placeholder option
+      const workshopOptions = document.getElementById("workshopOptions");
       data.data.forEach((item) => {
-        // Check if the category has not been added yet
-        if (!addedCategories.has(item.WorkshopName)) {
-          workshopOptions += `<option value="${item.WorkshopName}">${item.WorkshopName}</option>`;
-          addedCategories.add(item.WorkshopName); // Add category to the set
-        }
+        const listItem = document.createElement("li");
+        listItem.classList.add("dropdown-item");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = item.WorkshopName;
+        checkbox.id = item.WorkshopName;
+
+        const label = document.createElement("label");
+        label.htmlFor = item.WorkshopName;
+        label.textContent = item.WorkshopName;
+
+        listItem.appendChild(checkbox);
+        listItem.appendChild(label);
+        workshopOptions.appendChild(listItem);
       });
-      document.getElementById("workshopSelect").innerHTML = workshopOptions; // Set workshop options
     })
     .catch((error) => {
       console.error("Error fetching workshop names:", error);
@@ -89,9 +99,23 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Er is een fout opgetreden bij het valideren van de IBAN.");
       });
   }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
+  // Validate date of birth to ensure it's not after today
+  geboortedatumInput.addEventListener("change", function () {
+    const selectedDate = new Date(geboortedatumInput.value);
+    const today = new Date();
+
+    if (selectedDate > today) {
+      geboortedatumInput.setCustomValidity(
+        "De geboortedatum kan niet in de toekomst liggen."
+      );
+      geboortedatumInput.reportValidity();
+    } else {
+      geboortedatumInput.setCustomValidity("");
+    }
+  });
+
+  // Password and confirm password validation
   const passwordInput = document.getElementById("wachtwoord");
   const confirmPasswordInput = document.getElementById("bevestig_wachtwoord");
   const passwordMismatch = document.getElementById("passwordMismatch");
@@ -119,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  const registrationForm = document.getElementById("registrationForm");
   registrationForm.addEventListener("submit", function (event) {
     if (
       confirmPasswordInput.value !== passwordInput.value ||
@@ -129,53 +152,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
-// EMAIL VERZENDEN
-// document.addEventListener("DOMContentLoaded", function () {
-//   const registrationForm = document.getElementById("registrationForm");
-
-//   registrationForm.addEventListener("submit", function (e) {
-//     e.preventDefault();
-
-//     // Verzamel de ingevoerde gegevens
-//     const formData = new FormData(registrationForm);
-//     const email = formData.get("email");
-
-//     // AJAX-verzoek om de verificatie-e-mail te verzenden
-//     fetch("backend_endpoint_url", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ email: email }),
-//     })
-//       .then((response) => {
-//         if (response.ok) {
-//           // Toon een succesbericht aan de gebruiker
-//           alert(
-//             "Een verificatie-e-mail is verzonden naar uw e-mailadres. Controleer uw inbox om het registratieproces te voltooien."
-//           );
-//         } else {
-//           // Toon een foutmelding aan de gebruiker
-//           alert(
-//             "Er is een fout opgetreden bij het verzenden van de verificatie-e-mail. Probeer het later opnieuw."
-//           );
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error:", error);
-//         // Toon een foutmelding aan de gebruiker
-//         alert(
-//           "Er is een fout opgetreden bij het verzenden van de verificatie-e-mail. Probeer het later opnieuw."
-//         );
-//       });
-//   });
-// });
-
-// $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
-//   $(this).closest("li").toggleClass("active", this.checked);
-// });
-
-// $(document).on("click", ".allow-focus", function (e) {
-//   e.stopPropagation();
-// });
