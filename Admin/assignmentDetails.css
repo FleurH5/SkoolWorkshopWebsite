@@ -43,9 +43,6 @@ body{
     font-size: 20px;
     font-weight: 500;
 }
-body{
-    background-color: #FCE7CC;
-}
 
 .headeritem{
     display: inline-block;

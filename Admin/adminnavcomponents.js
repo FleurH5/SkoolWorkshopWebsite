@@ -10,13 +10,13 @@ class SideNav extends HTMLElement {
             <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
           </li>
           <li>
-            <a class="nav-link" href="#"> <span class="bi bi-calendar"></span> Opdrachten</a>
+            <a class="nav-link" href="assignmentOverview.html"> <span class="bi bi-calendar"></span> Opdrachten</a>
           </li>
           <li>
             <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
           </li>
           <li>
-            <a class="nav-link" href="#"><span class="bi bi-suitcase-lg"></span> Docenten</a>
+            <a class="nav-link" href="allAccounts.html"><span class="bi bi-suitcase-lg"></span> Docenten</a>
           </li>
           <li><a class="nav-link" href="EmailTemplatesPage.html"><span class="bi bi-mailbox"></span> Email Templates</a></li>
           <li class="nav-item dropdown">
@@ -29,7 +29,16 @@ class SideNav extends HTMLElement {
               <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
             </ul>
           </li>
+          <li>
+          <a class="nav-link" href="Aanmeldingen.html"><span class="bi bi-bookmark-check-fill"></span> Aanmeldingen</a>
+          </li>
+          <li>
+          <a class="nav-link" href="adminSettings.html"><span class="bi bi-gear"></span> Instellingen</a>
+          </li>
         </ul>
+        <button class="nav-btn btn-outline-light m-5" id="logout-button">
+        Log uit
+      </button>
       </div>
         `;
   }
@@ -40,10 +49,10 @@ customElements.define("side-nav", SideNav);
 class NavBar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-white navbar-border-bottom">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="../Homepage.html">
-                        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="75" height="44" class="d-inline-block align-text-top">
+                    <a class="navbar-brand" href="Homepage/Homepage.html">
+                        <img src="../Images/Skool-Workshop_Logo_Black.jpg" alt="Logo" width="100" height="30" class="d-inline-block align-text-top">
                     </a>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
@@ -61,3 +70,11 @@ class NavBar extends HTMLElement {
 }
 
 customElements.define("nav-bar", NavBar);
+
+document
+        .getElementById("logout-button")
+        .addEventListener("click", function () {
+          localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
+          window.location.href =
+            "http://127.0.0.1:5500/Login/login.html"; // Leid de gebruiker om naar de loginpagina
+        });

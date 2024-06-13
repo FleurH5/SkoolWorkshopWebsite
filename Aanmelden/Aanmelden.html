@@ -16,6 +16,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="aamelden.js"></script>
     <title>Registratie</title>
   </head>
   <body>
@@ -88,6 +89,16 @@
                   class="form-control form-control-lg"
                   placeholder="Achternaam*"
                   name="achternaam"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="date"
+                  id="geboortedatum"
+                  class="form-control form-control-lg"
+                  placeholder="Geboortedatum*"
+                  name="geboortedatum"
                   required
                 />
               </div>
@@ -177,7 +188,7 @@
                   </option>
                   <option value="Nederlands">Nederlands</option>
                   <option value="Engels">Engels</option>
-                  <option value="Nederland&Engels">Nederland & Engels</option>
+                  <option value="Nederland&Engels">Nederlands & Engels</option>
                 </select>
               </div>
               <div class="input-group mb-3">
@@ -189,14 +200,22 @@
                   name="bankrekeningnummer"
                   required
                 />
+                <span
+                  id="valid-iban-icon"
+                  style="display: none; margin-left: 5px; margin-top: 10px"
+                  >&#10004;</span
+                >
               </div>
+
               <div class="input-group mb-3">
                 <select
                   id="workshopSelect"
                   class="form-select form-select-lg"
                   required
                 >
-                  <option value="" disabled selected>Categorie?</option>
+                  <option value="" disabled selected>
+                    Welke workshop geeft U?
+                  </option>
                   <!-- Workshop opties worden ingevuld door JavaScript -->
                 </select>
               </div>
@@ -219,6 +238,10 @@
                   name="wachtwoord"
                   required
                 />
+                <div id="passwordRequirements" class="invalid-feedback">
+                  Het wachtwoord moet minstens 8 tekens lang zijn en minstens
+                  één hoofdletter bevatten.
+                </div>
               </div>
               <div class="input-group mb-3">
                 <input
@@ -229,6 +252,9 @@
                   name="bevestig_wachtwoord"
                   required
                 />
+                <div id="passwordMismatch" class="invalid-feedback">
+                  Wachtwoorden komen niet overeen.
+                </div>
               </div>
               <div class="input-group mb-3">
                 <button
@@ -250,61 +276,5 @@
         </div>
       </div>
     </div>
-
-    <!-- het script -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const kvkField = document.getElementById("kvkField");
-        const btwField = document.getElementById("btwField");
-        const zzpRadio = document.getElementById("docentZZP");
-        const flexRadio = document.getElementById("docentFlex");
-
-        zzpRadio.addEventListener("change", function () {
-          if (zzpRadio.checked) {
-            kvkField.style.display = "block";
-            btwField.style.display = "block";
-          }
-        });
-
-        flexRadio.addEventListener("change", function () {
-          if (flexRadio.checked) {
-            kvkField.style.display = "none";
-            btwField.style.display = "none";
-          }
-        });
-
-        // Fetch workshop names from the server and populate the select field
-        let workshopOptions = "";
-        let addedCategories = new Set(); // Set om bij te houden welke categorieën al zijn toegevoegd
-
-        fetch("https://skoolworkshopapi.azurewebsites.net/workshop/all")
-          .then((response) => response.json())
-          .then((data) => {
-            workshopOptions += `<option value="" disabled selected>Category?</option>`; // Placeholder option
-            data.data.forEach((item) => {
-              // Controleer of de categorie nog niet is toegevoegd
-              if (!addedCategories.has(item.Category)) {
-                workshopOptions += `<option value="${item.Category}">${item.Category}</option>`;
-                addedCategories.add(item.Category); // Voeg de categorie toe aan de set
-              }
-            });
-            document.getElementById("workshopSelect").innerHTML =
-              workshopOptions; // Set workshop options
-          })
-          .catch((error) => {
-            console.error("Error fetching workshop names:", error);
-          });
-
-        document
-          .querySelector(".add-workshop-btn")
-          .addEventListener("click", createNewInputFields);
-      });
-
-      // Function to create new input fields for workshops
-      function createNewInputFields() {
-        // Implement functionality to create new input fields for workshops here
-        console.log("Implement createNewInputFields function here");
-      }
-    </script>
   </body>
 </html>
