@@ -75,27 +75,14 @@
         </div>
         <div class="row">
           <div class="form-group col-md-6 mb-3">
-            <label for="country">Land</label>
-            <select class="form-select" id="country" name="country">
-                <option selected>Selecteer een optie</option>
-                <option value="netherlands">Nederland</option>
-                <option value="belgium">België</option>
-              </select>
+            <label for="land">Land</label>
+            <input type="text" class="form-control" id="land" name="land" placeholder="Voer land in">
           </div>
           <div class="form-group col-md-6 mb-3">
-            <label for="languagesSpoken">Gesproken Talen</label>
-            <select class="form-select" id="languagesSpoken" name="languagesSpoken">
-                <option selected>Selecteer een optie</option>
-                <option value="dutch">Nederlands</option>
-                <option value="english">Engels</option>
-                <option value="bothLanguages">Nederlands & Engels</option>
-              </select>
+            <label for="gesprokenTalen">Gesproken Talen</label>
+            <input type="text" class="form-control" id="gesprokenTalen" name="gesprokenTalen" placeholder="Voer gesproken talen in">
           </div>
         </div>
-        <div class="form-group mb-3">
-            <label for="bankId">Bank ID</label>
-            <input type="text" class="form-control" id="bankId" name="bankId" placeholder="Voer Bank ID in">
-          </div>
         <div class="row">
           <div class="form-group col-md-6 mb-3">
             <label for="btwNumber">BTW Number</label>
@@ -107,39 +94,56 @@
           </div>
         </div>
         <div class="form-group mb-3">
+          <label for="bankId">Bank ID</label>
+          <input type="text" class="form-control" id="bankId" name="bankId" placeholder="Voer Bank ID in">
+        </div>
+        <div class="form-group mb-3">
           <label for="usesPublicTransit">OV gebruik</label>
           <select class="form-select" id="usesPublicTransit" name="usesPublicTransit">
-            <option selected>Selecteer een optie</option>
             <option value="yes">Ja</option>
             <option value="no">Nee</option>
           </select>
         </div>
         <div class="row">
           <div class="form-group col-md-6 mb-3">
-            <label for="hasCar">Auto in bezit</label>
-            <select class="form-select" id="hasCar" name="hasCar">
-              <option selected>Selecteer een optie</option>
+            <label for="hasLicense">Rijbewijs in bezit</label>
+            <select class="form-select" id="hasLicense" name="hasLicense">
               <option value="yes">Ja</option>
               <option value="no">Nee</option>
             </select>
           </div>
           <div class="form-group col-md-6 mb-3">
-            <label for="hasLicense">Rijbewijs in bezit</label>
-            <select class="form-select" id="hasLicense" name="hasLicense">
-              <option selected>Selecteer een optie</option>
+            <label for="hasCar">Auto in bezit</label>
+            <select class="form-select" id="hasCar" name="hasCar">
               <option value="yes">Ja</option>
               <option value="no">Nee</option>
             </select>
           </div>
         </div>
         <button type="submit" class="btn btn-primary" onclick="confirmChanges()">Bijwerken</button>
-        <button type="reset" class="btn btn-primary" onclick="window.location.href='userProfile.html'">Annuleren</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='userProfile.html'">Annuleren</button>
       </form>
     </div>
   </div>
+  
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-wwis7GuF5v0I7K7dM/Ud/3ZZwcf1whkgy5A3P92w9zzT8KTX73dChzzup4ZSnNm9" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-29S6uYY9mpC/Dyj5HhwfFfCt3esJ5pOR9FKNJeGDlzcr0wGATxjuhfKLAz0BBaxk" crossorigin="anonymous"></script>
-  <script src="./Admin/selectedAccount.js"></script>
+  <script>
+    function confirmChanges() {
+        console.log('confirmChanges clicked')
+      let result = confirm("Weet je het zeker?");
+      if(result === true) {
+        updateUser(); 
+        console.log('Changed');
+      } else {
+        console.log('Canceled');
+      }
+    }
+  
+    function updateUser() {
+      console.log('updateUser clicked');
+      // Add your update logic here
+    }
+  </script>
+  
 </body>
 </html>
