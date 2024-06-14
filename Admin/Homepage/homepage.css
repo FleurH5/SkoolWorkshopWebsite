@@ -104,3 +104,10 @@ select{
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+.fixed-width-buttons {
+  width: 400px;
+}
+.fixed-width-buttons .btn {
+  width: 50%;
+}

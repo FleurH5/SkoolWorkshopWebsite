@@ -21,19 +21,20 @@
 
   <div class="content">
     <div class="container">
-      <div class="row">
+      <!-- Toggle workshops button beneath the nav bar -->
+      <div class="row mt-5">
         <div class="col-md-6">
-      <div class="btn-group" role="group" aria-label="Toggle workshops" style="margin-right: 10px;">
-        <button type="button" class="btn btn-default" id="showAllBtn">Alle Workshops</button>
-        <button type="button" class="btn btn-default" id="showEnrolledBtn">Aangemelde Workshops</button>
+          <div class="btn-group fixed-width-buttons" role="group" aria-label="Toggle workshops">
+            <button type="button" class="btn btn-default" id="showAllBtn">Alle Workshops</button>
+            <button type="button" class="btn btn-default" id="showEnrolledBtn">Aangemelde Workshops</button>
+          </div>
+        </div>
+
+        <div class="col-md-6 text-right">
+          <label for="workshopFilter">Filter op workshop</label>
+          <select name="workshopFilter" id="workshopFilter"></select>
+        </div>
       </div>
-    </div>
-      <div class="col-md-6 text-right">
-        <label for="workshopFilter">Filter op workshop</label>
-        <select name="workshopFilter" id="workshopFilter"></select>
-      </div>
-    </div>
-    </div>
 
     <div class="container">
       <div class="container">
