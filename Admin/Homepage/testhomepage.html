@@ -1,69 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Workshops</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="homepage.css" />
-  <link rel="icon" href="../Login/SKWLogoS.jpg" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aangemelde Workshops</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .workshop-panel {
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .workshop-panel img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar navbar-inverse" style="background: #000000">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <!-- Navbar header content -->
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-right">
-          <!-- Navbar links -->
-        </ul>
-      </div>
+    <div class="container mt-5">
+        <h1>Aangemelde Workshops</h1>
+        <div id="workshop-list" class="row">
+            <!-- Workshops worden hier dynamisch ingevoegd -->
+        </div>
     </div>
-  </nav>
 
-  <div class="container">
-    <div class="btn-group" role="group" aria-label="Toggle workshops" style="margin-right: 10px;">
-      <button type="button" class="btn btn-default" id="showAllBtn">Alle Workshops</button>
-      <button type="button" class="btn btn-default" id="showEnrolledBtn">Aangemelde Workshops</button>
-    </div>
-    <label for="dateFilter">Filter op datum:</label>
-    <input type="date" id="dateFilter">
-    <label for="workshopFilter">Filter op workshop:</label>
-    <input type="text" id="workshopFilter">
-    <button onclick="applyFilters()">Toepassen</button>
-  </div>
+    <!-- jQuery en Bootstrap JavaScript bibliotheken -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <div class="container">
-    <div class="row">
-      <div class="col text-center">
-        <h1>Workshops</h1>
-      </div>
-    </div>
-  </div>
+    <!-- Onze script voor het ophalen en weergeven van workshops -->
+    <script>
+        $(document).ready(function() {
+            const userId = localStorage.getItem("userId") || 1; // Vervang dit met de juiste manier om de gebruiker ID te krijgen
+            const apiUrl = `https://skoolworkshopapi.azurewebsites.net/workshopcommission/${userId}`;
 
-  <div class="container">
-    <h2>Vandaag</h2>
-    <div class="scrolling-wrapper" id="today-workshop-container"></div>
+            // Haal workshops op via de API
+            $.get(apiUrl, function(response) {
+                console.log("API response:", response);
 
-    <h2>Morgen</h2>
-    <div class="scrolling-wrapper" id="tomorrow-workshop-container"></div>
+                if (response.status === 200) {
+                    const workshops = response.data;
+                    displayWorkshops(workshops);
+                } else {
+                    alert("Er is een fout opgetreden bij het ophalen van de workshops.");
+                }
+            }).fail(function() {
+                alert("Kon geen verbinding maken met de API.");
+            });
 
-    <h2>{filterdatum}</h2>
-    <div class="scrolling-wrapper" id="filter-date-workshop-container"></div>
+            // Functie om workshops weer te geven
+            function displayWorkshops(workshops) {
+                const workshopList = $("#workshop-list");
+                workshopList.empty(); // Maak de container leeg
 
-    <h2>Later</h2>
-    <div class="scrolling-wrapper" id="specific-date-workshop-container"></div>
-  </div>
+                if (workshops.length === 0) {
+                    workshopList.append('<p>Geen workshops gevonden.</p>');
+                    return;
+                }
 
-  <footer>
-    <p>Skoolworkshop Copyright © 2024</p>
-  </footer>
+                workshops.forEach(workshop => {
+                    const workshopPanel = createWorkshopPanel(workshop);
+                    workshopList.append(workshopPanel);
+                });
+            }
 
-  <!-- Import external JavaScript files -->
-  <script src="homepage.js"></script>
-  <script src="authenticate.js"></script>
+            // Functie om een workshop paneel te creëren
+            function createWorkshopPanel(workshop) {
+                return `
+                    <div class="col-md-4">
+                        <div class="workshop-panel">
+                            <img src="${workshop.LinkToPicture}" alt="${workshop.WorkshopName}">
+                            <h3>${workshop.WorkshopName}</h3>
+                            <p><strong>Categorie:</strong> ${workshop.Category}</p>
+                            <p><strong>Datum:</strong> ${formatDate(workshop.Date)}</p>
+                            <p><strong>Tijd:</strong> ${workshop.StartTime} - ${workshop.EndTime}</p>
+                            <p><strong>Locatie:</strong> ${workshop.Location}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Functie om de datum te formatteren
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString("nl-NL", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                });
+            }
+        });
+    </script>
 </body>
 </html>
