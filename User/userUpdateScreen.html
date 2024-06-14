@@ -45,175 +45,91 @@
       </div>
     </div>
   </nav>
-  <div class="content">
-    <!-- Main Content -->
-    <div class="container mt-4">
-      <div class="row">
-          <div class="col-12 mb-4">
-              <br><br>
-              <div class="align-items-center">
-                  <div class="row">
-                      <!-- Part 1 -->
-                      <div class="col-lg-4 col-md-6 mb-4 text-center">
-                          <img src="../Images/SKWLogoS.jpg" alt="pfp" class="rounded-circle mb-3">
-                          <h2 id="userName">{naam}</h2>
-                          <h4 class="text-muted" id="activity">{activity}</h4>
-                      </div>
-                      <!-- Part 2 -->
-                      <div class="col-lg-4 col-md-6">
-                          <div class="mb-3">
-                              <h5>Email</h5>
-                              <p id="email">{email}</p>
-                          </div>
-                          <div class="mb-3">
-                              <h5>Workshops</h5>
-                              <p id="workshops">{workshops}</p>
-                          </div>
-                      </div>
-                      <!-- Part 3 -->
-                      <div class="col-lg-4 col-md-6">
-                          <div class="mb-3">
-                              <div class="card clickable-card">
-                                  <div class="card-body">
-                                    <h5>Aanwezigheid veranderen</h5>
-                                  <div class="row">
-                                      <button onclick="confirmationActivity()" class="col-md-6">Afwezig</button>
-                                      <button onclick="confirmationActivity()" class="col-md-6">Aanwezig</button>
-                                  </div>
-                                  </div>
-                                </div>
-                          </div>
-                          <div class="card clickable-card">
-                            <div class="card-body">
-                              <h5>Gegevens veranderen</h5>
-                              <button onclick="window.location.href='update_page_url'" class="col-md-12">⚙</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+  <!-- popup -->
+  <div class="alert alert-success" role="alert" style="display: none;">
+    <strong>Succes!</strong> Gebruikersgegevens zijn succesvol bijgewerkt.
+  </div>
+  <div class="container mt-5">
+    <div class="content">
+      <h1 class="text-center">Gebruikersgegevens veranderen</h1><br>
+      <form id="userForm">
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Voer email in">
           </div>
-      </div>
-    </div>
-        <div class="col-12">
-          <div class="accordion" id="profileAccordion">
-            <div class="card">
-              <div class="card-header" id="headingContactInfo">
-                <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactInfo" aria-expanded="true" aria-controls="collapseContactInfo">
-                    Contact Informatie
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseContactInfo" class="collapse show" aria-labelledby="headingContactInfo" data-bs-parent="#profileAccordion">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>Telefoonnummer</h6>
-                      <p id="phoneNumber">{telnr}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>Adres</h6>
-                      <p id="address">{adres}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>Postcode</h6>
-                      <p id="postalcode">{postcode}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header" id="headingPersonalInfo">
-                <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePersonalInfo" aria-expanded="false" aria-controls="collapsePersonalInfo">
-                    Persoonlijke Informatie
-                  </button>
-                </h2>
-              </div>
-              <div id="collapsePersonalInfo" class="collapse" aria-labelledby="headingPersonalInfo" data-bs-parent="#profileAccordion">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>Geboortedatum</h6>
-                      <p id="DOB">{dob}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>Land</h6>
-                      <p id="country">{land}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>Gesproken Talen</h6>
-                      <p id="languagesSpoken">{talen}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header" id="headingTravelInfo">
-                <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTravelInfo" aria-expanded="false" aria-controls="collapseTravelInfo">
-                    Reisinformatie
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseTravelInfo" class="collapse" aria-labelledby="headingTravelInfo" data-bs-parent="#profileAccordion">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>OV</h6>
-                      <p id="publicTransit">{ov}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>Rijbewijs</h6>
-                      <p id="license">{rijbewijs}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>Auto</h6>
-                      <p id="car">{auto}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header" id="headingPaymentInfo">
-                <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePaymentInfo" aria-expanded="false" aria-controls="collapsePaymentInfo">
-                    Betalingsgegevens
-                  </button>
-                </h2>
-              </div>
-              <div id="collapsePaymentInfo" class="collapse" aria-labelledby="headingPaymentInfo" data-bs-parent="#profileAccordion">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>Salaris per uur</h6>
-                      <p id="salary">{geld}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>Banknummer</h6>
-                      <p id="bankinfo">{banknummer}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>BTW-nummer</h6>
-                      <p id="btwnr">{btwnr}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h6>KVK-nummer</h6>
-                      <p id="kvknr">{kvknr}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="telefoonnummer">Telefoonnummer</label>
+            <input type="tel" class="form-control" id="telefoonnummer" name="telefoonnummer" placeholder="Voer telefoonnummer in">
           </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="adres">Adres</label>
+            <input type="text" class="form-control" id="adres" name="adres" placeholder="Voer adres in">
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="postcode">Postcode</label>
+            <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Voer postcode in">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="land">Land</label>
+            <input type="text" class="form-control" id="land" name="land" placeholder="Voer land in">
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="gesprokenTalen">Gesproken Talen</label>
+            <input type="text" class="form-control" id="gesprokenTalen" name="gesprokenTalen" placeholder="Voer gesproken talen in">
+          </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="bankId">Bank ID</label>
+            <input type="text" class="form-control" id="bankId" name="bankId" placeholder="Voer Bank ID in">
+          </div>
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="btwNumber">BTW Number</label>
+            <input type="text" class="form-control" id="btwNumber" name="btwNumber" placeholder="Voer BTW number in">
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="kvkNumber">KVK Number</label>
+            <input type="text" class="form-control" id="kvkNumber" name="kvkNumber" placeholder="Voer KVK number in">
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="usesPublicTransit">OV gebruik</label>
+          <select class="form-select" id="usesPublicTransit" name="usesPublicTransit">
+            <option selected>Selecteer een optie</option>
+            <option value="yes">Ja</option>
+            <option value="no">Nee</option>
+          </select>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="hasCar">Auto in bezit</label>
+            <select class="form-select" id="hasCar" name="hasCar">
+              <option selected>Selecteer een optie</option>
+              <option value="yes">Ja</option>
+              <option value="no">Nee</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="hasLicense">Rijbewijs in bezit</label>
+            <select class="form-select" id="hasLicense" name="hasLicense">
+              <option selected>Selecteer een optie</option>
+              <option value="yes">Ja</option>
+              <option value="no">Nee</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Bijwerken</button>
+      </form>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-wwis7GuF5v0I7K7dM/Ud/3ZZwcf1whkgy5A3P92w9zzT8KTX73dChzzup4ZSnNm9" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-29S6uYY9mpC/Dyj5HhwfFfCt3esJ5pOR9FKNJeGDlzcr0wGATxjuhfKLAz0BBaxk" crossorigin="anonymous"></script>
   <script src="./Admin/selectedAccount.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
