@@ -231,15 +231,18 @@
                 });
 
                 const data = {
-                    commissionName: formData.get('commissionName'),
-                    clientName: formData.get('mySelectedClient'),
+                    commissionname: formData.get('commissionName'),
+                    clientname: formData.get('mySelectedClient'),
                     address: formData.get('address'),
                     date: formData.get('date'),
-                    notes: formData.get('notes'),
+                    commissionnotes: formData.get('notes'),
+                    amountofrounds: formData.get(`rounds`),
+                    starttimeday: formData.get(`startTimeDay`),
+                    endtimeday: formData.get(`endTimeDay`),
                     workshops: workshops
                 };
 
-                fetch('https://skoolworkshopapi.azurewebsites.net/commission/add', {
+                fetch('https://skoolworkshopapi.azurewebsites.net/workshopcommission/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
