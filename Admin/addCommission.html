@@ -39,10 +39,28 @@
                         <input required type="text" class="form-control" name="address" id="address" rows="3" placeholder="Voer het adres in"></input>
                     </div> 
                 </div>
-                <div class="form-group mb-3">
-                    <label for="date">Datum *</label>
-                    <input required type="date" class="form-control" name="date" id="date" rows="3" placeholder="Voer de datum in"></input>
-                </div> 
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="date">Datum *</label>
+                        <input required type="date" class="form-control" name="date" id="date" rows="3"
+                            placeholder="Voer de datum in">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="rounds">Aantal rondes *</label>
+                        <input required type="number" class="form-control" name="rounds" id="rounds" rows="3"
+                            placeholder="Voer het aantal rondes in">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="startTimeDay">Aanvangstijd *</label>
+                        <input type="time" class="form-control" name="startTimeDay" id="startTimeDay">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="endTimeDay">Eindtijd *</label>
+                        <input type="time" class="form-control" name="endTimeDay" id="endTimeDay">
+                    </div>
+                </div>
                 <div class="form-group mb-3">
                     <label for="notes">Extra Toelichting</label>
                     <textarea class="form-control" name="notes" id="notes" rows="3" placeholder="Voer de benodigde extra toelichtingen in, indien nodig"></textarea>
@@ -158,27 +176,30 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="grade">Leerjaar</label>
-                                        <input type="text" class="form-control" name="grade" placeholder="Voer het leerjaar in">
+                                        <label for="level">Leerjaar en niveau</label>
+                                        <input type="text" class="form-control" name="level" placeholder="Voer het leerjaar en niveau in">
                                     </div> 
                                     <div class="form-group col-md-6">
-                                        <label for="level">Niveau</label>
-                                        <select required class="form-select" name="level">
-                                            <option selected>Selecteer een niveau</option>
-                                            <option value="beginner">Beginner</option>
-                                            <option value="gevorderd">Gevorderd</option>
-                                        </select>
+                                        <label for="checkRounds">Welke ronde(s)*</label><br>
+                                        <div class="checkbox-container">
+                                        <input type="checkbox" id="round1" name="round1" value="round1">
+                                        <label for="round1"> 1</label>
+                                        <input type="checkbox" id="round2" name="round2" value="round2">
+                                        <label for="round2"> 2</label>
+                                        <input type="checkbox" id="round3" name="round3" value="round3">
+                                        <label for="round3"> 3</label>
+                                        </div>
                                     </div> 
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="startTime">Starttijd *</label>
-                                        <input required type="time" class="form-control" name="startTime">
-                                    </div> 
+                                        <label for="startTime">Begintijd *</label>
+                                        <input type="time" class="form-control" name="startTime"></input>
+                                    </div>
                                     <div class="form-group col-md-6">
                                         <label for="endTime">Eindtijd *</label>
-                                        <input required type="time" class="form-control" name="endTime">
-                                    </div> 
+                                        <input type="time" class="form-control" name="endTime"></input>
+                                    </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="location">Locatie *</label>
@@ -210,15 +231,18 @@
                 });
 
                 const data = {
-                    commissionName: formData.get('commissionName'),
-                    clientName: formData.get('mySelectedClient'),
+                    commissionname: formData.get('commissionName'),
+                    clientname: formData.get('mySelectedClient'),
                     address: formData.get('address'),
                     date: formData.get('date'),
-                    notes: formData.get('notes'),
+                    commissionnotes: formData.get('notes'),
+                    amountofrounds: formData.get(`rounds`),
+                    starttimeday: formData.get(`startTimeDay`),
+                    endtimeday: formData.get(`endTimeDay`),
                     workshops: workshops
                 };
 
-                fetch('https://skoolworkshopapi.azurewebsites.net/commission/add', {
+                fetch('https://skoolworkshopapi.azurewebsites.net/workshopcommission/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
