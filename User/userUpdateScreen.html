@@ -59,37 +59,46 @@
             <input type="email" class="form-control" id="email" name="email" placeholder="Voer email in">
           </div>
           <div class="form-group col-md-6 mb-3">
-            <label for="telefoonnummer">Telefoonnummer</label>
-            <input type="tel" class="form-control" id="telefoonnummer" name="telefoonnummer" placeholder="Voer telefoonnummer in">
+            <label for="phoneNumber">Telefoonnummer</label>
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Voer telefoonnummer in">
           </div>
         </div>
         <div class="row">
           <div class="form-group col-md-6 mb-3">
-            <label for="adres">Adres</label>
-            <input type="text" class="form-control" id="adres" name="adres" placeholder="Voer adres in">
+            <label for="address">Adres</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="Voer adres in">
           </div>
           <div class="form-group col-md-6 mb-3">
-            <label for="postcode">Postcode</label>
-            <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Voer postcode in">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-6 mb-3">
-            <label for="land">Land</label>
-            <input type="text" class="form-control" id="land" name="land" placeholder="Voer land in">
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="gesprokenTalen">Gesproken Talen</label>
-            <input type="text" class="form-control" id="gesprokenTalen" name="gesprokenTalen" placeholder="Voer gesproken talen in">
+            <label for="postalCode">Postcode</label>
+            <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Voer postcode in">
           </div>
         </div>
         <div class="row">
           <div class="form-group col-md-6 mb-3">
-            <label for="btwNumber">BTW Number</label>
+            <label for="country">Land</label>
+            <select class="form-select" id="country" name="country">
+              <option selected>Selecteer een optie</option>
+              <option value="netherlands">Nederland</option>
+              <option value="belgium">België</option>
+            </select>
+           </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="languagesSpoken">Gesproken Talen</label>
+            <select class="form-select" id="languagesSpoken" name="languagesSpoken">
+              <option selected>Selecteer een optie</option>
+              <option value="dutch">Nederlands</option>
+              <option value="english">Engels</option>
+              <option value="bothLanguages">Nederlands & Engels</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="btwNumber">BTW Nummer</label>
             <input type="text" class="form-control" id="btwNumber" name="btwNumber" placeholder="Voer BTW number in">
           </div>
           <div class="form-group col-md-6 mb-3">
-            <label for="kvkNumber">KVK Number</label>
+            <label for="kvkNumber">KVK Nummer</label>
             <input type="text" class="form-control" id="kvkNumber" name="kvkNumber" placeholder="Voer KVK number in">
           </div>
         </div>
@@ -100,6 +109,7 @@
         <div class="form-group mb-3">
           <label for="usesPublicTransit">OV gebruik</label>
           <select class="form-select" id="usesPublicTransit" name="usesPublicTransit">
+            <option selected>Selecteer een optie</option>
             <option value="yes">Ja</option>
             <option value="no">Nee</option>
           </select>
@@ -108,6 +118,7 @@
           <div class="form-group col-md-6 mb-3">
             <label for="hasLicense">Rijbewijs in bezit</label>
             <select class="form-select" id="hasLicense" name="hasLicense">
+              <option selected>Selecteer een optie</option>
               <option value="yes">Ja</option>
               <option value="no">Nee</option>
             </select>
@@ -115,6 +126,7 @@
           <div class="form-group col-md-6 mb-3">
             <label for="hasCar">Auto in bezit</label>
             <select class="form-select" id="hasCar" name="hasCar">
+              <option selected>Selecteer een optie</option>
               <option value="yes">Ja</option>
               <option value="no">Nee</option>
             </select>
