@@ -1,4 +1,12 @@
-const userId = 2;
+<script src="authenticate.js"></script>
+      
+      $(document).ready(function () {
+        const userId = localStorage.getItem("userId");
+        console.log(userId); 
+        console.log("Document ready. Attempting to fetch workshops.");
+        const apiUrl = "https://skoolworkshopapi.azurewebsites.net/workshopcommission/" + userId;
+        
+      
 
 fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
       .then(response => response.json())
@@ -45,4 +53,4 @@ fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
           }
       })
       .catch(error => console.error('Error while fetching user data:', error));
-
+    })
