@@ -6,45 +6,14 @@
   <title>Profiel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <!-- <link rel="stylesheet" href="userstyle.css" /> -->
+  <link rel="stylesheet" href="../adminstyles.css" />
+  <link rel="stylesheet" href="homepage.css">
 </head>
 <body>
-  <div class="sidenav">
-    <ul class="nav flex-column">
-      <li>
-        <a class="nav-link" href="userProfile.html"><span class="bi bi-file-person"></span> Profiel</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-calendar2-week"></span> Mijn opdrachten</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-bell"></span> Mijn inschrijvingen</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-clock-history"></span> Geschiedenis</a>
-      </li>
-      <li>
-        <a class="nav-link" href="settings.html"><span class="bi bi-gear-fill"></span> Instellingen</a>
-      </li>
-      <li>
-        <a class="nav-link" href="./Login/login.html"><span class="bi bi-box-arrow-in-left"></span> Uitloggen</a>
-      </li>
-    </ul>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./Homepage/Homepage.html">
-        <img src="../Images/SKWLogoTransparentWhite.png" alt="Logo" width="75" height="44" class="d-inline-block align-text-top" />
-      </a>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="bi bi-person"></i></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<side-nav></side-nav>
+<nav-bar></nav-bar>
+<script src="usernavcomponents.js"></script>
+
   <!-- popup -->
   <div class="alert alert-success" role="alert" style="display: none;">
     <strong>Succes!</strong> Gebruikersgegevens zijn succesvol bijgewerkt.
@@ -110,8 +79,8 @@
           <label for="usesPublicTransit">OV gebruik</label>
           <select class="form-select" id="usesPublicTransit" name="usesPublicTransit">
             <option selected>Selecteer een optie</option>
-            <option value="yes">Ja</option>
-            <option value="no">Nee</option>
+            <option value="true">Ja</option>
+            <option value="false">Nee</option>
           </select>
         </div>
         <div class="row">
@@ -119,20 +88,20 @@
             <label for="hasLicense">Rijbewijs in bezit</label>
             <select class="form-select" id="hasLicense" name="hasLicense">
               <option selected>Selecteer een optie</option>
-              <option value="yes">Ja</option>
-              <option value="no">Nee</option>
+              <option value="true">Ja</option>
+              <option value="false">Nee</option>
             </select>
           </div>
           <div class="form-group col-md-6 mb-3">
             <label for="hasCar">Auto in bezit</label>
             <select class="form-select" id="hasCar" name="hasCar">
               <option selected>Selecteer een optie</option>
-              <option value="yes">Ja</option>
-              <option value="no">Nee</option>
+              <option value="true">Ja</option>
+              <option value="false">Nee</option>
             </select>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="confirmChanges()">Bijwerken</button>
+        <button type="button" class="btn btn-primary" onclick="confirmChanges()">Bijwerken</button>
         <button type="button" class="btn btn-primary" onclick="window.location.href='userProfile.html'">Annuleren</button>
       </form>
     </div>

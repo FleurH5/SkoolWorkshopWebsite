@@ -4,38 +4,20 @@ class SideNav extends HTMLElement {
         <div class="sidenav">
         <ul class="nav flex-column">
           <li>
-            <a class="nav-link" href="adminDashboard.html"><span class="bi bi-speedometer2"></span> Dashboard</a>
-          </li>
-          <li>
-            <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
-          </li>
-          <li>
-            <a class="nav-link" href="assignmentOverview.html"> <span class="bi bi-calendar"></span> Opdrachten</a>
-          </li>
-          <li>
-            <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
-          </li>
-          <li>
-            <a class="nav-link" href="allAccounts.html"><span class="bi bi-suitcase-lg"></span> Docenten</a>
-          </li>
-          <li><a class="nav-link" href="EmailTemplatesPage.html"><span class="bi bi-mailbox"></span> Email Templates</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="sidebardropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="bi bi-plus-lg"></span> Nieuw
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="sidebardropdown">
-              <li><a class="dropdown-item" href="addWorkshops.html">Workshop</a></li>
-              <li><a class="dropdown-item" href="addCommission.html">Opdracht</a></li>
-              <li><a class="dropdown-item" href="registerClient.html">Klant</a></li>
-            </ul>
-          </li>
-          <li>
-          <a class="nav-link" href="Aanmeldingen.html"><span class="bi bi-bookmark-check-fill"></span> Aanmeldingen</a>
-          </li>
-          <li>
-          <a class="nav-link" href="adminSettings.html"><span class="bi bi-gear"></span> Instellingen</a>
-          </li>
-        </ul>
+        <a class="nav-link" href="userProfile.html"><span class="bi bi-file-person"></span> Profiel</a>
+      </li>
+      <li>
+        <a class="nav-link" href="homepage.html"><span class="bi bi-calendar2-week"></span> Mijn opdrachten</a>
+      </li>
+      <li>
+        <a class="nav-link" href="myCommissions.html"><span class="bi bi-bell"></span> Mijn inschrijvingen</a>
+      </li>
+      <li>
+        <a class="nav-link" href="#"><span class="bi bi-clock-history"></span> Geschiedenis</a>
+      </li>
+      <li>
+        <a class="nav-link" href="settings.html"><span class="bi bi-gear"></span> Instellingen</a>
+      </li>
         <button class="nav-btn btn-outline-light m-5" id="logout-button">
         Log uit
       </button>
