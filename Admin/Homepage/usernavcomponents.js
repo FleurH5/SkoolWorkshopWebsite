@@ -4,7 +4,7 @@ class SideNav extends HTMLElement {
         <div class="sidenav">
         <ul class="nav flex-column">
           <li>
-        <a class="nav-link" href="./User/userProfile.html"><span class="bi bi-file-person"></span> Profiel</a>
+        <a class="nav-link" href="userProfile.html"><span class="bi bi-file-person"></span> Profiel</a>
       </li>
       <li>
         <a class="nav-link" href="#"><span class="bi bi-calendar2-week"></span> Mijn opdrachten</a>
