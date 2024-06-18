@@ -134,53 +134,52 @@
     }
 
     function updateUser() {
-      console.log('updateUser clicked');
+  console.log('updateUser clicked');
+  
+  const form = document.getElementById('userForm');
+  const formData = new FormData(form);
+  const requestBody = {};
 
-      const userId = localStorage.getItem("userId");
-      if (!userId) {
-        console.error('User ID not found in localStorage.');
-        return;
-      }
-
-      const form = document.getElementById('userForm');
-      const formData = new FormData(form);
-      const requestBody = {};
-
-      formData.forEach((value, key) => {
-        if (value !== "" && value !== "Selecteer een optie") {
-          requestBody[key] = value;
-        }
-      });
-
-      console.log('Request Body:', requestBody);
-
-      const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/user/' + userId;
-
-      fetch(apiUrl, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(requestBody)
-        })
-        .then(response => {
-          console.log('Response status:', response.status);
-          return response.json();
-        })
-        .then(data => {
-          console.log('Response data:', data);
-          if (data.status === 200) {
-            alert('Gebruikersgegevens succesvol bijgewerkt');
-            document.querySelector('.alert-success').style.display = 'block';
-          } else {
-            alert('Het bijwerken van gebruikersgegevens is mislukt');
-          }
-        })
-        .catch(error => {
-          console.error("Er was een fout bij het bijwerken van de gebruikersgegevens", error);
-          alert('Fout bij het bijwerken van gebruikersgegevens');
-        });
+  formData.forEach((value, key) => {
+    if (value !== "" && value !== "Selecteer een optie") {
+      requestBody[key] = value;
     }
+  });
+
+  // Convert boolean fields to true/false
+  requestBody.usesPublicTransit = requestBody.usesPublicTransit === 'true';
+  requestBody.hasCar = requestBody.hasCar === 'true';
+  requestBody.hasLicense = requestBody.hasLicense === 'true';
+
+  console.log('Request Body:', requestBody);
+
+  const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/user/' + localStorage.getItem("userId");
+
+  fetch(apiUrl, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestBody)
+  })
+  .then(response => {
+    console.log('Response status:', response.status);
+    return response.json();
+  })
+  .then(data => {
+    console.log('Response data:', data);
+    if (data.status === 200) {
+      alert('Gebruikersgegevens succesvol bijgewerkt');
+      document.querySelector('.alert-success').style.display = 'block';
+    } else {
+      alert('Het bijwerken van gebruikersgegevens is mislukt');
+    }
+  })
+  .catch(error => {
+    console.error("Er was een fout bij het bijwerken van de gebruikersgegevens", error);
+    alert('Fout bij het bijwerken van gebruikersgegevens');
+  });
+}
   </script>
 </body>
 </html>
