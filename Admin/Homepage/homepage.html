@@ -12,6 +12,13 @@
     <link rel="icon" href="../Login/SKWLogoS.jpg" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="../adminstyles.css" />
   </head>
   <body>
@@ -46,13 +53,31 @@
       </div>
 
       <h2>Vandaag</h2>
-      <div class="scrolling-wrapper" id="today-workshop-container"></div>
+      <div class="scrolling-wrapper" id="today-workshop-container">
+        <div class="no-workshops-placeholder" style="display: none;">
+          <div class="alert alert-warning" role="alert">
+            Er zijn geen workshops beschikbaar voor vandaag.
+          </div>
+        </div>
+      </div>
 
       <h2>Morgen</h2>
-      <div class="scrolling-wrapper" id="tomorrow-workshop-container"></div>
+      <div class="scrolling-wrapper" id="tomorrow-workshop-container">
+        <div class="no-workshops-placeholder" style="display: none;">
+          <div class="alert alert-warning" role="alert">
+            Er zijn geen workshops beschikbaar voor morgen.
+          </div>
+        </div>
+      </div>
 
       <h2>Later</h2>
-      <div class="scrolling-wrapper" id="specific-date-workshop-container"></div>
+      <div class="scrolling-wrapper" id="specific-date-workshop-container">
+        <div class="no-workshops-placeholder" style="display: none;">
+          <div class="alert alert-warning" role="alert">
+            Er zijn geen workshops beschikbaar.
+          </div>
+        </div>
+      </div>
 
       <h2>Workshops op datum</h2>
         <label for="dateFilter">Filter op datum:</label>

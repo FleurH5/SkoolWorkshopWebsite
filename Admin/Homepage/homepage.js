@@ -1,4 +1,7 @@
 let allWorkshops = []; //to save all workshops
+let hasTodayWorkshops = false;
+let hasTommorowWorkshops = false;
+let hasSpecificDateWorkshops = false;
 
 $(document).ready(function () {
   console.log("Document ready. Attempting to fetch workshops.");
@@ -40,12 +43,23 @@ $(document).ready(function () {
 
           if (isSameDay && isAfterCurrentTime) {
             todayWorkshopContainer.append(panelContent);
+            hasTodayWorkshops = true;
+            console.log('hastodayworkshops: ' + hasTodayWorkshops)
           } else if (isTomorrow) {
             tomorrowWorkshopContainer.append(panelContent)
+            hasTommorowWorkshops = true;
           } else if (workshopDate.getDate() > currentDate.getDate()) {
             specificWorkshopContainer.append(panelContent)
+            hasSpecificDateWorkshops = true;
           } 
         });
+        if(!hasTodayWorkshops){
+          $("#today-workshop-container .no-workshops-placeholder").show();
+        }if(!hasTommorowWorkshops){
+          $("#tomorrow-workshop-container .no-workshops-placeholder").show();
+        } if(!hasSpecificDateWorkshops){
+          $("#specific-date-workshop-container .no-workshops-placeholder").show();
+        }
       } else {
         console.error("Failed to fetch workshops. Status code:", response.status);
       }
