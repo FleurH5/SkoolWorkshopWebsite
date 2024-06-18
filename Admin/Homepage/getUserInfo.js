@@ -7,7 +7,7 @@
         const apiUrl = "https://skoolworkshopapi.azurewebsites.net/workshopcommission/" + userId;
          */
 
-const userId = 1;
+// const userId = 1;
       
 
 fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
