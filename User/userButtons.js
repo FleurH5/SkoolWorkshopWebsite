@@ -1,13 +1,15 @@
 function confirmChanges() {
-    let result = confirm("Weet je het zeker?");
-    if(result === true) {
-        updateUser(); 
-        console.log('Changed')
-    } else {
-        console.log('Canceled')
-    }
+    console.log('confirmChanges clicked')
+  let result = confirm("Weet je het zeker?");
+  if(result === true) {
+    console.log('Changed');
+    updateUser(); 
+  } else {
+    console.log('Canceled');
+  }
 }
 
-function updateUser(){
-    console.log('updateUser clicked')
+function updateUser() {
+  console.log('updateUser clicked');
+  // Add your update logic here
 }
