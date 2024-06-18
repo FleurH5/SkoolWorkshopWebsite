@@ -13,7 +13,7 @@ class SideNav extends HTMLElement {
             <a class="nav-link" href="assignmentOverview.html"> <span class="bi bi-calendar"></span> Opdrachten</a>
           </li>
           <li>
-            <a class="nav-link" href="#"><span class="bi bi-person"></span> Klanten</a>
+            <a class="nav-link" href="clients.html"><span class="bi bi-person"></span> Klanten</a>
           </li>
           <li>
             <a class="nav-link" href="allAccounts.html"><span class="bi bi-suitcase-lg"></span> Docenten</a>
