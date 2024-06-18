@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="userstyle.css" />
   <link rel="stylesheet" href="homepage.css">
   <link rel="stylesheet" href="../adminstyles.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <side-nav></side-nav>
@@ -26,7 +27,14 @@
             <div class="col-lg-4 col-md-6 mb-4 text-center">
               <img src="../Images/SKWLogoS.jpg" alt="pfp" class="rounded-circle mb-3">
               <h2 id="userName">{naam}</h2>
+              <div class="row">
+                <div class="col-md-4">
+                  <h4 class="text-muted">Status: </h4>
+                </div>
+              <div class="col-md-4">
               <h4 class="text-muted" id="status">{status}</h4>
+            </div>
+            </div>
             </div>
             <div class="col-lg-8 col-md-6">
               <div class="mb-3">
@@ -164,17 +172,48 @@
       </div>
     </div>
   </div>
-  <script src="getUserInfo.js"></script>
-  <script src="userButtons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="authenticate.js"></script>
+  <script>
+    $(document).ready(function () {
+      const userId = localStorage.getItem("userId");
+      console.log(userId); 
+      if (!userId) {
+        console.error('User ID not found in localStorage.');
+        return;
+      }
 
-    <script>
-      
-      $(document).ready(function () {
-        const userId = localStorage.getItem("userId");
-        console.log(userId); 
-      })
-      </script>
+      console.log("Document ready. Attempting to fetch user data.");
+      fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 200) {
+            const user = data.data[0];
+            document.getElementById('userName').innerText = user.Username;
+            document.getElementById('status').innerText = user.Status;
+            document.getElementById('userType').innerText = user.Role;
+            document.getElementById('email').innerText = user.Email;
+            document.getElementById('phoneNumber').innerText = user.PhoneNumber;
+            document.getElementById('address').innerText = user.Address;
+            document.getElementById('postalcode').innerText = user.PostalCode;
+            document.getElementById('DOB').innerText = user.Birthdate;
+            document.getElementById('country').innerText = user.Country;
+            document.getElementById('languagesSpoken').innerText = user.Language;
+            document.getElementById('publicTransit').innerText = user.UsesPublicTransit ? 'Ja' : 'Nee';
+            document.getElementById('license').innerText = user.HasLicense ? 'Ja' : 'Nee';
+            document.getElementById('car').innerText = user.HasCar ? 'Ja' : 'Nee';
+            document.getElementById('salary').innerText = user.SalaryPerHourInEuro;
+            document.getElementById('bankinfo').innerText = user.BankId;
+            document.getElementById('btwnr').innerText = user.BTWNumber;
+            document.getElementById('kvknr').innerText = user.KVKNumber;
+
+            window.user = user;
+            window.username = user.Username;
+          } else {
+            console.error('Failed to get user data:', data.message);
+          }
+        })
+        .catch(error => console.error('Error while fetching user data:', error));
+    });
+  </script>
 </body>
 </html>
