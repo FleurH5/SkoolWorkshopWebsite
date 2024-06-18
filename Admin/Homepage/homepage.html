@@ -103,13 +103,31 @@
       </div>
 
       <h2>Vandaag</h2>
-      <div class="scrolling-wrapper" id="today-workshop-container"></div>
+      <div class="scrolling-wrapper" id="today-workshop-container">
+        <div class="no-workshops-placeholder" style="display: none;">
+          <div class="alert alert-warning" role="alert">
+            Er zijn geen workshops beschikbaar voor vandaag.
+          </div>
+        </div>
+      </div>
 
       <h2>Morgen</h2>
-      <div class="scrolling-wrapper" id="tomorrow-workshop-container"></div>
+      <div class="scrolling-wrapper" id="tomorrow-workshop-container">
+        <div class="no-workshops-placeholder" style="display: none;">
+          <div class="alert alert-warning" role="alert">
+            Er zijn geen workshops beschikbaar voor morgen.
+          </div>
+        </div>
+      </div>
 
       <h2>Later</h2>
-      <div class="scrolling-wrapper" id="specific-date-workshop-container"></div>
+      <div class="scrolling-wrapper" id="specific-date-workshop-container">
+        <div class="no-workshops-placeholder" style="display: none;">
+          <div class="alert alert-warning" role="alert">
+            Er zijn geen workshops beschikbaar.
+          </div>
+        </div>
+      </div>
 
       <h2>Workshops op datum</h2>
         <label for="dateFilter">Filter op datum:</label>
