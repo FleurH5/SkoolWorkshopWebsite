@@ -43,13 +43,13 @@
             <form id="registrationForm">
               <div class="mb-3">
                 <label class="form-label">Type docent:</label>
-                <div class="form-check">
+                <div id="role" class="form-check">
                   <input
                     class="form-check-input"
                     type="radio"
                     name="docentType"
                     id="docentZZP"
-                    value="zzp"
+                    value="ZZP"
                     required
                   />
                   <label class="form-check-label" for="docentZZP">ZZP</label>
@@ -60,7 +60,7 @@
                     type="radio"
                     name="docentType"
                     id="docentFlex"
-                    value="flex"
+                    value="Flex"
                     required
                   />
                   <label class="form-check-label" for="docentFlex">Flex</label>
@@ -71,18 +71,8 @@
                   type="text"
                   id="naam"
                   class="form-control form-control-lg"
-                  placeholder="Voornaam*"
+                  placeholder="Voor- en achternaam*"
                   name="naam"
-                  required
-                />
-              </div>
-              <div class="input-group mb-3">
-                <input
-                  type="text"
-                  id="achternaam"
-                  class="form-control form-control-lg"
-                  placeholder="Achternaam*"
-                  name="achternaam"
                   required
                 />
               </div>
