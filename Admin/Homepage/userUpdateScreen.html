@@ -121,34 +121,42 @@
   </div>
 
   <!-- User update script -->
-  <script src="userButtons.js"></script>
   <script>
-    $(document).ready(function () {
+    function confirmChanges() {
+      console.log('confirmChanges clicked')
+      let result = confirm("Weet je het zeker?");
+      if (result === true) {
+        console.log('Changed');
+        updateUser();
+      } else {
+        console.log('Canceled');
+      }
+    }
+
+    function updateUser() {
+      console.log('updateUser clicked');
+
       const userId = localStorage.getItem("userId");
-      console.log(userId); 
       if (!userId) {
         console.error('User ID not found in localStorage.');
         return;
       }
 
-      function updateUser() {
-        console.log('updateUser clicked');
-        
-        const form = document.getElementById('userForm');
-        const formData = new FormData(form);
-        const requestBody = {};
+      const form = document.getElementById('userForm');
+      const formData = new FormData(form);
+      const requestBody = {};
 
-        formData.forEach((value, key) => {
-          if (value !== "" && value !== "Selecteer een optie") {
-            requestBody[key] = value;
-          }
-        });
+      formData.forEach((value, key) => {
+        if (value !== "" && value !== "Selecteer een optie") {
+          requestBody[key] = value;
+        }
+      });
 
-        console.log('Request Body:', requestBody);
+      console.log('Request Body:', requestBody);
 
-        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/user/' + userId; 
+      const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/user/' + userId;
 
-        fetch(apiUrl, {
+      fetch(apiUrl, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -172,8 +180,7 @@
           console.error("Er was een fout bij het bijwerken van de gebruikersgegevens", error);
           alert('Fout bij het bijwerken van gebruikersgegevens');
         });
-      }
-    });
+    }
   </script>
 </body>
 </html>
