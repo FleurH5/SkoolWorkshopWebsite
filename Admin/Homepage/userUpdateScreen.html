@@ -8,20 +8,25 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="../adminstyles.css" />
   <link rel="stylesheet" href="homepage.css">
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<side-nav></side-nav>
-<nav-bar></nav-bar>
-<script src="usernavcomponents.js"></script>
+  <side-nav></side-nav>
+  <nav-bar></nav-bar>
+  <script src="usernavcomponents.js"></script>
 
-  <!-- popup -->
+  <!-- Success alert -->
   <div class="alert alert-success" role="alert" style="display: none;">
     <strong>Succes!</strong> Gebruikersgegevens zijn succesvol bijgewerkt.
   </div>
+
   <div class="container mt-5">
     <div class="content">
       <h1 class="text-center">Gebruikersgegevens veranderen</h1><br>
       <form id="userForm">
+        <!-- Form fields -->
+        <!-- Email and Phone Number -->
         <div class="row">
           <div class="form-group col-md-6 mb-3">
             <label for="email">Email</label>
@@ -32,6 +37,7 @@
             <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Voer telefoonnummer in">
           </div>
         </div>
+        <!-- Address and Postal Code -->
         <div class="row">
           <div class="form-group col-md-6 mb-3">
             <label for="address">Adres</label>
@@ -42,6 +48,7 @@
             <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Voer postcode in">
           </div>
         </div>
+        <!-- Country and Languages Spoken -->
         <div class="row">
           <div class="form-group col-md-6 mb-3">
             <label for="country">Land</label>
@@ -61,6 +68,7 @@
             </select>
           </div>
         </div>
+        <!-- BTW Number and KVK Number -->
         <div class="row">
           <div class="form-group col-md-6 mb-3">
             <label for="btwNumber">BTW Nummer</label>
@@ -71,18 +79,22 @@
             <input type="text" class="form-control" id="kvkNumber" name="kvkNumber" placeholder="Voer KVK nummer in">
           </div>
         </div>
-        <div class="form-group mb-3">
-          <label for="bankId">Bank ID</label>
-          <input type="text" class="form-control" id="bankId" name="bankId" placeholder="Voer Bank ID in">
+        <!-- Bank ID and Public Transit -->
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="bankId">Bank ID</label>
+            <input type="text" class="form-control" id="bankId" name="bankId" placeholder="Voer Bank ID in">
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="usesPublicTransit">OV gebruik</label>
+            <select class="form-select" id="usesPublicTransit" name="usesPublicTransit">
+              <option selected>Selecteer een optie</option>
+              <option value="true">Ja</option>
+              <option value="false">Nee</option>
+            </select>
+          </div>
         </div>
-        <div class="form-group mb-3">
-          <label for="usesPublicTransit">OV gebruik</label>
-          <select class="form-select" id="usesPublicTransit" name="usesPublicTransit">
-            <option selected>Selecteer een optie</option>
-            <option value="true">Ja</option>
-            <option value="false">Nee</option>
-          </select>
-        </div>
+        <!-- Has License and Has Car -->
         <div class="row">
           <div class="form-group col-md-6 mb-3">
             <label for="hasLicense">Rijbewijs in bezit</label>
@@ -101,11 +113,67 @@
             </select>
           </div>
         </div>
+        <!-- Buttons -->
         <button type="button" class="btn btn-primary" onclick="confirmChanges()">Bijwerken</button>
         <button type="button" class="btn btn-primary" onclick="window.location.href='userProfile.html'">Annuleren</button>
       </form>
     </div>
   </div>
+
+  <!-- User update script -->
   <script src="userButtons.js"></script>
+  <script>
+    $(document).ready(function () {
+      const userId = localStorage.getItem("userId");
+      console.log(userId); 
+      if (!userId) {
+        console.error('User ID not found in localStorage.');
+        return;
+      }
+
+      function updateUser() {
+        console.log('updateUser clicked');
+        
+        const form = document.getElementById('userForm');
+        const formData = new FormData(form);
+        const requestBody = {};
+
+        formData.forEach((value, key) => {
+          if (value !== "" && value !== "Selecteer een optie") {
+            requestBody[key] = value;
+          }
+        });
+
+        console.log('Request Body:', requestBody);
+
+        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/user/updateProfile/' + userId; 
+
+        fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
+        })
+        .then(response => {
+          console.log('Response status:', response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log('Response data:', data);
+          if (data.status === 200) {
+            alert('Gebruikersgegevens succesvol bijgewerkt');
+            document.querySelector('.alert-success').style.display = 'block';
+          } else {
+            alert('Het bijwerken van gebruikersgegevens is mislukt');
+          }
+        })
+        .catch(error => {
+          console.error("Er was een fout bij het bijwerken van de gebruikersgegevens", error);
+          alert('Fout bij het bijwerken van gebruikersgegevens');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
