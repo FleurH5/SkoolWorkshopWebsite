@@ -168,7 +168,7 @@
                     const inputHtml = `
                         <div class="form-container mt-5">
                             <div class="content-extra-box">
-                                <button type="button" class="close-btn" onclick="removeForm(this)">X</button>
+                                <button type="button" class="close-btn">X</button>
                                 <p><b>Voeg een workshop toe</b></p>
                                 <div class="set-center">
                                     <div class="form-group mb-3">
@@ -217,6 +217,23 @@
                         </div>
                     `;
                     container.insertAdjacentHTML('beforeend', inputHtml);
+
+                    // Add event listener to the close button of the newly added form
+                    const closeButtons = document.querySelectorAll('.close-btn');
+                    closeButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            removeForm(button);
+                        });
+                    });
+                }
+
+
+                function removeForm(button) {
+                    // Traverse up the DOM to find the form-container element to remove
+                    const formContainer = button.closest('.form-container');
+                    if (formContainer) {
+                        formContainer.remove();
+                    }
                 }
 
                 document.getElementById('commissionForm').addEventListener('submit', function(event) {
@@ -281,6 +298,8 @@
 
                     let currentStartTime = startTime.split(":").map(Number);
                     let currentEndTime = [...currentStartTime];
+                    let earliestStartTime = null;
+                    let latestEndTime = null;
 
                     const addMinutes = (time, minsToAdd) => {
                         let [hours, minutes] = time;
@@ -305,10 +324,48 @@
                         startTimeInput.value = formatTime(currentStartTime);
                         endTimeInput.value = formatTime(addMinutes(currentStartTime, timeframeDuration));
 
+                        // Track earliest start time and latest end time
+                        const workshopStartTime = currentStartTime.slice(); // Create a copy
+                        const workshopEndTime = addMinutes(currentStartTime, timeframeDuration);
+
+                        if (!earliestStartTime || compareTimes(workshopStartTime, earliestStartTime) < 0) {
+                            earliestStartTime = workshopStartTime;
+                        }
+
+                        if (!latestEndTime || compareTimes(workshopEndTime, latestEndTime) > 0) {
+                            latestEndTime = workshopEndTime;
+                        }
+
                         currentStartTime = addMinutes(currentStartTime, timeframeDuration); // Update start time for the next workshop
                         currentEndTime = [...currentStartTime]; // Update end time for current workshop
                     });
+
+                    // Update commission start and end times based on earliest and latest workshop times
+                    const commissionStartTimeInput = document.getElementById('startTimeDay');
+                    const commissionEndTimeInput = document.getElementById('endTimeDay');
+
+                    if (earliestStartTime && compareTimes(earliestStartTime, commissionStartTimeInput.value.split(":").map(Number)) < 0) {
+                        commissionStartTimeInput.value = formatTime(earliestStartTime);
+                    }
+
+                    if (latestEndTime && compareTimes(latestEndTime, commissionEndTimeInput.value.split(":").map(Number)) > 0) {
+                        commissionEndTimeInput.value = formatTime(latestEndTime);
+                    }
                 });
+
+                // Function to compare times [hours, minutes]
+                function compareTimes(time1, time2) {
+                    if (time1[0] !== time2[0]) {
+                        return time1[0] - time2[0];
+                    } else {
+                        return time1[1] - time2[1];
+                    }
+                }
+
+                // Function to format time as HH:MM
+                function formatTime(time) {
+                    return time.map(num => String(num).padStart(2, '0')).join(':');
+                }
             }
         });
     </script>
