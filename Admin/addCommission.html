@@ -172,20 +172,20 @@
                                 <p><b>Voeg een workshop toe</b></p>
                                 <div class="set-center">
                                     <div class="form-group mb-3">
-                                        <label for="workshop">Workshop *</label>
-                                        <select required class="form-select" name="workshop">
+                                        <label for="workshopname">Workshop *</label>
+                                        <select required class="form-select" name="workshopname">
                                             <option selected>Selecteer een workshop</option>
                                             ${workshopOptions}
                                         </select>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="teachersNeeded">Aantal docenten *</label>
-                                            <input required type="number" class="form-control" name="teachersNeeded" placeholder="Voer het aantal nodige docenten in">
+                                            <label for="maxusers">Aantal docenten *</label>
+                                            <input required type="number" class="form-control" name="maxusers" placeholder="Voer het aantal nodige docenten in">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="participants">Aantal deelnemers *</label>
-                                            <input required type="number" class="form-control" name="participants" placeholder="Voer het aantal deelnemers in">
+                                            <label for="numberofparticipants">Aantal deelnemers *</label>
+                                            <input required type="number" class="form-control" name="numberofparticipants" placeholder="Voer het aantal deelnemers in">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -196,12 +196,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="startTime">Begintijd *</label>
-                                            <input type="time" class="form-control" name="startTime"></input>
+                                            <label for="starttime">Begintijd *</label>
+                                            <input type="time" class="form-control" name="starttime"></input>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="endTime">Eindtijd *</label>
-                                            <input type="time" class="form-control" name="endTime"></input>
+                                            <label for="endtime">Eindtijd *</label>
+                                            <input type="time" class="form-control" name="endtime"></input>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
@@ -209,8 +209,8 @@
                                         <input required type="text" class="form-control" name="location" placeholder="Voer de locatie in">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="extraInformation">Extra Toelichting</label>
-                                        <textarea class="form-control" name="extraInformation" rows="3" placeholder="Voer de benodigde extra toelichtingen in, indien nodig"></textarea>
+                                        <label for="workshopnotes">Extra Toelichting</label>
+                                        <textarea class="form-control" name="workshopnotes" rows="3" placeholder="Voer de benodigde extra toelichtingen in, indien nodig"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -261,6 +261,8 @@
                         endtimeday: formData.get(`endTimeDay`),
                         workshops: workshops
                     };
+
+                    console.log(data)
 
                     fetch('https://skoolworkshopapi.azurewebsites.net/workshopcommission/add', {
                         method: 'POST',
