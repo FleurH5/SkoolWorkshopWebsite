@@ -31,10 +31,10 @@ body{
     margin-bottom: 120px;
   }
   .custom-panel {
-    border-color: #fd7e14; /* Set the border color to $orange-500 */
+    border-color: #F49700; /* Set the border color to $orange-500 */
   }
   .custom-panel .panel-heading {
-    background-color: #fd7e14; /* Set the background color to $orange-500 */
+    background-color: #F49700; /* Set the background color to $orange-500 */
     color: white; /* Set the text color to white */
   }
 
@@ -102,7 +102,7 @@ body{
     padding: 5px 10px;
     margin-left: 5px;
     border: none;
-    background-color:#fd7e14;
+    background-color:#F49700;
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -122,8 +122,8 @@ select{
 }
 
 .btn-primary {
-  background-color: #fd7e14;
-  border-color: #fd7e14;
+  background-color: #F49700;
+  border-color: #F49700;
   transition-duration: 0.4s;
 }
 

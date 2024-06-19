@@ -26,13 +26,9 @@
               <div class="col-lg-5 col-md-5 mb-5 text-center">
                 <img src="../../Images/unknown-profile.png" alt="pfp" class="rounded-circle mb-3" width="20%" height="40%">
                 <h2 id="userName">{naam}</h2>
-                <div class="row">
-                  <div class="col-md-3">
-                    <h4 class="text-muted">Status:</h4>
-                  </div>
-                  <div class="col-md-3">
-                    <h4 class="text-muted" id="status">{status}</h4>
-                  </div>
+                <div class="status-container">
+                  <h5 class="text-muted">Status</h5>
+                  <p class="text-muted" id="status">{status}</p>
                 </div>
               </div>
               <div class="col-lg-3 col-md-2">
@@ -60,7 +56,6 @@
             </div>
           </div>
         </div>
-
     <!-- lower information -->
         <div class="col-12">
           <div class="accordion" id="profileAccordion">
@@ -222,7 +217,20 @@
           }
         })
         .catch(error => console.error('Error while fetching user data:', error));
-    });
+
+        //workshops ophalen
+        fetch(`https://skoolworkshopapi.azurewebsites.net/user/workshop/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          if(data.status === 200) {
+            const workshop = data.data[0];
+            document.getElementById('workshops').innerText = workshop.WorkshopName;
+          } else {
+            console.error('Failed to retrieve workshop(s)')
+          }
+        })
+    })
+
   </script>
 </body>
 </html>
