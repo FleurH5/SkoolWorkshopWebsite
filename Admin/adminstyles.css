@@ -79,6 +79,9 @@ body{
     background: #333; 
     z-index: 1000; /* navbar altijd boven andere elementen*/
 }
+body{
+    background-color: #ECECEC;
+}
 
 .nav-btn {
     background-color: #F49700;

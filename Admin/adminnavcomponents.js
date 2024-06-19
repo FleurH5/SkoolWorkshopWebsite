@@ -7,7 +7,7 @@ class SideNav extends HTMLElement {
             <a class="nav-link" href="adminDashboard.html"><span class="bi bi-speedometer2"></span> Dashboard</a>
           </li>
           <li>
-            <a class="nav-link" href="#"> <span class="bi bi-person-arms-up"></span> Workshops</a>
+            <a class="nav-link" href="allWorkshopsAdmin.html"> <span class="bi bi-person-arms-up"></span> Workshops</a>
           </li>
           <li>
             <a class="nav-link" href="assignmentOverview.html"> <span class="bi bi-calendar"></span> Opdrachten</a>
