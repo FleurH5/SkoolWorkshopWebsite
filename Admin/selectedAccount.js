@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("languagesSpoken").innerText = user.Language;
 
         //travel information
-        document.getElementById("publicTransit").innerText =
-          user.UsesPublicTransit;
+        const ovElement = document.getElementById("ov");
+        ovElement.innerText = user.UsesPublicTransit ? "ja" : "nee";
         document.getElementById("license").innerText = user.HasLicense;
         document.getElementById("car").innerText = user.HasCar;
 
