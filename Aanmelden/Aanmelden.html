@@ -274,6 +274,7 @@
     <script src="aamelden.js"></script>
     <script>
       // Fetch workshop names from the server and populate the select field with checkboxes
+      // Fetch workshop names from the server and populate the select field with checkboxes
       fetch("https://skoolworkshopapi.azurewebsites.net/workshop/allnames")
         .then((response) => response.json())
         .then((data) => {

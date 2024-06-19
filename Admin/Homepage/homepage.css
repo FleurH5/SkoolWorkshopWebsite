@@ -4,6 +4,15 @@ body{
     font-family: 'Poppins', sans-serif;
     background: #ececec;
 }
+
+#valid-iban-icon.valid {
+  color: green;
+  content: "\2714"; /* Unicode karakter voor een vinkje */
+  }
+#valid-iban-icon.invalid {
+  color: red;
+  content: "\2716"; /* Unicode karakter voor een kruisje */
+  }
 .navbar {
     margin-bottom: 50px;
     border-radius: 0;

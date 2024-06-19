@@ -98,6 +98,12 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    const selectedWorkshops = Array.from(
+      document.querySelectorAll(
+        '#workshopOptions input[type="checkbox"]:checked'
+      )
+    ).map((checkbox) => checkbox.value);
+
     const formData = {
       Username: document.getElementById("naam").value,
       Birthdate: document.getElementById("geboortedatum").value,
@@ -119,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
       HasCar: false,
       HasLicense: false,
       Status: "Afwachtend",
+      Workshops: selectedWorkshops,
     };
 
     try {

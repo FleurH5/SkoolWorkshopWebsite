@@ -1,187 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profiel</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="../adminstyles.css" />
-  <link rel="stylesheet" href="homepage.css">
-  <!-- jQuery CDN -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-  <side-nav></side-nav>
-  <nav-bar></nav-bar>
-  <script src="usernavcomponents.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profiel</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../adminstyles.css" />
+    <link rel="stylesheet" href="homepage.css" />
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <side-nav></side-nav>
+    <nav-bar></nav-bar>
+    <script src="usernavcomponents.js"></script>
 
-  <!-- Success alert -->
-   
-  
+    <!-- Success alert -->
 
-  <div class="container mt-5">
-    <div class="content">
-      <div class="alert alert-success" role="alert" style="display: none;">
-        <strong>Succes!</strong> Gebruikersgegevens zijn succesvol bijgewerkt.
+    <div class="container mt-5">
+      <div class="content">
+        <div class="alert alert-success" role="alert" style="display: none">
+          <strong>Succes!</strong> Gebruikersgegevens zijn succesvol bijgewerkt.
+        </div>
+        <h1 class="text-center">Gebruikersgegevens veranderen</h1>
+        <br />
+        <form id="userForm">
+          <!-- Form fields -->
+          <!-- Email and Phone Number -->
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Voer email in"
+              />
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="phoneNumber">Telefoonnummer</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phoneNumber"
+                name="phoneNumber"
+                placeholder="Voer telefoonnummer in"
+              />
+            </div>
+          </div>
+          <!-- Address and Postal Code -->
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="address">Adres</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                placeholder="Voer adres in"
+              />
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="postalCode">Postcode</label>
+              <input
+                type="text"
+                class="form-control"
+                id="postalCode"
+                name="postalCode"
+                placeholder="Voer postcode in"
+              />
+            </div>
+          </div>
+          <!-- Country and Languages Spoken -->
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="country">Land</label>
+              <select class="form-select" id="country" name="country">
+                <option selected>Selecteer een optie</option>
+                <option value="Nederland">Nederland</option>
+                <option value="Belgie">België</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="languagesSpoken">Gesproken Talen</label>
+              <select
+                class="form-select"
+                id="languagesSpoken"
+                name="languagesSpoken"
+              >
+                <option selected>Selecteer een optie</option>
+                <option value="Nederlands">Nederlands</option>
+                <option value="English">Engels</option>
+                <option value="Both">Nederlands & Engels</option>
+              </select>
+            </div>
+          </div>
+          <!-- BTW Number and KVK Number -->
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="btwNumber">BTW Nummer</label>
+              <input
+                type="text"
+                class="form-control"
+                id="btwNumber"
+                name="btwNumber"
+                placeholder="Voer BTW nummer in"
+              />
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="kvkNumber">KVK Nummer</label>
+              <input
+                type="text"
+                class="form-control"
+                id="kvkNumber"
+                name="kvkNumber"
+                placeholder="Voer KVK nummer in"
+              />
+            </div>
+          </div>
+
+          <!-- Bank ID and Public Transit -->
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="bankId">Bank ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="bankId"
+                name="bankId"
+                placeholder="Voer Bank ID in"
+              />
+              <span
+                id="valid-iban-icon"
+                style="display: none; margin-left: 5px; margin-top: 10px"
+                >&#10004;</span
+              >
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+              <label for="usesPublicTransit">OV gebruik</label>
+              <select
+                class="form-select"
+                id="usesPublicTransit"
+                name="usesPublicTransit"
+              >
+                <option selected>Selecteer een optie</option>
+                <option value="true">Ja</option>
+                <option value="false">Nee</option>
+              </select>
+            </div>
+          </div>
+          <!-- Has License and Has Car -->
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="hasLicense">Rijbewijs in bezit</label>
+              <select class="form-select" id="hasLicense" name="hasLicense">
+                <option selected>Selecteer een optie</option>
+                <option value="true">Ja</option>
+                <option value="false">Nee</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="hasCar">Auto in bezit</label>
+              <select class="form-select" id="hasCar" name="hasCar">
+                <option selected>Selecteer een optie</option>
+                <option value="true">Ja</option>
+                <option value="false">Nee</option>
+              </select>
+            </div>
+          </div>
+          <!-- Buttons -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="confirmChanges()"
+          >
+            Bijwerken
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="window.location.href='userProfile.html'"
+          >
+            Annuleren
+          </button>
+        </form>
       </div>
-      <h1 class="text-center">Gebruikersgegevens veranderen</h1><br>
-      <form id="userForm">
-        <!-- Form fields -->
-        <!-- Email and Phone Number -->
-        <div class="row">
-          <div class="form-group col-md-6 mb-3">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Voer email in">
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="phoneNumber">Telefoonnummer</label>
-            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Voer telefoonnummer in">
-          </div>
-        </div>
-        <!-- Address and Postal Code -->
-        <div class="row">
-          <div class="form-group col-md-6 mb-3">
-            <label for="address">Adres</label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="Voer adres in">
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="postalCode">Postcode</label>
-            <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Voer postcode in">
-          </div>
-        </div>
-        <!-- Country and Languages Spoken -->
-        <div class="row">
-          <div class="form-group col-md-6 mb-3">
-            <label for="country">Land</label>
-            <select class="form-select" id="country" name="country">
-              <option selected>Selecteer een optie</option>
-              <option value="Nederland">Nederland</option>
-              <option value="Belgie">België</option>
-            </select>
-           </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="languagesSpoken">Gesproken Talen</label>
-            <select class="form-select" id="languagesSpoken" name="languagesSpoken">
-              <option selected>Selecteer een optie</option>
-              <option value="Nederlands">Nederlands</option>
-              <option value="English">Engels</option>
-              <option value="Both">Nederlands & Engels</option>
-            </select>
-          </div>
-        </div>
-        <!-- BTW Number and KVK Number -->
-        <div class="row">
-          <div class="form-group col-md-6 mb-3">
-            <label for="btwNumber">BTW Nummer</label>
-            <input type="text" class="form-control" id="btwNumber" name="btwNumber" placeholder="Voer BTW nummer in">
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="kvkNumber">KVK Nummer</label>
-            <input type="text" class="form-control" id="kvkNumber" name="kvkNumber" placeholder="Voer KVK nummer in">
-          </div>
-        </div>
-        <!-- Bank ID and Public Transit -->
-        <div class="row">
-          <div class="form-group col-md-6 mb-3">
-            <label for="bankId">Bank ID</label>
-            <input type="text" class="form-control" id="bankId" name="bankId" placeholder="Voer Bank ID in">
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="usesPublicTransit">OV gebruik</label>
-            <select class="form-select" id="usesPublicTransit" name="usesPublicTransit">
-              <option selected>Selecteer een optie</option>
-              <option value="true">Ja</option>
-              <option value="false">Nee</option>
-            </select>
-          </div>
-        </div>
-        <!-- Has License and Has Car -->
-        <div class="row">
-          <div class="form-group col-md-6 mb-3">
-            <label for="hasLicense">Rijbewijs in bezit</label>
-            <select class="form-select" id="hasLicense" name="hasLicense">
-              <option selected>Selecteer een optie</option>
-              <option value="true">Ja</option>
-              <option value="false">Nee</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="hasCar">Auto in bezit</label>
-            <select class="form-select" id="hasCar" name="hasCar">
-              <option selected>Selecteer een optie</option>
-              <option value="true">Ja</option>
-              <option value="false">Nee</option>
-            </select>
-          </div>
-        </div>
-        <!-- Buttons -->
-        <button type="button" class="btn btn-primary" onclick="confirmChanges()">Bijwerken</button>
-        <button type="button" class="btn btn-primary" onclick="window.location.href='userProfile.html'">Annuleren</button>
-      </form>
     </div>
-  </div>
 
-  <!-- User update script -->
-  <script>
-    function confirmChanges() {
-      console.log('confirmChanges clicked')
-      let result = confirm("Weet je het zeker?");
-      if (result === true) {
-        console.log('Changed');
-        updateUser();
-      } else {
-        console.log('Canceled');
+    <!-- User update script -->
+    <script>
+      function confirmChanges() {
+        console.log("confirmChanges clicked");
+        let result = confirm("Weet je het zeker?");
+        if (result === true) {
+          console.log("Changed");
+          updateUser();
+        } else {
+          console.log("Canceled");
+        }
       }
-    }
 
-    function updateUser() {
-  console.log('updateUser clicked');
-  
-  const form = document.getElementById('userForm');
-  const formData = new FormData(form);
-  const requestBody = {};
+      function updateUser() {
+        console.log("updateUser clicked");
 
-  formData.forEach((value, key) => {
-    if (value !== "" && value !== "Selecteer een optie") {
-      requestBody[key] = value;
-    }
-  });
+        const form = document.getElementById("userForm");
+        const formData = new FormData(form);
+        const requestBody = {};
 
-  // Convert boolean fields to true/false
-  requestBody.usesPublicTransit = requestBody.usesPublicTransit === 'true';
-  requestBody.hasCar = requestBody.hasCar === 'true';
-  requestBody.hasLicense = requestBody.hasLicense === 'true';
+        formData.forEach((value, key) => {
+          if (value !== "" && value !== "Selecteer een optie") {
+            requestBody[key] = value;
+          }
+        });
 
-  console.log('Request Body:', requestBody);
+        // Convert boolean fields to true/false
+        requestBody.usesPublicTransit =
+          requestBody.usesPublicTransit === "true";
+        requestBody.hasCar = requestBody.hasCar === "true";
+        requestBody.hasLicense = requestBody.hasLicense === "true";
 
-  const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/user/' + localStorage.getItem("userId");
+        console.log("Request Body:", requestBody);
 
-  fetch(apiUrl, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestBody)
-  })
-  .then(response => {
-    console.log('Response status:', response.status);
-    return response.json();
-  })
-  .then(data => {
-    console.log('Response data:', data);
-    if (data.status === 200) {
-      alert('Gebruikersgegevens succesvol bijgewerkt');
-      document.querySelector('.alert-success').style.display = 'block';
-    } else {
-      alert('Het bijwerken van gebruikersgegevens is mislukt');
-    }
-  })
-  .catch(error => {
-    console.error("Er was een fout bij het bijwerken van de gebruikersgegevens", error);
-    alert('Fout bij het bijwerken van gebruikersgegevens');
-  });
-}
-  </script>
-</body>
+        const apiUrl =
+          "https://skoolworkshopapi.azurewebsites.net/user/" +
+          localStorage.getItem("userId");
+
+        fetch(apiUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        })
+          .then((response) => {
+            console.log("Response status:", response.status);
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Response data:", data);
+            if (data.status === 200) {
+              alert("Gebruikersgegevens succesvol bijgewerkt");
+              document.querySelector(".alert-success").style.display = "block";
+            } else {
+              alert("Het bijwerken van gebruikersgegevens is mislukt");
+            }
+          })
+          .catch((error) => {
+            console.error(
+              "Er was een fout bij het bijwerken van de gebruikersgegevens",
+              error
+            );
+            alert("Fout bij het bijwerken van gebruikersgegevens");
+          });
+      }
+
+      // IBAN validatie
+      document.addEventListener("DOMContentLoaded", function () {
+        const ibanInput = document.getElementById("bankId"); // Selecteer het IBAN input element
+        const validIcon = document.getElementById("valid-iban-icon"); // Selecteer het validatie icoon element
+
+        ibanInput.addEventListener("input", function () {
+          validateIBAN();
+        });
+
+        async function validateIBAN() {
+          const iban = ibanInput.value.trim();
+
+          if (iban.length === 0) {
+            validIcon.style.display = "none";
+            validIcon.classList.remove("valid", "invalid");
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              `https://api.api-ninjas.com/v1/iban?iban=${iban}`,
+              {
+                headers: {
+                  "X-Api-Key": "ok6d642VlAFXbnaLPkCf9w==bUIO2k4FesuljgY2",
+                },
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error("Fout bij het valideren van IBAN");
+            }
+
+            const data = await response.json();
+            validIcon.style.display = "inline";
+
+            if (data.valid) {
+              validIcon.classList.add("valid");
+              validIcon.classList.remove("invalid");
+              validIcon.innerHTML = "&#10004;"; // Unicode for check mark
+            } else {
+              validIcon.classList.add("invalid");
+              validIcon.classList.remove("valid");
+              validIcon.innerHTML = "&#10008;"; // Unicode for cross mark
+            }
+          } catch (error) {
+            console.error("Error validating IBAN:", error);
+            alert("Er is een fout opgetreden bij het valideren van de IBAN.");
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
