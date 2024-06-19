@@ -44,10 +44,16 @@
 
         if (response.status === 200) {
           const enrollments = response.data;
-
-          enrollments.forEach(enrollment => {
+          if(enrollments.length === 0) {
+            enrollmentList.append('<p>Geen inschrijvingen gevonden.</p>');
+          } else{
+            enrollments.forEach(enrollment => {
             displayEnrollment(enrollment);
           });
+
+          }
+
+          
         } else {
           alert("something went wrong while fetching the enrollments.");
         }
