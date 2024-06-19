@@ -103,7 +103,10 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Server respons:", result);
 
       if (response.ok) {
-        alert("Wij hebben uw aanmelding succesvol ontvangen");
+        const successModal = new bootstrap.Modal(
+          document.getElementById("successModal")
+        );
+        successModal.show();
         registrationForm.reset();
       } else {
         alert(
