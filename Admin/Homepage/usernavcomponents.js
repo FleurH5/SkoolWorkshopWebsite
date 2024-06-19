@@ -7,10 +7,13 @@ class SideNav extends HTMLElement {
         <a class="nav-link" href="userProfile.html"><span class="bi bi-file-person"></span> Profiel</a>
       </li>
       <li>
-        <a class="nav-link" href="homepage.html"><span class="bi bi-calendar2-week"></span> Mijn opdrachten</a>
+        <a class="nav-link" href="homepage.html"><span class="bi bi-calendar2-week"></span> Alle workshops</a>
       </li>
       <li>
-        <a class="nav-link" href="myCommissions.html"><span class="bi bi-bell"></span> Mijn inschrijvingen</a>
+        <a class="nav-link" href="myCommissions.html"><span class="bi bi-bell"></span> Mijn workshops</a>
+      </li>
+      <li>
+        <a class="nav-link" href="userEnrollments.html"><span class="bi bi-bookmarks"></span> Mijn inschrijvingen</a>
       </li>
       <li>
         <a class="nav-link" href="userEnrollments.html"><span class="bi bi-bookmarks"></span> Mijn inschrijvingen</a>
@@ -30,7 +33,7 @@ class NavBar extends HTMLElement {
     this.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-dark bg-white navbar-border-bottom">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="Homepage/Homepage.html">
+                    <a class="navbar-brand" href="homepage.html">
                         <img src="../../Images/Skool-Workshop_Logo_Black.jpg" alt="Logo" width="100" height="30" class="d-inline-block align-text-top">
                     </a>
                     <div class="collapse navbar-collapse" id="navbarNav">

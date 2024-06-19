@@ -85,6 +85,7 @@ function createPanelContent(workshop){
 }
 
 function applyDateFilter(){
+  let workshopsFound = false;
   const dateFilter = document.getElementById("dateFilter").value;
   const filteredWorkshopContainer = $("#filtered-date-workshop-container");
   filteredWorkshopContainer.empty();
@@ -92,10 +93,14 @@ function applyDateFilter(){
   allWorkshops.forEach((workshop) => {
     const workshopDate = new Date(workshop.Date);
     if (workshopDate.toDateString() === filterDate.toDateString()){
+      workshopsFound = true;
       const panelContent = createPanelContent(workshop);
       filteredWorkshopContainer.append(panelContent);
-    }
+    } 
   })
+  if (!workshopsFound){
+    filteredWorkshopContainer.append('<p>Geen workshops gevonden voor deze datum</p>');
+  }
 }
 
 

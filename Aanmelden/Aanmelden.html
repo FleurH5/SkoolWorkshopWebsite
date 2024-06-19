@@ -93,7 +93,7 @@
                   name="land"
                   required
                 >
-                  <option value="" disabled selected>Selecteer uw land</option>
+                  <option value="" disabled selected>Welk land woont u?</option>
                   <option value="Nederland">Nederland</option>
                   <option value="Belgie">België</option>
                 </select>
@@ -171,8 +171,8 @@
                     Welke taal spreekt u?
                   </option>
                   <option value="Nederlands">Nederlands</option>
-                  <option value="Engels">Engels</option>
-                  <option value="Nederlands&Engels">Nederlands & Engels</option>
+                  <option value="English">Engels</option>
+                  <option value="Both">Nederlands&Engels</option>
                 </select>
               </div>
               <div class="input-group mb-3">
@@ -266,6 +266,34 @@
                 >Heb je al een account?
                 <a href="../Login/Login.html">Log in</a></small
               >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="successModal"
+      tabindex="-1"
+      aria-labelledby="successModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="successModalLabel">Succes!</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <span class="fs-1">&#10004;</span>
+              <!-- Groen vinkje -->
+              <p class="mt-3">Wij hebben uw aanmelding succesvol ontvangen.</p>
             </div>
           </div>
         </div>

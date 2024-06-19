@@ -67,5 +67,120 @@ document.getElementById('sendSecondEmailButton').addEventListener('click', async
     }
 });
     </script>
+
+
+      <!-- extra info commission -->
+      <button
+      style="padding: 2px"
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#commissionModal"
+    >
+      meer
+    </button>
+
+    <div
+      class="modal fade"
+      id="commissionModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Opdracht details
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Werklocatie: <span id="commissionAddress"></span></p>
+            <p>
+              Opdrachtnotities: <br /><span id="commissionNotes"></span>
+            </p>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
+
+
+<style>@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+    body{
+        font-family: 'Poppins', sans-serif;
+    }
+    .card {
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .card-header {
+        background-color: #007bff;
+        color: white;
+    }
+    .card-body h5 {
+        color: #0553a7;
+    }
+    .btn-primary {
+        background-color: #0553a7;
+    }
+    .workshopSupplies li {
+        margin-bottom: 0.5rem;
+    }
+    .collapse-content {
+        padding-left: 1rem;
+    }
+      p { margin: 4px; }
+      h5 { margin: 4px; }
+    
+      .btn {
+        background-color: #F49700;
+        border-color: #F49700;
+        margin: 2px;
+    }
+    
+    .btn:hover {
+        background-color:#c07805;
+        border-color: #F49700;
+        transition: 0.7s;
+    }
+    .card-header {
+        background-color: #F49700;
+        color: #030202;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    
+    .headeritem{
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .modal-header{
+        background-color: #F49700;
+        color: #030202;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    #workshopsContainer{
+        min-height: 500px;
+    }
+    
+    
+    </style>
 </body>
 </html>
