@@ -19,7 +19,7 @@ class SideNav extends HTMLElement {
         <a class="nav-link" href="#"><span class="bi bi-clock-history"></span> Geschiedenis</a>
       </li>
       <li>
-        <a class="nav-link" href="settings.html"><span class="bi bi-gear"></span> Instellingen</a>
+        <a class="nav-link" href="#"><span class="bi bi-gear"></span> Instellingen</a>
       </li>
         <button class="nav-btn btn-outline-light m-5" id="logout-button">
         Log uit
