@@ -18,7 +18,7 @@
         <strong>Succes!</strong> Opdracht is succesvol toegevoegd.
     </div>
     <div class="container mt-5">
-        <div class="row">
+        <div class="row g-0">
             <div class="col-md-8">
                 <div class="content">
                     <h1 class="text-center">Voeg een opdracht toe</h1><br>
@@ -28,15 +28,11 @@
                             <input required type="text" class="form-control" id="commissionName" name="commissionName" placeholder="Voer de naam van de opdracht in" required>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label for="mySelectedClient">Klant *</label>
                                 <select required class="form-select" name="mySelectedClient" id="mySelectedClient">
                                     <option selected>Selecteer een klant</option>
                                 </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="address">Adres *</label>
-                                <input required type="text" class="form-control" name="address" id="address" rows="3" placeholder="Voer het adres in"></input>
                             </div>
                         </div>
                         <div class="row">
@@ -45,8 +41,8 @@
                                 <input required type="date" class="form-control" name="date" id="date" rows="3" placeholder="Voer de datum in">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="rounds">Aantal rondes *</label>
-                                <input required type="number" class="form-control" name="rounds" id="rounds" rows="3" placeholder="Voer het aantal rondes in">
+                                <label for="address">Adres *</label>
+                                <input required type="text" class="form-control" name="address" id="address" rows="3" placeholder="Voer het adres in"></input>
                             </div>
                         </div>
                         <div class="row">
@@ -72,7 +68,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="content">
+                <div class="contentRondes">
                     <h2 class="text-center">Rondes</h2><br>
                     <form id="timeframeForm">
                         <div class="form-group mb-3">
@@ -189,7 +185,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label for="level">Leerjaar en niveau</label>
                                             <input type="text" class="form-control" name="level" placeholder="Voer het leerjaar en niveau in">
                                         </div>
@@ -256,7 +252,7 @@
                         address: formData.get('address'),
                         date: formData.get('date'),
                         commissionnotes: formData.get('notes'),
-                        amountofrounds: formData.get(`rounds`),
+                        amountofrounds: 0,
                         starttimeday: formData.get(`startTimeDay`),
                         endtimeday: formData.get(`endTimeDay`),
                         workshops: workshops
