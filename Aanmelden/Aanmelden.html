@@ -272,33 +272,5 @@
       </div>
     </div>
     <script src="aamelden.js"></script>
-    <script>
-      // Fetch workshop names from the server and populate the select field with checkboxes
-      fetch("https://skoolworkshopapi.azurewebsites.net/workshop/allnames")
-        .then((response) => response.json())
-        .then((data) => {
-          const workshopOptions = document.getElementById("workshopOptions");
-          data.data.forEach((item) => {
-            const listItem = document.createElement("li");
-            listItem.classList.add("dropdown-item");
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.value = item.WorkshopName;
-            checkbox.id = item.WorkshopName;
-
-            const label = document.createElement("label");
-            label.htmlFor = item.WorkshopName;
-            label.textContent = item.WorkshopName;
-
-            listItem.appendChild(checkbox);
-            listItem.appendChild(label);
-            workshopOptions.appendChild(listItem);
-          });
-        })
-        .catch((error) => {
-          console.error("Error fetching workshop names:", error);
-        });
-    </script>
   </body>
 </html>
