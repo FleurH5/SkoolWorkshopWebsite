@@ -80,15 +80,16 @@ body{
     z-index: 1000; /* navbar altijd boven andere elementen*/
 }
 
-.btn {
+.nav-btn {
     background-color: #F49700;
-    border-color: #F49700;
-    margin: 2px;
-}
-
-.btn:hover {
-    background-color:#c07805;
+    border-color: #F49700; /* Voor de ruimte boven de knop */
+    padding: 8px; /* Volledige breedte van de container */
+    text-align: center; /* Tekst gecentreerd binnen de knop */
+  }
+  
+  .nav-btn:hover {
+    background-color: #c07805;
     border-color: #F49700;
     transition: 0.7s;
-}
+  }
 

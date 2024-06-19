@@ -38,7 +38,7 @@ class SideNav extends HTMLElement {
           id="logout-button"
           style="padding: 5px"
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary nav-btn"
           data-bs-toggle="modal"
           data-bs-target="#commissionModal"
         >
