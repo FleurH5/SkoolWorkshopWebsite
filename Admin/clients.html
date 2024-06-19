@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Klanten</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -13,8 +13,9 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
     <link rel="stylesheet" href="adminstyles.css" />
-</head>
-<body>
+    <link rel="icon" href="../Images/SKWLogoS.jpg" />
+  </head>
+  <body>
     <side-nav></side-nav>
     <nav-bar></nav-bar>
     <script src="adminnavcomponents.js"></script>
@@ -24,59 +25,92 @@
         max-width: 100%;
         padding: 15px;
       }
-  
+
       .table {
         width: 100%;
         table-layout: fixed;
-        border-collapse: collapse; 
+        border-collapse: collapse;
       }
-  
-      th, td {
-        padding: 8px; 
+
+      th,
+      td {
+        padding: 8px;
         text-align: left;
-        white-space: nowrap; 
+        white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis; 
-        font-size: 12px; 
+        text-overflow: ellipsis;
+        font-size: 12px;
       }
       .btn {
         font-size: 12px;
-        background-color: #F49700;
+        background-color: #f49700;
       }
-      
-  
+
       /* breedte aanpassen van bepaalde kolommen */
-      th:nth-child(1), td:nth-child(1) { width: 180px; } /* ClientName */
-      th:nth-child(2), td:nth-child(2) { width: 150px; } /* Organisation */
-      th:nth-child(3), td:nth-child(3) { width: 100px; } /* TargetAudience */
-      th:nth-child(4), td:nth-child(4) { width: 140px; } /* ContactPerson */
-      th:nth-child(5), td:nth-child(5) { width: 180px; } /* Email */
-      th:nth-child(6), td:nth-child(6) { width: 130px; } /* PhoneNumber */
-      th:nth-child(7), td:nth-child(7) { width: 150px; } /* Address */
-      th:nth-child(8), td:nth-child(8) { width: 100px; } /* KvkNumber */
-  
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 180px;
+      } /* ClientName */
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 150px;
+      } /* Organisation */
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 100px;
+      } /* TargetAudience */
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 140px;
+      } /* ContactPerson */
+      th:nth-child(5),
+      td:nth-child(5) {
+        width: 180px;
+      } /* Email */
+      th:nth-child(6),
+      td:nth-child(6) {
+        width: 130px;
+      } /* PhoneNumber */
+      th:nth-child(7),
+      td:nth-child(7) {
+        width: 150px;
+      } /* Address */
+      th:nth-child(8),
+      td:nth-child(8) {
+        width: 100px;
+      } /* KvkNumber */
+
       /* Responsive aanpassingen voor kleinere schermen */
       @media (max-width: 768px) {
-        th, td {
+        th,
+        td {
           font-size: 10px;
-          padding: 5px; 
+          padding: 5px;
         }
-        th:nth-child(1), td:nth-child(1),
-        th:nth-child(2), td:nth-child(2),
-        th:nth-child(3), td:nth-child(3),
-        th:nth-child(4), td:nth-child(4),
-        th:nth-child(5), td:nth-child(5),
-        th:nth-child(6), td:nth-child(6),
-        th:nth-child(7), td:nth-child(7),
-        th:nth-child(8), td:nth-child(8) {
+        th:nth-child(1),
+        td:nth-child(1),
+        th:nth-child(2),
+        td:nth-child(2),
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4),
+        th:nth-child(5),
+        td:nth-child(5),
+        th:nth-child(6),
+        td:nth-child(6),
+        th:nth-child(7),
+        td:nth-child(7),
+        th:nth-child(8),
+        td:nth-child(8) {
           width: auto; /* kolombreedte is flexibel voor kleinere schermen*/
         }
       }
     </style>
 
-    
     <div class="container mt-5">
       <div class="content">
+        <h2 class="mt-md-4">Klanten</h2>
         <div class="table-scroll-container">
           <table class="table table-bordered table-striped">
             <thead>
@@ -100,34 +134,49 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="clientModal"
+      tabindex="-1"
+      aria-labelledby="clientModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="clientModalLabel">Klantinformatie</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <!-- Klantinformatie wordt hier ingeladen -->
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
-              </div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="clientModalLabel">Klantinformatie</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
+          <div class="modal-body">
+            <!-- Klantinformatie wordt hier ingeladen -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Sluiten
+            </button>
+          </div>
+        </div>
       </div>
-  </div>
-
-
+    </div>
 
     <script>
-        const table = document.querySelector('.table tbody');
-        const apiUrl = 'https://skoolworkshopapi.azurewebsites.net/client/all';
-        fetch(apiUrl)
-        .then(response => response.json())
-        .then(data=>{
-          console.log("Data received:", data)
+      const table = document.querySelector(".table tbody");
+      const apiUrl = "https://skoolworkshopapi.azurewebsites.net/client/all";
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Data received:", data);
           data.data.forEach((client, index) => {
-            const row = document.createElement('tr');
+            const row = document.createElement("tr");
             row.innerHTML = `
               <th>${client.ClientName}
                 <i class="bi bi-info-circle" data-index="${index}" data-bs-toggle="modal" data-bs-target="#clientModal" style="cursor: pointer; margin-left: 10px;"></i>
@@ -142,11 +191,13 @@
             `;
             table.appendChild(row);
           });
-          document.querySelectorAll('.bi-info-circle').forEach((infoIcon, index) => {
-            infoIcon.addEventListener('click', () => {
-              const client = data.data[index];
-              const modalBody = document.querySelector('.modal-body');
-              modalBody.innerHTML = `
+          document
+            .querySelectorAll(".bi-info-circle")
+            .forEach((infoIcon, index) => {
+              infoIcon.addEventListener("click", () => {
+                const client = data.data[index];
+                const modalBody = document.querySelector(".modal-body");
+                modalBody.innerHTML = `
                 <p><strong>Klantnaam:</strong> ${client.ClientName}</p>
                 <p><strong>Organisatie:</strong> ${client.Organisation}</p>
                 <p><strong>Doelgroep:</strong> ${client.TargetAudience}</p>
@@ -156,21 +207,12 @@
                 <p><strong>Adres:</strong> ${client.Address}</p>
                 <p><strong>KvkNummer:</strong> ${client.KvkNumber}</p>
               `;
+              });
             });
-          });
-        })
-      
-       
-      
+        });
     </script>
-
-
-
-
-
 
     <script src="Homepage/authenticate.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-</body>
+  </body>
 </html>

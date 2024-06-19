@@ -15,7 +15,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="assignmentDetails.css" />
-    <link rel="icon" href="../Login/SKWLogoS.jpg" />
+    <link rel="icon" href="../Images/SKWLogoS.jpg" />
     <link rel="stylesheet" href="adminstyles.css" />
   </head>
   <body>
@@ -189,11 +189,9 @@
                         <div class="collapse" id="collapseDetails${index}">
                             <div class="card card-body">
                                 <h5>Details</h5>
-                                <p class="time">Tijd: ${new Date(
+                                <p class="time">Tijd: ${formatTime(
                                   workshop.StartTime
-                                ).toLocaleTimeString()} - ${new Date(
-                workshop.EndTime
-              ).toLocaleTimeString()}</p>
+                                )} - ${formatTime(workshop.EndTime)}</p>
                                 <p class="teachedBy">Wordt gegeven door: ${
                                   workshop.Users.length > 0
                                     ? workshop.Users[0].Username
@@ -241,6 +239,10 @@
           .catch((error) => {
             console.error("Error fetching data:", error);
           });
+      }
+      function formatTime(isoString) {
+        let date = new Date(isoString);
+        return date.toISOString().substring(11, 16);
       }
 
       function calculateWorkedHours(workshop) {
