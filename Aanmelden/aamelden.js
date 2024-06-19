@@ -11,29 +11,113 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordRequirements = document.getElementById("passwordRequirements");
   const successPopup = document.getElementById("successPopup");
 
-  // Toon/verberg BTW- en KVK-velden op basis van geselecteerde docenttype
-  document
-    .querySelectorAll('input[name="docentType"]')
-    .forEach(function (radio) {
-      radio.addEventListener("change", function () {
-        if (radio.value === "ZZP") {
-          kvkField.style.display = "block";
-          btwField.style.display = "block";
-          document.getElementById("btwnummer").setAttribute("required", "true");
-        } else {
-          kvkField.style.display = "none";
-          btwField.style.display = "none";
-          document.getElementById("btwnummer").removeAttribute("required");
-        }
-      });
-    });
+  // Functie om de postcode te valideren
+  function validatePostcode() {
+    const postcode = document.getElementById("postcode").value.trim();
+    const land = document.getElementById("land").value;
 
-  // IBAN validatie
-  ibanInput.addEventListener("input", function () {
-    validateIBAN();
+    let regex;
+    if (land === "Nederland") {
+      regex = new RegExp("^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$", "i");
+    } else if (land === "Belgie") {
+      regex = new RegExp("^\\d{4}$");
+    }
+
+    if (!regex.test(postcode)) {
+      alert("Voer een geldige postcode in voor " + land);
+      return false;
+    }
+
+    return true;
+  }
+
+  // Event listener voor het veranderen van het land selectieveld
+  document.getElementById("land").addEventListener("change", function () {
+    const land = this.value;
+    const postcodeInput = document.getElementById("postcode");
+
+    if (land === "Nederland") {
+      postcodeInput.placeholder = "PostCode in Nederland";
+      // Voeg eventuele andere validatie toe voor Nederlandse postcodes
+    } else if (land === "Belgie") {
+      postcodeInput.placeholder = "PostCode in Belgie";
+      // Voeg eventuele andere validatie toe voor Belgische postcodes
+    }
   });
 
-  async function validateIBAN() {
+  // Event listener voor het verzenden van het formulier
+  registrationForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    // Verzamel geselecteerde workshops
+    const selectedWorkshops = Array.from(
+      document.querySelectorAll(
+        '#workshopOptions input[type="checkbox"]:checked'
+      )
+    ).map((checkbox) => checkbox.value);
+
+    // Valideer de postcode
+    if (!validatePostcode()) {
+      return;
+    }
+
+    // Verzamel formuliergegevens
+    const formData = {
+      Username: document.getElementById("naam").value,
+      Birthdate: document.getElementById("geboortedatum").value,
+      City: document.getElementById("woonplaats").value,
+      Address: document.getElementById("adres").value,
+      Email: document.getElementById("email").value,
+      Password: passwordInput.value,
+      PhoneNumber: document.getElementById("telefoonnummer").value,
+      PostalCode: document.getElementById("postcode").value,
+      Country: document.getElementById("land").value,
+      Language: document.getElementById("spreektaal").value,
+      BTWNumber: document.getElementById("btwnummer").value,
+      KVKNumber: document.getElementById("kvknummer").value,
+      BankId: document.getElementById("bankrekeningnummer").value,
+      Role: document.querySelector('input[name="docentType"]:checked').value,
+      Permission: "Default",
+      SalaryPerHourInEuro: 100,
+      UsesPublicTransit: false,
+      HasCar: false,
+      HasLicense: false,
+      Status: "Afwachtend",
+      selectedWorkshops: selectedWorkshops,
+    };
+
+    // Verzend de formuliergegevens naar de server
+    try {
+      const response = await fetch(
+        "https://skoolworkshopapi.azurewebsites.net/user/add",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const result = await response.json();
+      console.log("Server respons:", result);
+
+      if (response.ok) {
+        alert("Wij hebben uw aanmelding succesvol ontvangen");
+        registrationForm.reset();
+      } else {
+        alert(
+          "Fout: " + (result.message || "Er is een onbekende fout opgetreden")
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Er is een fout opgetreden bij het toevoegen van de gebruiker");
+    }
+  });
+
+  // IBAN validatie
+  ibanInput.addEventListener("input", async function () {
     const iban = ibanInput.value.trim();
 
     if (iban.length === 0) {
@@ -73,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error validating IBAN:", error);
       alert("Er is een fout opgetreden bij het valideren van de IBAN.");
     }
-  }
+  });
 
   // Geboortedatum validatie
   geboortedatumInput.addEventListener("change", function () {
@@ -87,76 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
       geboortedatumInput.reportValidity();
     } else {
       geboortedatumInput.setCustomValidity("");
-    }
-  });
-
-  // Event listener voor het verzenden van het formulier
-  registrationForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    if (!validatePostcode()) {
-      return;
-    }
-
-    const selectedWorkshops = Array.from(
-      document.querySelectorAll(
-        '#workshopOptions input[type="checkbox"]:checked'
-      )
-    ).map((checkbox) => checkbox.value);
-
-    const formData = {
-      Username: document.getElementById("naam").value,
-      Birthdate: document.getElementById("geboortedatum").value,
-      City: document.getElementById("woonplaats").value,
-      Address: document.getElementById("adres").value,
-      Email: document.getElementById("email").value,
-      Password: passwordInput.value,
-      PhoneNumber: document.getElementById("telefoonnummer").value,
-      PostalCode: document.getElementById("postcode").value,
-      Country: document.getElementById("land").value,
-      Language: document.getElementById("spreektaal").value,
-      BTWNumber: document.getElementById("btwnummer").value,
-      KVKNumber: document.getElementById("kvknummer").value,
-      BankId: document.getElementById("bankrekeningnummer").value,
-      Role: document.querySelector('input[name="docentType"]:checked').value,
-      Permission: "Default",
-      SalaryPerHourInEuro: 100,
-      UsesPublicTransit: false,
-      HasCar: false,
-      HasLicense: false,
-      Status: "Afwachtend",
-      Workshops: selectedWorkshops,
-    };
-
-    try {
-      const response = await fetch(
-        "https://skoolworkshopapi.azurewebsites.net/user/add",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const result = await response.json();
-      console.log("Server respons:", result);
-
-      if (response.ok) {
-        successPopup.style.display = "block";
-        setTimeout(function () {
-          successPopup.style.display = "none";
-        }, 3000);
-        registrationForm.reset();
-      } else {
-        alert(
-          "Fout: " + (result.message || "Er is een onbekende fout opgetreden")
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Er is een fout opgetreden bij het toevoegen van de gebruiker");
     }
   });
 
@@ -184,58 +198,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Functie om de postcode te valideren
-  function validatePostcode() {
-    const postcode = document.getElementById("postcode").value.trim();
-    const land = document.getElementById("land").value;
+  // Fetch workshop names from the server and populate the select field with checkboxes
+  fetch("https://skoolworkshopapi.azurewebsites.net/workshop/allnames")
+    .then((response) => response.json())
+    .then((data) => {
+      const workshopOptions = document.getElementById("workshopOptions");
+      data.data.forEach((item) => {
+        const listItem = document.createElement("li");
+        listItem.classList.add("dropdown-item");
 
-    let regex;
-    if (land === "Nederland") {
-      regex = new RegExp("^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$", "i");
-    } else if (land === "Belgie") {
-      regex = new RegExp("^\\d{4}$");
-    }
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = item.WorkshopName;
+        checkbox.id = item.WorkshopName;
 
-    if (!regex.test(postcode)) {
-      alert("Voer een geldige postcode in voor " + land);
-      return false;
-    }
+        const label = document.createElement("label");
+        label.htmlFor = item.WorkshopName;
+        label.textContent = item.WorkshopName;
 
-    return true;
-  }
-
-  // Event listener voor het veranderen van het land selectieveld
-  document.getElementById("land").addEventListener("change", function () {
-    const land = this.value;
-    const postcodeInput = document.getElementById("postcode");
-
-    if (land === "Nederland") {
-      postcodeInput.placeholder = "4822 HV";
-      // Voeg eventuele andere validatie toe voor Nederlandse postcodes
-    } else if (land === "Belgie") {
-      postcodeInput.placeholder = "1000-1299";
-      // Voeg eventuele andere validatie toe voor Belgische postcodes
-    }
-  });
-});
-
-passwordInput.addEventListener("input", function () {
-  const password = passwordInput.value;
-  const regex = /^(?=.*[A-Z]).{8,}$/; // Minimaal 8 tekens en minstens één hoofdletter
-  if (!regex.test(password)) {
-    passwordInput.setCustomValidity("invalid");
-    passwordRequirements.style.display = "block";
-  } else {
-    passwordInput.setCustomValidity("");
-    passwordRequirements.style.display = "none";
-  }
-});
-
-registrationForm.addEventListener("submit", function (event) {
-  if (
-    confirmPasswordInput.value !== passwordInput.value ||
-    !/^(?=.*[A-Z]).{8,}$/.test(passwordInput.value)
-  ) {
-    event.preventDefault(); // Voorkom dat het formulier wordt verzonden
-  }
+        listItem.appendChild(checkbox);
+        listItem.appendChild(label);
+        workshopOptions.appendChild(listItem);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching workshop names:", error);
+    });
 });
