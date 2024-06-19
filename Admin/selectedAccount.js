@@ -58,6 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
           }
       })
       .catch(error => console.error('Error while fetching user data:', error));
+
+      //fetch workshops
+      fetch(`https://skoolworkshopapi.azurewebsites.net/user/workshop/${userId}`)
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 200) {
+          const workshop = data.data[0];
+          document.getElementById('workshops').innerText = workshop.WorkshopName;
+        } else {
+          console.error('Failed to retrieve workshop(s)')
+        }
+      })
   })
   
   function confirmationBlock() {
