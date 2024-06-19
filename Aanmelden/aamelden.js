@@ -228,3 +228,18 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching workshop names:", error);
     });
 });
+
+// Toon/verberg BTW- en KVK-velden op basis van geselecteerde docenttype
+document.querySelectorAll('input[name="docentType"]').forEach(function (radio) {
+  radio.addEventListener("change", function () {
+    if (radio.value === "ZZP") {
+      kvkField.style.display = "block";
+      btwField.style.display = "block";
+      document.getElementById("btwnummer").setAttribute("required", "true");
+    } else {
+      kvkField.style.display = "none";
+      btwField.style.display = "none";
+      document.getElementById("btwnummer").removeAttribute("required");
+    }
+  });
+});
