@@ -120,3 +120,14 @@ select{
 .fixed-width-buttons .btn {
   width: 50%;
 }
+
+.btn-primary {
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+  transition-duration: 0.4s;
+}
+
+.btn-primary:hover {
+  background-color: #b8641f;
+  border-color: #b8641f;
+}
