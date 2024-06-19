@@ -2,4 +2,23 @@
 .alert-success{
     display: none;
 }
+.btn{
+    background-color: #F49700;
+    color: white;
+}
+.btn:hover{
+    background-color:#c07805;
+    transition: 0.7s;
+    color: white;
+}
+#workshopForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
 
