@@ -3,3 +3,12 @@
     display: none;
 }
 
+.btn-primary {
+    background-color: #F49700;
+    border-color: #F49700;
+}
+
+.btn-primary:hover {
+    background-color: #b8641f;
+    border-color: #b8641f;
+  }
