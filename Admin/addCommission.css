@@ -21,6 +21,13 @@ body{
     flex: 1;
 }
 
+.contentRondes {
+    margin-left: 40px;
+    padding: 30px;
+    flex: 1;
+    position: fixed;
+}
+
 .sidenav a {
     padding: 10px 15px;
     text-decoration: none;

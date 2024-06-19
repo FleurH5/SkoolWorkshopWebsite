@@ -32,9 +32,6 @@ class SideNav extends HTMLElement {
           <li>
           <a class="nav-link" href="Aanmeldingen.html"><span class="bi bi-bookmark-check-fill"></span> Aanmeldingen</a>
           </li>
-          <li>
-          <a class="nav-link" href="#"><span class="bi bi-gear"></span> Instellingen</a>
-          </li>
         </ul>
         <button class="nav-btn btn-outline-light m-5" id="logout-button">
         Log uit
@@ -71,10 +68,7 @@ class NavBar extends HTMLElement {
 
 customElements.define("nav-bar", NavBar);
 
-document
-        .getElementById("logout-button")
-        .addEventListener("click", function () {
-          localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
-          window.location.href =
-            "http://127.0.0.1:5500/Login/login.html"; // Leid de gebruiker om naar de loginpagina
-        });
+document.getElementById("logout-button").addEventListener("click", function () {
+  localStorage.removeItem("accessToken"); // Verwijder de token uit de lokale opslag
+  window.location.href = "http://127.0.0.1:5500/Login/login.html"; // Leid de gebruiker om naar de loginpagina
+});
