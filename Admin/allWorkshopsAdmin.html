@@ -18,6 +18,28 @@
     <side-nav></side-nav>
     <nav-bar></nav-bar>
     <script src="adminnavcomponents.js"></script>
+    <style>
+      .card {
+        height: 450px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: left;
+      }
+      .card-body {
+        overflow: hidden;
+      }
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      .card-text {
+        font-size: 0.9rem;
+      }
+      .container .row {
+        margin-bottom: 1rem;
+      }
+    </style>
 
     <div class="container mt-5">
       <div class="content">
@@ -36,7 +58,7 @@
           .then((response) => response.json())
           .then((data) => {
             console.log("Data received:", data);
-            createWorkshopCards(data.data); // Pass the workshops data to the function
+            createWorkshopCards(data.data); 
           })
           .catch((error) => {
             console.error("Error fetching data:", error);
@@ -53,19 +75,18 @@
             }
 
             const card = document.createElement("div");
-            card.classList.add("col-md-4"); // Zorgt ervoor dat er 3 kaarten per rij zijn
+            card.classList.add("col-md-4", "d-flex", "align-items-stretch"); 
             card.innerHTML = `
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title">${workshop.WorkshopName}</h5>
-                                <p class="card-text"><strong>Categorie:</strong> ${workshop.Category}</p>
-                                <p class="card-text"><strong>Beschrijving:</strong> ${workshop.Description}</p>
-                                <p class="card-text"><strong>Benodigdheden:</strong> ${workshop.Requirements}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            <div class="card mb-4">
+              <img src="${workshop.LinkToPicture}" class="card-img-top img-fluid" alt="Afbeelding voor ${workshop.WorkshopName}" style="height: 200px; object-fit: cover;">
+              <div class="card-body">
+                <h5 class="card-title">${workshop.WorkshopName}</h5>
+                <p class="card-text"><strong>Categorie:</strong> ${workshop.Category}</p>
+                <p class="card-text"><strong>Beschrijving:</strong> ${workshop.Description}</p>
+                <p class="card-text"><strong>Benodigdheden:</strong> ${workshop.Requirements}</p>
+              </div>
+            </div>
+          `;
             row.appendChild(card);
           });
         }
