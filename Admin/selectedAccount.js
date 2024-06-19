@@ -14,71 +14,60 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     fetch(`https://skoolworkshopapi.azurewebsites.net/user/${userId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 200) {
-                const user = data.data[0];
-                if (!user) {
-                    console.error('User data is empty');
-                    return;
-                }
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === 200) {
+        const user = data.data[0];
+        document.getElementById("userName").innerText = user.Username;
+        document.getElementById("status").innerText = user.Status;
+        document.getElementById("userType").innerText = user.Role;
+        document.getElementById("email").innerText = user.Email;
+        document.getElementById("phoneNumber").innerText =
+          user.PhoneNumber;
+        document.getElementById("address").innerText = user.Address;
+        document.getElementById("postalcode").innerText = user.PostalCode;
+        document.getElementById("DOB").innerText = user.Birthdate;
+        document.getElementById("country").innerText = user.Country;
+        document.getElementById("languagesSpoken").innerText =
+          user.Language;
+        document.getElementById("ov").innerText =
+          user.UsesPublicTransit ? "Ja" : "Nee";
+        document.getElementById("license").innerText = user.HasLicense
+          ? "Ja"
+          : "Nee";
+        document.getElementById("car").innerText = user.HasCar
+          ? "Ja"
+          : "Nee";
+        document.getElementById("salary").innerText =
+          user.SalaryPerHourInEuro;
+        document.getElementById("bankinfo").innerText = user.BankId;
+        document.getElementById("btwnr").innerText = user.BTWNumber;
+        document.getElementById("kvknr").innerText = user.KVKNumber;
 
-                const elements = {
-                    userName: document.getElementById('userName'),
-                    status: document.getElementById('status'),
-                    userType: document.getElementById('userType'),
-                    email: document.getElementById('email'),
-                    phoneNumber: document.getElementById('phoneNumber'),
-                    address: document.getElementById('address'),
-                    postalcode: document.getElementById('postalcode'),
-                    DOB: document.getElementById('DOB'),
-                    country: document.getElementById('country'),
-                    languagesSpoken: document.getElementById('languagesSpoken'),
-                    publicTransit: document.getElementById('publicTransit'),
-                    license: document.getElementById('license'),
-                    car: document.getElementById('car'),
-                    salary: document.getElementById('salary'),
-                    bankinfo: document.getElementById('bankinfo'),
-                    btwnr: document.getElementById('btwnr'),
-                    kvknr: document.getElementById('kvknr'),
-                    workshops: document.getElementById('workshops')
-                };
+        window.user = user;
+        window.username = user.Username;
+      } else {
+        console.error("Failed to get user data:", data.message);
+      }
+    })
+    .catch((error) =>
+      console.error("Error while fetching user data:", error)
+    );
 
-                // Ensure elements exist before setting innerText
-                for (const key in elements) {
-                    if (elements[key]) {
-                        elements[key].innerText = user[key.charAt(0).toUpperCase() + key.slice(1)];
-                    } else {
-                        console.warn(`Element for ${key} not found`);
-                    }
-                }
-
-                // Make user globally accessible
-                window.user = user;
-                window.username = user.Username;
-
-            } else {
-                console.log('Failed to get user data');
-            }
-        })
-        .catch(error => console.error('Error while fetching user data:', error));
-
-    // Fetch workshops
-    fetch(`https://skoolworkshopapi.azurewebsites.net/user/workshop/${userId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 200) {
-                const workshop = data.data[0];
-                if (elements.workshops) {
-                    elements.workshops.innerText = workshop.WorkshopName;
-                } else {
-                    console.warn('Element for workshops not found');
-                }
-            } else {
-                console.error('Failed to retrieve workshop(s)');
-            }
-        })
-        .catch(error => console.error('Error while fetching workshop data:', error));
+  //workshops ophalen
+  fetch(
+    `https://skoolworkshopapi.azurewebsites.net/user/workshop/${userId}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === 200) {
+        const workshop = data.data[0];
+        document.getElementById("workshops").innerText =
+          workshop.WorkshopName;
+      } else {
+        console.error("Failed to retrieve workshop(s)");
+      }
+    });
 });
 
 function confirmationBlock() {
