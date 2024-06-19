@@ -15,12 +15,6 @@ class SideNav extends HTMLElement {
       <li>
         <a class="nav-link" href="userEnrollments.html"><span class="bi bi-bookmarks"></span> Mijn inschrijvingen</a>
       </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-clock-history"></span> Geschiedenis</a>
-      </li>
-      <li>
-        <a class="nav-link" href="#"><span class="bi bi-gear"></span> Instellingen</a>
-      </li>
         <button class="nav-btn btn-outline-light m-5" id="logout-button">
         Log uit
       </button>

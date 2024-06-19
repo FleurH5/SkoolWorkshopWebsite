@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="addcommission.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="adminstyles.css">
+    <link rel="icon" href="../Images/SKWLogoS.jpg" />
 </head>
 <body>
     <side-nav></side-nav>
@@ -18,7 +19,7 @@
         <strong>Succes!</strong> Opdracht is succesvol toegevoegd.
     </div>
     <div class="container mt-5">
-        <div class="row">
+        <div class="row g-0">
             <div class="col-md-8">
                 <div class="content">
                     <h1 class="text-center">Voeg een opdracht toe</h1><br>
@@ -28,15 +29,11 @@
                             <input required type="text" class="form-control" id="commissionName" name="commissionName" placeholder="Voer de naam van de opdracht in" required>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label for="mySelectedClient">Klant *</label>
                                 <select required class="form-select" name="mySelectedClient" id="mySelectedClient">
                                     <option selected>Selecteer een klant</option>
                                 </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="address">Adres *</label>
-                                <input required type="text" class="form-control" name="address" id="address" rows="3" placeholder="Voer het adres in"></input>
                             </div>
                         </div>
                         <div class="row">
@@ -45,8 +42,8 @@
                                 <input required type="date" class="form-control" name="date" id="date" rows="3" placeholder="Voer de datum in">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="rounds">Aantal rondes *</label>
-                                <input required type="number" class="form-control" name="rounds" id="rounds" rows="3" placeholder="Voer het aantal rondes in">
+                                <label for="address">Adres *</label>
+                                <input required type="text" class="form-control" name="address" id="address" rows="3" placeholder="Voer het adres in"></input>
                             </div>
                         </div>
                         <div class="row">
@@ -72,7 +69,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="content">
+                <div class="contentRondes">
                     <h2 class="text-center">Rondes</h2><br>
                     <form id="timeframeForm">
                         <div class="form-group mb-3">
@@ -172,36 +169,36 @@
                                 <p><b>Voeg een workshop toe</b></p>
                                 <div class="set-center">
                                     <div class="form-group mb-3">
-                                        <label for="workshop">Workshop *</label>
-                                        <select required class="form-select" name="workshop">
+                                        <label for="workshopname">Workshop *</label>
+                                        <select required class="form-select" name="workshopname">
                                             <option selected>Selecteer een workshop</option>
                                             ${workshopOptions}
                                         </select>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="teachersNeeded">Aantal docenten *</label>
-                                            <input required type="number" class="form-control" name="teachersNeeded" placeholder="Voer het aantal nodige docenten in">
+                                            <label for="maxusers">Aantal docenten *</label>
+                                            <input required type="number" class="form-control" name="maxusers" placeholder="Voer het aantal nodige docenten in">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="participants">Aantal deelnemers *</label>
-                                            <input required type="number" class="form-control" name="participants" placeholder="Voer het aantal deelnemers in">
+                                            <label for="numberofparticipants">Aantal deelnemers *</label>
+                                            <input required type="number" class="form-control" name="numberofparticipants" placeholder="Voer het aantal deelnemers in">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label for="level">Leerjaar en niveau</label>
                                             <input type="text" class="form-control" name="level" placeholder="Voer het leerjaar en niveau in">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="startTime">Begintijd *</label>
-                                            <input type="time" class="form-control" name="startTime"></input>
+                                            <label for="starttime">Begintijd *</label>
+                                            <input type="time" class="form-control" name="starttime"></input>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="endTime">Eindtijd *</label>
-                                            <input type="time" class="form-control" name="endTime"></input>
+                                            <label for="endtime">Eindtijd *</label>
+                                            <input type="time" class="form-control" name="endtime"></input>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
@@ -209,8 +206,8 @@
                                         <input required type="text" class="form-control" name="location" placeholder="Voer de locatie in">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="extraInformation">Extra Toelichting</label>
-                                        <textarea class="form-control" name="extraInformation" rows="3" placeholder="Voer de benodigde extra toelichtingen in, indien nodig"></textarea>
+                                        <label for="workshopnotes">Extra Toelichting</label>
+                                        <textarea class="form-control" name="workshopnotes" rows="3" placeholder="Voer de benodigde extra toelichtingen in, indien nodig"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -256,11 +253,13 @@
                         address: formData.get('address'),
                         date: formData.get('date'),
                         commissionnotes: formData.get('notes'),
-                        amountofrounds: formData.get(`rounds`),
+                        amountofrounds: 0,
                         starttimeday: formData.get(`startTimeDay`),
                         endtimeday: formData.get(`endTimeDay`),
                         workshops: workshops
                     };
+
+                    console.log(data)
 
                     fetch('https://skoolworkshopapi.azurewebsites.net/workshopcommission/add', {
                         method: 'POST',
