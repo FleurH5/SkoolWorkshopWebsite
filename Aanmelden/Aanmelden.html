@@ -16,17 +16,13 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="aamelden.js"></script>
     <title>Registratie</title>
   </head>
   <body>
-    <!-- Hoofdcontainer -->
     <div
       class="container padded-container d-flex justify-content-center align-items-center min-vh-100"
     >
-      <!-- Registratiecontainer -->
       <div class="row border rounded-5 p-3 bg-white shadow box-area w-100">
-        <!-- Linker box -->
         <div
           class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
           style="background: #000000"
@@ -39,8 +35,6 @@
             />
           </div>
         </div>
-
-        <!-- Rechter box -->
         <div class="col-md-6 right-box">
           <div class="row align-items-center">
             <div class="header-text mb-4">
@@ -49,13 +43,13 @@
             <form id="registrationForm">
               <div class="mb-3">
                 <label class="form-label">Type docent:</label>
-                <div class="form-check">
+                <div id="role" class="form-check">
                   <input
                     class="form-check-input"
                     type="radio"
                     name="docentType"
                     id="docentZZP"
-                    value="zzp"
+                    value="ZZP"
                     required
                   />
                   <label class="form-check-label" for="docentZZP">ZZP</label>
@@ -66,7 +60,7 @@
                     type="radio"
                     name="docentType"
                     id="docentFlex"
-                    value="flex"
+                    value="Flex"
                     required
                   />
                   <label class="form-check-label" for="docentFlex">Flex</label>
@@ -77,18 +71,8 @@
                   type="text"
                   id="naam"
                   class="form-control form-control-lg"
-                  placeholder="Voornaam*"
+                  placeholder="Voor- en achternaam*"
                   name="naam"
-                  required
-                />
-              </div>
-              <div class="input-group mb-3">
-                <input
-                  type="text"
-                  id="achternaam"
-                  class="form-control form-control-lg"
-                  placeholder="Achternaam*"
-                  name="achternaam"
                   required
                 />
               </div>
@@ -109,7 +93,7 @@
                   name="land"
                   required
                 >
-                  <option value="" disabled selected>Selecteer uw land</option>
+                  <option value="" disabled selected>Welk land woont u?</option>
                   <option value="Nederland">Nederland</option>
                   <option value="Belgie">België</option>
                 </select>
@@ -187,8 +171,8 @@
                     Welke taal spreekt u?
                   </option>
                   <option value="Nederlands">Nederlands</option>
-                  <option value="Engels">Engels</option>
-                  <option value="Nederland&Engels">Nederlands & Engels</option>
+                  <option value="English">Engels</option>
+                  <option value="Both">Nederlands&Engels</option>
                 </select>
               </div>
               <div class="input-group mb-3">
@@ -206,18 +190,29 @@
                   >&#10004;</span
                 >
               </div>
-
               <div class="input-group mb-3">
-                <select
-                  id="workshopSelect"
-                  class="form-select form-select-lg"
-                  required
+                <div
+                  class="dropdown w"
+                  style="width: 100%; height: 30; text-align: left"
                 >
-                  <option value="" disabled selected>
-                    Welke workshop geeft U?
-                  </option>
-                  <!-- Workshop opties worden ingevuld door JavaScript -->
-                </select>
+                  <button
+                    class="btn custom-button dropdown-toggle w-100"
+                    type="button"
+                    id="workshopDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Welke workshops geeft U?
+                  </button>
+                  <ul
+                    class="dropdown-menu w-100"
+                    style="margin: 10px"
+                    aria-labelledby="workshopDropdown"
+                    id="workshopOptions"
+                  >
+                    <!-- Workshop opties worden ingevuld door JavaScript -->
+                  </ul>
+                </div>
               </div>
               <div class="input-group mb-3">
                 <input
@@ -276,5 +271,34 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="successModal"
+      tabindex="-1"
+      aria-labelledby="successModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="successModalLabel">Succes!</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <span class="fs-1">&#10004;</span>
+              <!-- Groen vinkje -->
+              <p class="mt-3">Wij hebben uw aanmelding succesvol ontvangen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="aamelden.js"></script>
   </body>
 </html>
