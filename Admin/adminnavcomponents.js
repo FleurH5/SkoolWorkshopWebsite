@@ -33,9 +33,18 @@ class SideNav extends HTMLElement {
           <a class="nav-link" href="Aanmeldingen.html"><span class="bi bi-bookmark-check-fill"></span> Aanmeldingen</a>
           </li>
         </ul>
-        <button class="nav-btn btn-outline-light m-5" id="logout-button">
+        <div class="d-flex justify-content-center mt-5">
+        <button
+          id="logout-button"
+          style="padding: 5px"
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#commissionModal"
+        >
         Log uit
       </button>
+      </div>
       </div>
         `;
   }

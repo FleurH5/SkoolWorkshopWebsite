@@ -80,4 +80,15 @@ body{
     z-index: 1000; /* navbar altijd boven andere elementen*/
 }
 
+.btn {
+    background-color: #F49700;
+    border-color: #F49700;
+    margin: 2px;
+}
+
+.btn:hover {
+    background-color:#c07805;
+    border-color: #F49700;
+    transition: 0.7s;
+}
 
